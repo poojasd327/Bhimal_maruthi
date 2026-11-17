@@ -87,6 +87,7 @@ const carModels = [
   'Maruti Suzuki Baleno',
   'Maruti Suzuki Fronx',
   'Maruti Suzuki Grand Vitara',
+  'Maruti Suzuki e Vitara',
   'Maruti Suzuki Dzire',
   'Maruti Suzuki Ertiga',
   'Maruti Suzuki XL6',

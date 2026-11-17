@@ -1268,7 +1268,8 @@ export default function HomePage() {
                 {/* CTAs */}
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, pt: 1 }}>
                   <Button
-                    onClick={() => handleOpenAction('Pre-Book', 'Maruti Suzuki e Vitara')}
+                    component={Link}
+                    href="/contact"
                     variant="contained"
                     sx={{
                       px: 4.5,
@@ -1280,6 +1281,7 @@ export default function HomePage() {
                       borderRadius: '6px',
                       boxShadow: '0 0 20px rgba(220, 38, 38, 0.4)',
                       textTransform: 'none',
+                      textDecoration: 'none',
                       '&:hover': {
                         backgroundColor: '#dc2626',
                       },
