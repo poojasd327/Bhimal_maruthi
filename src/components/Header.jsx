@@ -118,6 +118,12 @@ export default function Header() {
     if (pathname === '/driving-school') {
       return item.path === '/driving-school' || item.title.toLowerCase() === 'driving school';
     }
+    if (pathname === '/true-value') {
+      return item.path === '/true-value' || item.title.toLowerCase() === 'true value';
+    }
+    if (pathname === '/driving-school') {
+      return item.path === '/driving-school' || item.title.toLowerCase() === 'driving school';
+    }
     if (pathname === '/contact') {
       return item.path === '/contact' || item.title.toLowerCase() === 'contact';
     }
@@ -269,6 +275,8 @@ export default function Header() {
                     '&:hover': {
                       color: isActive ? ACCENT_RED : TEXT_DARK,
                     },
+                    '&:focus': { outline: 'none' },
+                    '&:focus-visible': { outline: 'none' },
                   }}
                 >
                   {item.title}

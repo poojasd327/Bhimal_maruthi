@@ -562,14 +562,14 @@ export default function DrivingSchoolPage() {
         </Box>
 
         {/* 4. FEATURE BADGES & AVAILABLE AT SECTION */}
-        <Box sx={{ mb: { xs: 6, md: 8 } }}>
+        <Box sx={{ mb: { xs: 5, md: 7 } }}>
           {/* Feature Badges Row */}
           <Box
             sx={{
               display: 'flex',
               flexWrap: 'wrap',
               gap: 1.5,
-              mb: 5,
+              mb: 4,
               alignItems: 'center',
             }}
           >
@@ -581,7 +581,7 @@ export default function DrivingSchoolPage() {
                   alignItems: 'center',
                   gap: 1,
                   px: 2,
-                  py: 1,
+                  py: 0.9,
                   borderRadius: 9999,
                   backgroundColor: '#ffffff',
                   border: '1px solid #e5e7eb',
@@ -619,12 +619,12 @@ export default function DrivingSchoolPage() {
                     onClick={() => handleCenterClick(center)}
                     sx={{
                       px: 2.2,
-                      py: 0.9,
+                      py: 0.8,
                       borderRadius: '8px',
-                      backgroundColor: isSelected ? '#eff6ff' : '#ffffff',
-                      border: isSelected ? `1.5px solid ${ACCENT_BLUE}` : '1px solid #e5e7eb',
-                      color: isSelected ? ACCENT_BLUE : TEXT_DARK,
-                      fontSize: '13.5px',
+                      backgroundColor: '#ffffff',
+                      border: isSelected ? '1.5px solid #93c5fd' : '1px solid #d1d5db',
+                      color: TEXT_DARK,
+                      fontSize: '13px',
                       fontWeight: 600,
                       cursor: 'pointer',
                       transition: 'all 0.15s ease',
@@ -641,32 +641,34 @@ export default function DrivingSchoolPage() {
           </Box>
         </Box>
 
-        {/* 5. ENROLL NOW SECTION */}
+        {/* 5. ENROLL NOW SECTION - Centered compact container matching screenshot exactly */}
         <Box
           id="enroll-now"
           sx={{
-            mb: 4,
+            maxWidth: { xs: '100%', sm: 460, md: 450 },
+            mx: 'auto',
+            mb: { xs: 6, md: 8 },
             scrollMarginTop: '100px',
           }}
         >
           {/* Section Heading */}
-          <Box sx={{ mb: { xs: 3, sm: 3.5 } }}>
+          <Box sx={{ mb: 2 }}>
             <Typography
               variant="h2"
               sx={{
                 fontFamily: "'Rajdhani', sans-serif",
-                fontSize: { xs: '1.85rem', sm: '2.3rem', md: '2.6rem' },
+                fontSize: { xs: '1.65rem', sm: '1.9rem' },
                 fontWeight: 700,
                 color: TEXT_DARK,
                 letterSpacing: '-0.01em',
-                mb: 0.8,
+                mb: 0.4,
               }}
             >
               Enroll Now
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: '0.92rem', sm: '1rem' },
+                fontSize: '13px',
                 color: TEXT_MUTED,
               }}
             >
@@ -679,27 +681,26 @@ export default function DrivingSchoolPage() {
             component="form"
             onSubmit={handleSubmit}
             sx={{
-              maxWidth: '820px',
               backgroundColor: CARD_BG,
-              borderRadius: '20px',
+              borderRadius: '16px',
               border: '1px solid',
               borderColor: BORDER_COLOR,
-              p: { xs: 2.8, sm: 4.5, md: 5 },
-              boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+              p: { xs: 2.5, sm: 3 },
+              boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
             }}
           >
-            <Grid container spacing={{ xs: 2.5, sm: 3 }}>
+            <Grid container spacing={2}>
               {/* Full Name */}
-              <Grid size={{ xs: 12, sm: 6 }}>
+              <Grid size={{ xs: 6 }}>
                 <Typography
                   component="label"
                   htmlFor="full-name-input"
                   sx={{
                     display: 'block',
-                    fontSize: '13.5px',
+                    fontSize: '12.5px',
                     fontWeight: 600,
                     color: TEXT_DARK,
-                    mb: 0.8,
+                    mb: 0.6,
                   }}
                 >
                   Full Name *
@@ -715,15 +716,15 @@ export default function DrivingSchoolPage() {
                   slotProps={{
                     htmlInput: {
                       sx: {
-                        fontSize: '14px',
-                        py: 1.3,
-                        px: 1.8,
+                        fontSize: '13px',
+                        py: 0.9,
+                        px: 1.4,
                       },
                     },
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       backgroundColor: '#ffffff',
                       '&:hover fieldset': {
                         borderColor: '#9ca3af',
@@ -737,16 +738,16 @@ export default function DrivingSchoolPage() {
               </Grid>
 
               {/* Phone */}
-              <Grid size={{ xs: 12, sm: 6 }}>
+              <Grid size={{ xs: 6 }}>
                 <Typography
                   component="label"
                   htmlFor="phone-input"
                   sx={{
                     display: 'block',
-                    fontSize: '13.5px',
+                    fontSize: '12.5px',
                     fontWeight: 600,
                     color: TEXT_DARK,
-                    mb: 0.8,
+                    mb: 0.6,
                   }}
                 >
                   Phone *
@@ -762,15 +763,15 @@ export default function DrivingSchoolPage() {
                   slotProps={{
                     htmlInput: {
                       sx: {
-                        fontSize: '14px',
-                        py: 1.3,
-                        px: 1.8,
+                        fontSize: '13px',
+                        py: 0.9,
+                        px: 1.4,
                       },
                     },
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       backgroundColor: '#ffffff',
                       '&:hover fieldset': {
                         borderColor: '#9ca3af',
@@ -784,16 +785,16 @@ export default function DrivingSchoolPage() {
               </Grid>
 
               {/* Course */}
-              <Grid size={{ xs: 12, sm: 6 }}>
+              <Grid size={{ xs: 6 }}>
                 <Typography
                   component="label"
                   htmlFor="course-select-input"
                   sx={{
                     display: 'block',
-                    fontSize: '13.5px',
+                    fontSize: '12.5px',
                     fontWeight: 600,
                     color: TEXT_DARK,
-                    mb: 0.8,
+                    mb: 0.6,
                   }}
                 >
                   Course *
@@ -808,12 +809,17 @@ export default function DrivingSchoolPage() {
                   slotProps={{
                     select: {
                       displayEmpty: true,
-                      renderValue: (val) => (!val ? <span style={{ color: '#9ca3af' }}>Select course</span> : val),
+                      renderValue: (val) => (!val ? <span style={{ color: '#9ca3af', fontSize: '13px' }}>Select course</span> : <span style={{ fontSize: '13px' }}>{val}</span>),
+                      sx: {
+                        py: 0.9,
+                        px: 1.4,
+                        fontSize: '13px',
+                      },
                     },
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       backgroundColor: '#ffffff',
                       '&:hover fieldset': {
                         borderColor: '#9ca3af',
@@ -824,11 +830,11 @@ export default function DrivingSchoolPage() {
                     },
                   }}
                 >
-                  <MenuItem value="" disabled sx={{ fontSize: '14px', color: '#9ca3af' }}>
+                  <MenuItem value="" disabled sx={{ fontSize: '13px', color: '#9ca3af' }}>
                     Select course
                   </MenuItem>
                   {courseOptions.map((opt) => (
-                    <MenuItem key={opt} value={opt} sx={{ fontSize: '14px' }}>
+                    <MenuItem key={opt} value={opt} sx={{ fontSize: '13px' }}>
                       {opt}
                     </MenuItem>
                   ))}
@@ -836,16 +842,16 @@ export default function DrivingSchoolPage() {
               </Grid>
 
               {/* Preferred Center */}
-              <Grid size={{ xs: 12, sm: 6 }}>
+              <Grid size={{ xs: 6 }}>
                 <Typography
                   component="label"
                   htmlFor="center-select-input"
                   sx={{
                     display: 'block',
-                    fontSize: '13.5px',
+                    fontSize: '12.5px',
                     fontWeight: 600,
                     color: TEXT_DARK,
-                    mb: 0.8,
+                    mb: 0.6,
                   }}
                 >
                   Preferred Center *
@@ -863,12 +869,17 @@ export default function DrivingSchoolPage() {
                   slotProps={{
                     select: {
                       displayEmpty: true,
-                      renderValue: (val) => (!val ? <span style={{ color: '#9ca3af' }}>Select center</span> : val),
+                      renderValue: (val) => (!val ? <span style={{ color: '#9ca3af', fontSize: '13px' }}>Select center</span> : <span style={{ fontSize: '13px' }}>{val}</span>),
+                      sx: {
+                        py: 0.9,
+                        px: 1.4,
+                        fontSize: '13px',
+                      },
                     },
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       backgroundColor: '#ffffff',
                       '&:hover fieldset': {
                         borderColor: '#9ca3af',
@@ -879,11 +890,11 @@ export default function DrivingSchoolPage() {
                     },
                   }}
                 >
-                  <MenuItem value="" disabled sx={{ fontSize: '14px', color: '#9ca3af' }}>
+                  <MenuItem value="" disabled sx={{ fontSize: '13px', color: '#9ca3af' }}>
                     Select center
                   </MenuItem>
                   {availableCenters.map((c) => (
-                    <MenuItem key={c} value={c} sx={{ fontSize: '14px' }}>
+                    <MenuItem key={c} value={c} sx={{ fontSize: '13px' }}>
                       {c}
                     </MenuItem>
                   ))}
@@ -897,10 +908,10 @@ export default function DrivingSchoolPage() {
                   htmlFor="message-input"
                   sx={{
                     display: 'block',
-                    fontSize: '13.5px',
+                    fontSize: '12.5px',
                     fontWeight: 600,
                     color: TEXT_DARK,
-                    mb: 0.8,
+                    mb: 0.6,
                   }}
                 >
                   Message (Optional)
@@ -909,22 +920,22 @@ export default function DrivingSchoolPage() {
                   id="message-input"
                   fullWidth
                   multiline
-                  rows={3}
+                  rows={2.5}
                   placeholder="Any specific schedule preference?"
                   value={formData.message}
                   onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
                   slotProps={{
                     htmlInput: {
                       sx: {
-                        fontSize: '14px',
-                        py: 1.3,
-                        px: 1.8,
+                        fontSize: '13px',
+                        py: 1,
+                        px: 1.4,
                       },
                     },
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: '8px',
+                      borderRadius: '6px',
                       backgroundColor: '#ffffff',
                       '&:hover fieldset': {
                         borderColor: '#9ca3af',
@@ -939,24 +950,23 @@ export default function DrivingSchoolPage() {
             </Grid>
 
             {/* Submit Button */}
-            <Box sx={{ mt: 3.5, display: 'flex', justifyContent: 'flex-start' }}>
+            <Box sx={{ mt: 2.5, display: 'flex', justifyContent: 'flex-start' }}>
               <Button
                 type="submit"
                 variant="contained"
                 sx={{
-                  backgroundColor: ACCENT_BLUE,
+                  backgroundColor: '#1666c1',
                   color: '#ffffff',
-                  fontWeight: 700,
-                  fontSize: '14.5px',
+                  fontWeight: 600,
+                  fontSize: '13px',
                   textTransform: 'none',
-                  borderRadius: '8px',
-                  px: 4.5,
-                  py: 1.3,
-                  width: { xs: '100%', sm: 'auto' },
+                  borderRadius: '6px',
+                  px: 3,
+                  py: 0.9,
                   boxShadow: 'none',
                   '&:hover': {
-                    backgroundColor: ACCENT_BLUE_HOVER,
-                    boxShadow: '0 4px 14px rgba(29, 104, 201, 0.35)',
+                    backgroundColor: '#1254a1',
+                    boxShadow: 'none',
                   },
                 }}
               >
@@ -994,3 +1004,4 @@ export default function DrivingSchoolPage() {
     </Box>
   );
 }
+
