@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Modern Multi-Page Next.js & Material UI (MUI) Website
 
-## Getting Started
+A production-ready, fully responsive multi-page website built with **Next.js (App Router)**, **Material UI (MUI)**, and **JavaScript JSX**.
 
-First, run the development server:
+Designed with **content separation** so you can easily drop in your content, context, images, branding, and contact details whenever you are ready.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🌟 Key Features
+
+- **Multi-Page Architecture**:
+  - `src/app/page.jsx` — **Home**: Hero section, key metrics, feature cards, architecture highlights, and CTA banner.
+  - `src/app/about/page.jsx` — **About**: Mission & vision, core values grid, and team member profiles.
+  - `src/app/services/page.jsx` — **Services**: Service offerings with deliverables, highlight badges, and interactive FAQ accordion.
+  - `src/app/portfolio/page.jsx` — **Portfolio**: Category filtering (All, Web App, UI/UX, Enterprise, E-Commerce), project cards, and case study modal.
+  - `src/app/contact/page.jsx` — **Contact**: Contact cards (Email, Phone, Address, Hours), interactive inquiry form with validation, and confirmation alert.
+  - `src/app/not-found.jsx` — **Custom 404**: Clean branded error state.
+- **JavaScript JSX Everywhere**: Every page, component, and layout is built using `.jsx`.
+- **Material UI (MUI)**:
+  - Responsive AppBar with mobile hamburger `Drawer`.
+  - Rich Footer with navigation links, contact info, and newsletter subscription.
+  - Light & Dark mode toggle with OS preference detection and persistence.
+  - `@mui/material-nextjs` AppRouterCacheProvider for zero-flash SSR hydration.
+- **Centralized Content**: Easily customize your copy in `src/data/content.js` and `src/config/siteConfig.js` without touching component markup.
+
+---
+
+## 📁 Project Structure
+
+```text
+bhimal/
+├── .env.example                      # Environment variables template
+├── .env.local                        # Local development variables
+├── jsconfig.json                     # Path alias configuration (@/*)
+├── next.config.mjs                   # Next.js configuration
+├── package.json                      # Dependencies and scripts
+├── public/                           # Static assets (favicons, images)
+├── src/
+│   ├── app/
+│   │   ├── layout.jsx                # Root layout (Theme & Cache Providers, Navbar, Footer)
+│   │   ├── globals.css               # Smooth scrolling and CSS resets
+│   │   ├── not-found.jsx             # Custom 404 page
+│   │   ├── page.jsx                  # Home Page (/)
+│   │   ├── about/
+│   │   │   └── page.jsx              # About Page (/about)
+│   │   ├── services/
+│   │   │   └── page.jsx              # Services & FAQ (/services)
+│   │   ├── portfolio/
+│   │   │   └── page.jsx              # Projects & Case Studies (/portfolio)
+│   │   └── contact/
+│   │       └── page.jsx              # Interactive Contact Form (/contact)
+│   ├── components/
+│   │   ├── Navbar.jsx                # Responsive AppBar & Mobile Drawer
+│   │   ├── Footer.jsx                # Footer with links & newsletter
+│   │   ├── SectionHeader.jsx         # Section titles & badges
+│   │   └── ThemeClientProvider.jsx   # ThemeProvider & Light/Dark Mode switch
+│   ├── config/
+│   │   └── siteConfig.js             # Brand name, URLs, nav links, contact info
+│   ├── data/
+│   │   └── content.js                # Content for Home, About, Services, Portfolio, FAQ
+│   └── theme/
+│       └── theme.js                  # MUI Palette, Typography, and component styles
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Prerequisites
+- **Node.js**: v18.18+ or v20+ (tested on Node v26)
+- **npm** (or `pnpm` / `yarn`)
 
-## Learn More
+### 2. Start the Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Build for Production
+```bash
+npm run build
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Run Linter
+```bash
+npm run lint
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ✍️ How to Customize Your Content & Context
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. Changing Brand Name, Links & Contact Details
+Open `src/config/siteConfig.js`:
+```javascript
+export const siteConfig = {
+  name: "YourBrand",
+  description: "Your custom description...",
+  contact: {
+    email: "your-email@example.com",
+    phone: "+1 (555) 987-6543",
+    address: "Your City, State, Country",
+    hours: "Mon - Fri: 9:00 AM - 5:00 PM",
+  },
+  // ...
+};
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 2. Changing Page Content
+Open `src/data/content.js` to modify:
+- **`homeContent`**: Hero title, subtitle, stats numbers, feature highlights, and CTA copy.
+- **`aboutContent`**: Company mission, core values, and team members (names, photos, bios).
+- **`servicesContent`**: Service cards, list of deliverables, and FAQ questions/answers.
+- **`portfolioContent`**: Project titles, categories, images, and case studies.
+
+### 3. Adding New Pages
+1. Create a new folder inside `src/app/`, for example `src/app/pricing/`.
+2. Add a `page.jsx` inside it:
+   ```jsx
+   'use client';
+   import { Container, Typography } from '@mui/material';
+
+   export default function PricingPage() {
+     return (
+       <Container sx={{ py: 8 }}>
+         <Typography variant="h3">Pricing Plans</Typography>
+       </Container>
+     );
+   }
+   ```
+3. Add the route to `navLinks` in `src/config/siteConfig.js`.
+
+### 4. Adjusting Theme Colors & Typography
+Open `src/theme/theme.js` to customize:
+- Primary and secondary palette colors (`primary.main`, `secondary.main`).
+- Dark mode background colors (`background.default`, `background.paper`).
+- Typography font family, heading weights, and button border-radius.
