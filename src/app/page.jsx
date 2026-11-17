@@ -401,77 +401,93 @@ const vehiclesByCategory = {
   Commercial: [
     {
       id: 'super-carry',
-      name: 'Maruti Super Carry',
-      price: '₹5.15 – 6.30 Lakh',
-      category: 'Commercial Mini-Truck',
+      name: 'Maruti Suzuki Super Carry',
+      price: 'From ₹5.34 Lakh',
+      category: "India's Best Mini Truck",
       channel: 'commercial',
       image: '/images/commercial/super-carry.webp',
     },
     {
-      id: 'eeco-cargo',
-      name: 'Maruti Suzuki Eeco Cargo',
-      price: '₹5.42 – 6.74 Lakh',
-      category: 'Commercial Delivery Van',
-      channel: 'commercial',
-      image: '/images/commercial/eeco-cargo.webp',
-    },
-    {
       id: 'tour-s',
       name: 'Maruti Suzuki Tour S',
-      price: '₹6.51 – 7.46 Lakh',
-      category: 'Commercial Taxi Sedan',
+      price: 'From ₹6.23 Lakh',
+      category: 'Taxi Segment Sedan',
       channel: 'commercial',
       image: '/images/commercial/tour-s.webp',
     },
     {
+      id: 'tour-h1',
+      name: 'Maruti Suzuki Tour H1',
+      price: 'From ₹3.99 Lakh',
+      category: 'Fleet Segment Hatchback',
+      channel: 'commercial',
+      image: '/images/commercial/tour-h1.webp',
+    },
+    {
+      id: 'tour-h3',
+      name: 'Maruti Suzuki Tour H3',
+      price: 'From ₹4.98 Lakh',
+      category: 'Fleet Segment Hatchback',
+      channel: 'commercial',
+      image: '/images/commercial/tour-h3.webp',
+    },
+    {
       id: 'tour-m',
       name: 'Maruti Suzuki Tour M',
-      price: '₹9.68 – 10.63 Lakh',
-      category: 'Commercial Taxi MPV',
+      price: 'From ₹9.87 Lakh',
+      category: 'Commercial MPV',
       channel: 'commercial',
       image: '/images/commercial/tour-m.webp',
     },
     {
-      id: 'tour-h1',
-      name: 'Maruti Suzuki Tour H1',
-      price: '₹4.80 – 5.70 Lakh',
-      category: 'Commercial Entry Fleet',
+      id: 'tour-v',
+      name: 'Maruti Suzuki Tour V',
+      price: 'From ₹5.20 Lakh',
+      category: 'Commercial Passenger Van',
       channel: 'commercial',
-      image: '/images/commercial/tour-h1.webp',
+      image: '/images/commercial/tour-v.webp',
+    },
+    {
+      id: 'eeco-cargo',
+      name: 'Maruti Suzuki Eeco Cargo',
+      price: 'From ₹5.41 Lakh',
+      category: 'Cargo Delivery Van',
+      channel: 'commercial',
+      image: '/images/commercial/eeco-cargo.webp',
     },
   ],
   MPV: [
     {
       id: 'ertiga',
       name: 'Maruti Suzuki Ertiga',
-      price: '₹8.69 – 13.03 Lakh',
-      category: 'India’s No.1 7-Seater MPV',
+      price: '₹8.85 – 12.99 Lakh',
+      category: '7-Seater Family MPV',
       channel: 'arena',
       image: '/images/mpv/ertiga.webp',
     },
     {
-      id: 'xl6',
-      name: 'Maruti Suzuki XL6',
-      price: '₹11.61 – 14.77 Lakh',
-      category: 'Premium 6-Seater MPV',
-      channel: 'nexa',
-      image: '/images/mpv/xl6-no-bg.png',
+      id: 'eeco',
+      name: 'Maruti Suzuki Eeco',
+      price: '₹5.23 – 6.40 Lakh',
+      category: 'Multi-Utility Passenger Van',
+      channel: 'arena',
+      image: '/images/mpv/eeco.webp',
     },
     {
       id: 'invicto',
       name: 'Maruti Suzuki Invicto',
-      price: '₹25.21 – 28.92 Lakh',
-      category: 'Intelligent Electric Hybrid MPV',
+      price: '₹24.97 – 28.69 Lakh',
+      category: 'Luxury 7/8 Seater Hybrid MPV',
       channel: 'nexa',
       image: '/images/mpv/invicto-no-bg.png',
     },
     {
-      id: 'eeco',
-      name: 'Maruti Suzuki Eeco',
-      price: '₹5.32 – 6.58 Lakh',
-      category: 'Versatile 7-Seater Van',
-      channel: 'arena',
-      image: '/images/mpv/eeco.webp',
+      id: 'xl6',
+      name: 'Maruti Suzuki XL6',
+      price: '₹11.57 – 14.52 Lakh',
+      category: 'Premium 6-Seater MPV',
+      channel: 'nexa',
+      image: '/images/mpv/xl6-no-bg.png',
     },
   ],
 };
@@ -786,10 +802,25 @@ export default function HomePage() {
                         px: 1.2,
                         py: 0.4,
                         borderRadius: 1.5,
-                        backgroundColor: car.channel === 'nexa' ? 'rgba(29, 104, 201, 0.1)' : 'rgba(231, 33, 11, 0.1)',
-                        color: car.channel === 'nexa' ? ACCENT_BLUE : ACCENT_RED,
+                        backgroundColor:
+                          car.channel === 'nexa'
+                            ? 'rgba(29, 104, 201, 0.1)'
+                            : car.channel === 'commercial'
+                            ? 'rgba(249, 115, 22, 0.1)'
+                            : 'rgba(231, 33, 11, 0.1)',
+                        color:
+                          car.channel === 'nexa'
+                            ? ACCENT_BLUE
+                            : car.channel === 'commercial'
+                            ? '#ea580c'
+                            : ACCENT_RED,
                         border: '1px solid',
-                        borderColor: car.channel === 'nexa' ? 'rgba(29, 104, 201, 0.25)' : 'rgba(231, 33, 11, 0.25)',
+                        borderColor:
+                          car.channel === 'nexa'
+                            ? 'rgba(29, 104, 201, 0.25)'
+                            : car.channel === 'commercial'
+                            ? 'rgba(249, 115, 22, 0.25)'
+                            : 'rgba(231, 33, 11, 0.25)',
                         fontSize: '10px',
                         fontWeight: 700,
                         textTransform: 'uppercase',
