@@ -23,3 +23,4 @@ export const siteConfig = {
     instagram: "https://instagram.com",
   },
 };
+

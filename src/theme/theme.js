@@ -118,3 +118,4 @@ export const getTheme = (mode = 'light') => {
 };
 
 export default getTheme('light');
+
