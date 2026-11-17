@@ -2,6 +2,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter';
 import ThemeClientProvider from '@/components/ThemeClientProvider';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import WhatsAppButton from '@/components/WhatsAppButton';
 import './globals.css';
 import { siteConfig } from '@/config/siteConfig';
 
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
                 {children}
               </main>
               <Footer />
+              <WhatsAppButton />
             </div>
           </ThemeClientProvider>
         </AppRouterCacheProvider>

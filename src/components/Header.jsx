@@ -96,6 +96,19 @@ export default function Header() {
   // Active tab state (defaults to 'Arena' as in the screenshot)
   const [activeTab, setActiveTab] = useState('Arena');
 
+  const isLinkActive = (item) => {
+    if (pathname === '/arena') {
+      return item.path === '/arena' || item.title.toLowerCase() === 'arena';
+    }
+    if (pathname === '/services') {
+      return item.path === '/services' || item.title.toLowerCase() === 'service';
+    }
+    if (pathname === '/contact') {
+      return item.path === '/contact' || item.title.toLowerCase() === 'contact';
+    }
+    return activeTab.toLowerCase() === item.title.toLowerCase();
+  };
+
   // Mobile drawer state
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -189,7 +202,7 @@ export default function Header() {
             }}
           >
             {navLinks.map((item) => {
-              const isActive = activeTab.toLowerCase() === item.title.toLowerCase();
+              const isActive = isLinkActive(item);
 
               if (item.isOffers) {
                 return (
@@ -447,7 +460,7 @@ export default function Header() {
 
         <List sx={{ p: 0, flexGrow: 1 }}>
           {navLinks.map((item) => {
-            const isActive = activeTab.toLowerCase() === item.title.toLowerCase();
+            const isActive = isLinkActive(item);
             return (
               <ListItem key={item.title} disablePadding sx={{ mb: 0.5 }}>
                 <ListItemButton

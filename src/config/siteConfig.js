@@ -15,7 +15,7 @@ export const siteConfig = {
     "Bengaluru - Marathahalli",
   ],
   navLinks: [
-    { title: "Arena", path: "/#arena", testId: "link-nav-arena" },
+    { title: "Arena", path: "/arena", testId: "link-nav-arena" },
     { title: "Nexa", path: "/#nexa", testId: "link-nav-nexa" },
     { title: "Commercial", path: "/#commercial", testId: "link-nav-commercial" },
     { title: "Offers", path: "/#offers", testId: "link-nav-offers", isOffers: true },
