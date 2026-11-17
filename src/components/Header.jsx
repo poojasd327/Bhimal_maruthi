@@ -17,8 +17,6 @@ import {
   MenuItem,
   Divider,
   Typography,
-  useTheme,
-  useMediaQuery,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import BimalLogo from '@/components/BimalLogo';
@@ -45,7 +43,7 @@ function PhoneIconSvg() {
       aria-hidden="true"
       style={{ flexShrink: 0 }}
     >
-      <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+      <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
     </svg>
   );
 }
@@ -94,7 +92,6 @@ function MenuIconSvg() {
 
 export default function Header() {
   const pathname = usePathname();
-  const theme = useTheme();
 
   // Active tab state (defaults to 'Arena' as in the screenshot)
   const [activeTab, setActiveTab] = useState('Arena');
@@ -147,7 +144,7 @@ export default function Header() {
             alignItems: 'center',
             height: 64, // h-16
             width: '100%',
-            gap: 1.5,
+            gap: { xs: 1, md: 1.5 },
           }}
         >
           {/* Logo Button */}
@@ -161,32 +158,33 @@ export default function Header() {
               cursor: 'pointer',
               textDecoration: 'none',
               flexShrink: 0,
-              mr: 1,
+              mr: { xs: 0, md: 0.5 },
             }}
           >
             <BimalLogo height={38} />
           </Box>
 
-          {/* Vertical Divider (XL screens) */}
+          {/* Vertical Divider (Desktop screens) */}
           <Box
             sx={{
-              display: { xs: 'none', xl: 'block' },
+              display: { xs: 'none', md: 'block' },
               width: '1px',
               height: 24,
               backgroundColor: '#e3e5e8',
               flexShrink: 0,
-              mx: 1,
+              mx: { md: 0.5, lg: 1 },
             }}
           />
 
-          {/* Full Navigation Links (XL screens) */}
+          {/* Full Navigation Links (Visible on all desktop/tablet screens >= 900px) */}
           <Box
             sx={{
-              display: { xs: 'none', xl: 'flex' },
+              display: { xs: 'none', md: 'flex' },
               alignItems: 'center',
               flex: 1,
-              gap: 0.5,
+              gap: { md: 0.2, lg: 0.5 },
               height: '100%',
+              overflow: 'hidden',
             }}
           >
             {navLinks.map((item) => {
@@ -202,7 +200,7 @@ export default function Header() {
                     onClick={() => setActiveTab(item.title)}
                     sx={{
                       position: 'relative',
-                      px: 1.5,
+                      px: { md: 1, lg: 1.5 },
                       height: '100%',
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -224,14 +222,14 @@ export default function Header() {
                   onClick={() => setActiveTab(item.title)}
                   sx={{
                     position: 'relative',
-                    px: 1.5,
+                    px: { md: 0.8, lg: 1.2, xl: 1.5 },
                     height: '100%',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    fontSize: '11px',
+                    fontSize: { md: '10.5px', lg: '11px' },
                     fontWeight: 600,
                     textTransform: 'uppercase',
-                    letterSpacing: '0.12em',
+                    letterSpacing: { md: '0.08em', lg: '0.12em' },
                     whiteSpace: 'nowrap',
                     textDecoration: 'none',
                     color: isActive ? ACCENT_RED : TEXT_MUTED,
@@ -249,8 +247,8 @@ export default function Header() {
                       sx={{
                         position: 'absolute',
                         bottom: 0,
-                        left: 12,
-                        right: 12,
+                        left: { md: 6, lg: 10 },
+                        right: { md: 6, lg: 10 },
                         height: '2.5px',
                         backgroundColor: ACCENT_RED,
                         borderRadius: '1px 1px 0 0',
@@ -262,94 +260,15 @@ export default function Header() {
             })}
           </Box>
 
-          {/* Compact Navigation (LG to XL screens) */}
+          {/* Spacer for mobile screens */}
+          <Box sx={{ flex: 1, display: { md: 'none' } }} />
+
+          {/* Desktop Right Side: Phone & Region Selector */}
           <Box
             sx={{
-              display: { xs: 'none', lg: 'flex', xl: 'none' },
+              display: { xs: 'none', md: 'flex' },
               alignItems: 'center',
-              gap: 0.5,
-              height: '100%',
-            }}
-          >
-            {navLinks.slice(0, 5).map((item) => {
-              const isActive = activeTab.toLowerCase() === item.title.toLowerCase();
-
-              if (item.isOffers) {
-                return (
-                  <Box
-                    key={item.title}
-                    component={Link}
-                    href={item.path}
-                    onClick={() => setActiveTab(item.title)}
-                    sx={{
-                      px: 1,
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      textDecoration: 'none',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    <span className="offers-pill offers-pulse" style={{ fontSize: '9px', padding: '2px 8px' }}>
-                      {item.title}
-                    </span>
-                  </Box>
-                );
-              }
-
-              return (
-                <Box
-                  key={item.title}
-                  component={Link}
-                  href={item.path}
-                  onClick={() => setActiveTab(item.title)}
-                  sx={{
-                    position: 'relative',
-                    px: 1.2,
-                    height: '100%',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    fontSize: '10px',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    whiteSpace: 'nowrap',
-                    textDecoration: 'none',
-                    color: isActive ? ACCENT_RED : TEXT_MUTED,
-                    '&:hover': {
-                      color: isActive ? ACCENT_RED : TEXT_DARK,
-                    },
-                  }}
-                >
-                  {item.title}
-                  {isActive && (
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 8,
-                        right: 8,
-                        height: '2px',
-                        backgroundColor: ACCENT_RED,
-                      }}
-                    />
-                  )}
-                </Box>
-              );
-            })}
-            <Typography variant="caption" sx={{ color: TEXT_MUTED, opacity: 0.5, px: 0.5 }}>
-              …
-            </Typography>
-          </Box>
-
-          {/* Spacer for non-XL screens */}
-          <Box sx={{ flex: 1, display: { xl: 'none' } }} />
-
-          {/* Desktop Right Side: Phone & Region Selector (LG & XL) */}
-          <Box
-            sx={{
-              display: { xs: 'none', lg: 'flex' },
-              alignItems: 'center',
-              gap: 2,
+              gap: { md: 1.5, lg: 2 },
               flexShrink: 0,
             }}
           >
@@ -358,7 +277,7 @@ export default function Header() {
               component="a"
               href={siteConfig.phoneTel || 'tel:08030693069'}
               sx={{
-                display: { xs: 'none', xl: 'flex' },
+                display: 'flex',
                 alignItems: 'center',
                 gap: 1,
                 fontSize: '12px',
@@ -412,7 +331,7 @@ export default function Header() {
           {/* Mobile Right Side: Region Selector & Hamburger Button */}
           <Box
             sx={{
-              display: { xs: 'flex', lg: 'none' },
+              display: { xs: 'flex', md: 'none' },
               alignItems: 'center',
               gap: 1,
               flexShrink: 0,
