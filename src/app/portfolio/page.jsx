@@ -12,7 +12,6 @@ import {
   CardActions,
   Button,
   Chip,
-  Stack,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -43,13 +42,15 @@ export default function PortfolioPage() {
         />
 
         {/* Category Filters */}
-        <Stack
-          direction="row"
-          spacing={1}
-          justifyContent="center"
-          flexWrap="wrap"
-          useFlexGap
-          sx={{ mb: 6 }}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 1,
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            mb: 6,
+          }}
         >
           {portfolioContent.categories.map((cat) => {
             const isSelected = selectedCategory === cat;
@@ -70,7 +71,7 @@ export default function PortfolioPage() {
               />
             );
           })}
-        </Stack>
+        </Box>
 
         {/* Projects Grid */}
         <Grid container spacing={4}>
@@ -143,7 +144,11 @@ export default function PortfolioPage() {
           onClose={() => setActiveProject(null)}
           maxWidth="md"
           fullWidth
-          PaperProps={{ sx: { borderRadius: 3, p: 1 } }}
+          slotProps={{
+            paper: {
+              sx: { borderRadius: 3, p: 1 },
+            },
+          }}
         >
           {activeProject && (
             <>

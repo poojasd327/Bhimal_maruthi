@@ -106,8 +106,10 @@ export default function HomePage() {
             <Stack
               direction={{ xs: 'column', sm: 'row' }}
               spacing={2}
-              justifyContent="center"
-              alignItems="center"
+              sx={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
             >
               <Button
                 variant="contained"

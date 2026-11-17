@@ -420,14 +420,16 @@ export default function Header() {
         onClose={() => handleRegionClose()}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: {
-            mt: 1,
-            minWidth: 220,
-            borderRadius: '8px',
-            border: '1px solid',
-            borderColor: isDark ? 'rgba(255,255,255,0.1)' : '#e5e7eb',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+        slotProps={{
+          paper: {
+            sx: {
+              mt: 1,
+              minWidth: 220,
+              borderRadius: '8px',
+              border: '1px solid',
+              borderColor: isDark ? 'rgba(255,255,255,0.1)' : '#e5e7eb',
+              boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+            },
           },
         }}
       >
@@ -452,14 +454,16 @@ export default function Header() {
         anchor="right"
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        ModalProps={{ keepMounted: true }}
-        PaperProps={{
-          sx: {
-            width: 300,
-            backgroundColor: isDark ? '#0f172a' : '#ffffff',
-            display: 'flex',
-            flexDirection: 'column',
-            p: 2.5,
+        keepMounted
+        slotProps={{
+          paper: {
+            sx: {
+              width: 300,
+              backgroundColor: isDark ? '#0f172a' : '#ffffff',
+              display: 'flex',
+              flexDirection: 'column',
+              p: 2.5,
+            },
           },
         }}
       >
