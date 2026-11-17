@@ -532,8 +532,10 @@ export default function ContactPage() {
                     value={formData.date}
                     onChange={handleInputChange}
                     size="medium"
-                    inputProps={{
-                      min: minDate,
+                    slotProps={{
+                      htmlInput: {
+                        min: minDate,
+                      },
                     }}
                     sx={{
                       '& .MuiOutlinedInput-root': {
@@ -575,8 +577,10 @@ export default function ContactPage() {
                     value={formData.model}
                     onChange={handleInputChange}
                     size="medium"
-                    SelectProps={{
-                      displayEmpty: true,
+                    slotProps={{
+                      select: {
+                        displayEmpty: true,
+                      },
                     }}
                     sx={{
                       '& .MuiOutlinedInput-root': {
@@ -631,8 +635,10 @@ export default function ContactPage() {
                       value={formData.model}
                       onChange={handleInputChange}
                       size="medium"
-                      SelectProps={{
-                        displayEmpty: true,
+                      slotProps={{
+                        select: {
+                          displayEmpty: true,
+                        },
                       }}
                       sx={{
                         '& .MuiOutlinedInput-root': {
@@ -683,8 +689,10 @@ export default function ContactPage() {
                       value={formData.showroom}
                       onChange={handleInputChange}
                       size="medium"
-                      SelectProps={{
-                        displayEmpty: true,
+                      slotProps={{
+                        select: {
+                          displayEmpty: true,
+                        },
                       }}
                       sx={{
                         '& .MuiOutlinedInput-root': {
@@ -776,8 +784,10 @@ export default function ContactPage() {
                       value={formData.showroom}
                       onChange={handleInputChange}
                       size="medium"
-                      SelectProps={{
-                        displayEmpty: true,
+                      slotProps={{
+                        select: {
+                          displayEmpty: true,
+                        },
                       }}
                       sx={{
                         '& .MuiOutlinedInput-root': {
