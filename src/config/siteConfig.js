@@ -19,7 +19,7 @@ export const siteConfig = {
     { title: "Nexa", path: "/nexa", testId: "link-nav-nexa" },
     { title: "Commercial", path: "/commercial", testId: "link-nav-commercial" },
     { title: "Offers", path: "/offers", testId: "link-nav-offers", isOffers: true },
-    { title: "Service", path: "/services", testId: "link-nav-service" },
+    { title: "Service", path: "/service", testId: "link-nav-service" },
     { title: "True Value", path: "/#true-value", testId: "link-nav-true-value" },
     { title: "Driving School", path: "/#driving-school", testId: "link-nav-driving-school" },
     { title: "Accessories", path: "/#accessories", testId: "link-nav-accessories" },

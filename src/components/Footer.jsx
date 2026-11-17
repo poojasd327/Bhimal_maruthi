@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import {
   Box,
@@ -8,140 +8,172 @@ import {
   Grid,
   Typography,
   IconButton,
-  TextField,
-  Button,
-  Divider,
-  Snackbar,
-  Alert,
 } from '@mui/material';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import { siteConfig } from '@/config/siteConfig';
 
+const ACCENT_RED = '#e7210b';
+const TEXT_DARK = '#111827';
+const TEXT_MUTED = '#64748b';
+
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
   const currentYear = 2026;
 
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-      setEmail('');
-    }
-  };
+  const quickLinks = [
+    { title: 'Home', path: '/' },
+    { title: 'Arena Models', path: '/arena' },
+    { title: 'Nexa Models', path: '/nexa' },
+    { title: 'Commercial', path: '/commercial' },
+    { title: 'Offers', path: '/offers' },
+    { title: 'Service', path: '/service' },
+  ];
+
+  const moreServices = [
+    { title: 'True Value', path: '/#true-value' },
+    { title: 'Driving School', path: '/#driving-school' },
+    { title: 'Accessories', path: '/#accessories' },
+    { title: 'Locations', path: '/#locations' },
+    { title: 'Contact', path: '/contact' },
+  ];
+
+  const companyLinks = [
+    { title: 'About Us', path: '/about' },
+    { title: 'Careers', path: '/#careers' },
+  ];
 
   return (
     <Box
       component="footer"
       sx={{
-        backgroundColor: 'background.paper',
-        borderTop: '1px solid',
-        borderColor: 'divider',
-        pt: 8,
-        pb: 4,
+        backgroundColor: '#ffffff',
+        borderTop: '1px solid #e5e7eb',
+        pt: { xs: 6, md: 8 },
+        pb: 5,
         mt: 'auto',
       }}
     >
-      <Container maxWidth="lg">
-        <Grid container spacing={4}>
+      <Container maxWidth={false} sx={{ maxWidth: '1440px', px: { xs: 2.5, sm: 4, md: 6, lg: 8 } }}>
+        <Grid container spacing={{ xs: 4, md: 5 }}>
           {/* Column 1: Brand & Bio */}
           <Grid size={{ xs: 12, md: 4 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-              <Box
+            <Box sx={{ mb: 1.5 }}>
+              <Typography
                 sx={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 1.5,
-                  backgroundColor: 'primary.main',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fff',
-                  fontWeight: 800,
-                  fontSize: 18,
+                  fontFamily: "'Rajdhani', sans-serif",
+                  fontWeight: 900,
+                  fontSize: '2rem',
+                  lineHeight: 1,
+                  letterSpacing: '0.02em',
+                  color: TEXT_DARK,
                 }}
               >
-                {siteConfig.name.charAt(0)}
-              </Box>
-              <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                {siteConfig.name}
+                BIMAL
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  letterSpacing: '0.18em',
+                  color: TEXT_MUTED,
+                  textTransform: 'uppercase',
+                  mt: 0.3,
+                }}
+              >
+                MARUTI SUZUKI
               </Typography>
             </Box>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5, lineHeight: 1.7 }}>
-              {siteConfig.description}
+
+            <Typography
+              sx={{
+                color: TEXT_MUTED,
+                fontSize: '13.5px',
+                lineHeight: 1.6,
+                mb: 2.5,
+                maxWidth: 320,
+              }}
+            >
+              Authorized Maruti Suzuki dealer across Karnataka and Kerala. Trusted since 1984, serving 5,00,000+ happy families.
             </Typography>
-            <Box sx={{ display: 'flex', gap: 1 }}>
+
+            {/* Social Icons */}
+            <Box sx={{ display: 'flex', gap: 1.2 }}>
               <IconButton
-                aria-label="GitHub"
+                aria-label="Facebook"
+                size="small"
                 component="a"
-                href={siteConfig.socials.github}
+                href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                size="small"
-                sx={{ border: '1px solid', borderColor: 'divider' }}
+                sx={{ color: TEXT_MUTED, p: 0.5, '&:hover': { color: ACCENT_RED } }}
               >
-                <GitHubIcon fontSize="small" />
-              </IconButton>
-              <IconButton
-                aria-label="Twitter"
-                component="a"
-                href={siteConfig.socials.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                size="small"
-                sx={{ border: '1px solid', borderColor: 'divider' }}
-              >
-                <TwitterIcon fontSize="small" />
-              </IconButton>
-              <IconButton
-                aria-label="LinkedIn"
-                component="a"
-                href={siteConfig.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                size="small"
-                sx={{ border: '1px solid', borderColor: 'divider' }}
-              >
-                <LinkedInIcon fontSize="small" />
+                <FacebookIcon fontSize="small" />
               </IconButton>
               <IconButton
                 aria-label="Instagram"
+                size="small"
                 component="a"
-                href={siteConfig.socials.instagram}
+                href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                size="small"
-                sx={{ border: '1px solid', borderColor: 'divider' }}
+                sx={{ color: TEXT_MUTED, p: 0.5, '&:hover': { color: ACCENT_RED } }}
               >
                 <InstagramIcon fontSize="small" />
+              </IconButton>
+              <IconButton
+                aria-label="YouTube"
+                size="small"
+                component="a"
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{ color: TEXT_MUTED, p: 0.5, '&:hover': { color: ACCENT_RED } }}
+              >
+                <YouTubeIcon fontSize="small" />
+              </IconButton>
+              <IconButton
+                aria-label="Twitter"
+                size="small"
+                component="a"
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{ color: TEXT_MUTED, p: 0.5, '&:hover': { color: ACCENT_RED } }}
+              >
+                <TwitterIcon fontSize="small" />
               </IconButton>
             </Box>
           </Grid>
 
-          {/* Column 2: Navigation Links */}
-          <Grid size={{ xs: 6, sm: 4, md: 2 }}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>
-              Navigation
+          {/* Column 2: QUICK LINKS */}
+          <Grid size={{ xs: 6, sm: 4, md: 2.5 }}>
+            <Typography
+              sx={{
+                fontSize: '12px',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                color: TEXT_DARK,
+                textTransform: 'uppercase',
+                mb: 2,
+              }}
+            >
+              QUICK LINKS
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.2 }}>
-              {siteConfig.navLinks.map((item) => (
+              {quickLinks.map((item) => (
                 <Typography
-                  key={item.path}
+                  key={item.title}
                   component={Link}
                   href={item.path}
-                  variant="body2"
                   sx={{
-                    color: 'text.secondary',
+                    color: TEXT_MUTED,
+                    fontSize: '13.5px',
                     textDecoration: 'none',
-                    transition: 'color 0.2s',
+                    transition: 'color 0.15s ease',
                     '&:hover': {
-                      color: 'primary.main',
+                      color: ACCENT_RED,
                     },
                   }}
                 >
@@ -151,90 +183,113 @@ export default function Footer() {
             </Box>
           </Grid>
 
-          {/* Column 3: Contact Info */}
-          <Grid size={{ xs: 6, sm: 4, md: 3 }}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>
-              Contact
+          {/* Column 3: MORE SERVICES */}
+          <Grid size={{ xs: 6, sm: 4, md: 2.5 }}>
+            <Typography
+              sx={{
+                fontSize: '12px',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                color: TEXT_DARK,
+                textTransform: 'uppercase',
+                mb: 2,
+              }}
+            >
+              MORE SERVICES
             </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <EmailIcon fontSize="small" color="primary" />
-                <Typography variant="body2" color="text.secondary">
-                  {siteConfig.contact.email}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.2 }}>
+              {moreServices.map((item) => (
+                <Typography
+                  key={item.title}
+                  component={Link}
+                  href={item.path}
+                  sx={{
+                    color: TEXT_MUTED,
+                    fontSize: '13.5px',
+                    textDecoration: 'none',
+                    transition: 'color 0.15s ease',
+                    '&:hover': {
+                      color: ACCENT_RED,
+                    },
+                  }}
+                >
+                  {item.title}
                 </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <PhoneIcon fontSize="small" color="primary" />
-                <Typography variant="body2" color="text.secondary">
-                  {siteConfig.contact.phone}
-                </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
-                <LocationOnIcon fontSize="small" color="primary" sx={{ mt: 0.3 }} />
-                <Typography variant="body2" color="text.secondary">
-                  {siteConfig.contact.address}
-                </Typography>
-              </Box>
+              ))}
             </Box>
           </Grid>
 
-          {/* Column 4: Newsletter */}
+          {/* Column 4: COMPANY */}
           <Grid size={{ xs: 12, sm: 4, md: 3 }}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>
-              Stay Updated
+            <Typography
+              sx={{
+                fontSize: '12px',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                color: TEXT_DARK,
+                textTransform: 'uppercase',
+                mb: 2,
+              }}
+            >
+              COMPANY
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Subscribe to get product updates and web insights delivered to your inbox.
-            </Typography>
-            <Box component="form" onSubmit={handleSubscribe} sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <TextField
-                placeholder="Enter your email"
-                variant="outlined"
-                size="small"
-                fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                type="email"
-              />
-              <Button type="submit" variant="contained" color="primary" size="medium">
-                Subscribe
-              </Button>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.2 }}>
+              {companyLinks.map((item) => (
+                <Typography
+                  key={item.title}
+                  component={Link}
+                  href={item.path}
+                  sx={{
+                    color: TEXT_MUTED,
+                    fontSize: '13.5px',
+                    textDecoration: 'none',
+                    transition: 'color 0.15s ease',
+                    '&:hover': {
+                      color: ACCENT_RED,
+                    },
+                  }}
+                >
+                  {item.title}
+                </Typography>
+              ))}
             </Box>
           </Grid>
         </Grid>
 
-        <Divider sx={{ my: 4 }} />
-
-        {/* Bottom Bar */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: 1.5,
-          }}
-        >
-          <Typography variant="body2" color="text.secondary">
-            © {currentYear} {siteConfig.name}. All rights reserved.
+        {/* CONTACT & HOURS bottom section */}
+        <Box sx={{ mt: { xs: 5, md: 6 }, pt: 3, borderTop: '1px solid #f1f5f9' }}>
+          <Typography
+            sx={{
+              fontSize: '11px',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              color: TEXT_DARK,
+              textTransform: 'uppercase',
+              mb: 0.8,
+            }}
+          >
+            CONTACT &amp; HOURS
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Built with <strong>Next.js</strong> &amp; <strong>Material UI (MUI)</strong>
-          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: 1 }}>
+            <Typography
+              component="a"
+              href="tel:08030693069"
+              sx={{
+                fontSize: '14px',
+                fontWeight: 600,
+                color: TEXT_DARK,
+                textDecoration: 'none',
+                '&:hover': { color: ACCENT_RED },
+              }}
+            >
+              080-3069 3069
+            </Typography>
+            <Typography sx={{ fontSize: '12.5px', color: TEXT_MUTED }}>
+              © {currentYear} {siteConfig.name}. All rights reserved.
+            </Typography>
+          </Box>
         </Box>
       </Container>
-
-      <Snackbar
-        open={subscribed}
-        autoHideDuration={4000}
-        onClose={() => setSubscribed(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert severity="success" onClose={() => setSubscribed(false)} variant="filled">
-          Thank you for subscribing!
-        </Alert>
-      </Snackbar>
     </Box>
   );
 }

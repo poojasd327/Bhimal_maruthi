@@ -109,8 +109,8 @@ export default function Header() {
     if (pathname === '/offers') {
       return item.path === '/offers' || item.title.toLowerCase() === 'offers';
     }
-    if (pathname === '/services') {
-      return item.path === '/services' || item.title.toLowerCase() === 'service';
+    if (pathname === '/services' || pathname === '/service') {
+      return item.path === '/services' || item.path === '/service' || item.title.toLowerCase() === 'service';
     }
     if (pathname === '/contact') {
       return item.path === '/contact' || item.title.toLowerCase() === 'contact';
