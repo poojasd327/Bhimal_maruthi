@@ -230,24 +230,72 @@ const trueValueBenefits = [
   },
 ];
 
+const carModelOptions = [
+  'Maruti Suzuki Swift',
+  'Maruti Suzuki Dzire',
+  'Maruti Suzuki Baleno',
+  'Maruti Suzuki Brezza',
+  'Maruti Suzuki Ertiga',
+  'Maruti Suzuki Wagon R',
+  'Maruti Suzuki Alto K10',
+  'Maruti Suzuki Fronx',
+  'Maruti Suzuki Grand Vitara',
+  'Maruti Suzuki Celerio',
+  'Maruti Suzuki S-Presso',
+  'Maruti Suzuki Ignis',
+  'Maruti Suzuki XL6',
+  'Maruti Suzuki Invicto',
+  'Maruti Suzuki Jimny',
+  'Maruti Suzuki Eeco',
+  'Other Brand / Model',
+];
+
+const yearOptions = [
+  '2024',
+  '2023',
+  '2022',
+  '2021',
+  '2020',
+  '2019',
+  '2018',
+  '2017',
+  '2016',
+  '2015 & Earlier',
+];
+
+const kmOptions = [
+  'Under 10,000 km',
+  '10,000 – 30,000 km',
+  '30,000 – 50,000 km',
+  '50,000 – 80,000 km',
+  '80,000 – 1,00,000 km',
+  '1,00,000+ km',
+];
+
+const callbackTimeOptions = [
+  'Morning (9:00 AM – 12:00 PM)',
+  'Afternoon (12:00 PM – 3:00 PM)',
+  'Evening (3:00 PM – 6:00 PM)',
+  'Anytime',
+];
+
 export default function TrueValuePage() {
-  // Dialog State for Sell My Car & Buy Used Car
+  // Dialog State for Sell My Car
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogType, setDialogType] = useState('sell'); // 'sell' or 'buy'
   const [dialogFormData, setDialogFormData] = useState({
     name: '',
     phone: '',
-    carDetails: '',
-    preferredLocation: 'Mahadevpura',
-    budget: '₹4 - 7 Lakh',
+    carModel: '',
+    yearOfManufacture: '',
+    kmsDriven: '',
+    preferredCallbackTime: '',
   });
 
   // Toast Snackbar
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
-  const handleOpenDialog = (type) => {
-    setDialogType(type);
+  const handleOpenDialog = () => {
     setDialogOpen(true);
   };
 
@@ -258,22 +306,17 @@ export default function TrueValuePage() {
   const handleDialogSubmit = (e) => {
     e.preventDefault();
     setDialogOpen(false);
-    if (dialogType === 'sell') {
-      setSnackbarMessage(
-        `Thank you, ${dialogFormData.name}! Your car valuation request has been submitted. A Bimal True Value evaluator will contact you shortly.`
-      );
-    } else {
-      setSnackbarMessage(
-        `Thank you, ${dialogFormData.name}! We will share the latest certified pre-owned inventory in your budget (${dialogFormData.budget}) shortly.`
-      );
-    }
+    setSnackbarMessage(
+      `Thank you, ${dialogFormData.name || 'valued customer'}! Your car valuation request for ${dialogFormData.carModel || 'your vehicle'} has been submitted. A Bimal True Value evaluator will contact you shortly.`
+    );
     setSnackbarOpen(true);
     setDialogFormData({
       name: '',
       phone: '',
-      carDetails: '',
-      preferredLocation: 'Mahadevpura',
-      budget: '₹4 - 7 Lakh',
+      carModel: '',
+      yearOfManufacture: '',
+      kmsDriven: '',
+      preferredCallbackTime: '',
     });
   };
 
@@ -426,7 +469,7 @@ export default function TrueValuePage() {
           >
             <Button
               variant="contained"
-              onClick={() => handleOpenDialog('sell')}
+              onClick={handleOpenDialog}
               sx={{
                 backgroundColor: AMBER_BG,
                 color: '#111827',
@@ -449,7 +492,10 @@ export default function TrueValuePage() {
 
             <Button
               variant="outlined"
-              onClick={() => handleOpenDialog('buy')}
+              component="a"
+              href="https://gigacars.com/buy/buy-used-cars"
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
                 borderColor: BORDER_COLOR,
                 backgroundColor: '#ffffff',
@@ -457,6 +503,7 @@ export default function TrueValuePage() {
                 fontWeight: 600,
                 fontSize: '14.5px',
                 textTransform: 'none',
+                textDecoration: 'none',
                 borderRadius: '8px',
                 px: 3.5,
                 py: 1.2,
@@ -467,7 +514,7 @@ export default function TrueValuePage() {
                 },
               }}
             >
-              Buy Used Car &rarr;
+              Buy Used Cars &rarr;
             </Button>
           </Box>
         </Box>
@@ -680,107 +727,301 @@ export default function TrueValuePage() {
         </Box>
       </Container>
 
-      {/* Interactive Modal Dialog for Sell / Buy */}
+      {/* Interactive Modal Dialog for Sell Your Car (matching exact screenshot) */}
       <Dialog
         open={dialogOpen}
         onClose={handleCloseDialog}
-        maxWidth="sm"
+        maxWidth="xs"
         fullWidth
         slotProps={{
           paper: {
             sx: {
               borderRadius: '16px',
-              p: { xs: 1, sm: 2 },
+              p: { xs: 2.5, sm: 3 },
+              boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
             },
           },
         }}
       >
-        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 1 }}>
-          <Typography variant="h6" sx={{ fontWeight: 700, color: TEXT_DARK }}>
-            {dialogType === 'sell' ? 'Get Your Car Evaluated - Free Inspection' : 'Enquire About True Value Inventory'}
-          </Typography>
-          <IconButton onClick={handleCloseDialog} size="small" aria-label="close">
-            <CloseIcon />
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+          <Box>
+            <Typography variant="h6" sx={{ fontWeight: 700, color: TEXT_DARK, fontSize: '1.25rem', lineHeight: 1.3 }}>
+              Sell Your Car
+            </Typography>
+            <Typography sx={{ color: TEXT_MUTED, fontSize: '0.875rem', mt: 0.5 }}>
+              Get a fair price for your car from our True Value team.
+            </Typography>
+          </Box>
+          <IconButton onClick={handleCloseDialog} size="small" aria-label="close" sx={{ color: '#6b7280', p: 0.5 }}>
+            <CloseIcon fontSize="small" />
           </IconButton>
-        </DialogTitle>
+        </Box>
 
         <Box component="form" onSubmit={handleDialogSubmit}>
-          <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2.2, pt: 1 }}>
-            <TextField
-              label="Full Name *"
-              required
-              fullWidth
-              size="small"
-              value={dialogFormData.name}
-              onChange={(e) => setDialogFormData((p) => ({ ...p, name: e.target.value }))}
-            />
-            <TextField
-              label="Phone Number *"
-              required
-              fullWidth
-              size="small"
-              value={dialogFormData.phone}
-              onChange={(e) => setDialogFormData((p) => ({ ...p, phone: e.target.value }))}
-            />
-
-            {dialogType === 'sell' ? (
+          <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 1.8, p: 0 }}>
+            {/* Full Name */}
+            <Box>
+              <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#111827', mb: 0.6 }}>
+                Full Name
+              </Typography>
               <TextField
-                label="Car Make, Model & Year *"
-                placeholder="e.g. Maruti Swift 2021 VXI, 35,000 km"
                 required
                 fullWidth
                 size="small"
-                value={dialogFormData.carDetails}
-                onChange={(e) => setDialogFormData((p) => ({ ...p, carDetails: e.target.value }))}
+                placeholder="Enter your name"
+                value={dialogFormData.name}
+                onChange={(e) => setDialogFormData((p) => ({ ...p, name: e.target.value }))}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '8px',
+                    backgroundColor: '#ffffff',
+                    '& fieldset': { borderColor: '#e5e7eb' },
+                    '&:hover fieldset': { borderColor: '#cbd5e1' },
+                    '&.Mui-focused fieldset': { borderColor: '#e7210b' },
+                  },
+                }}
               />
-            ) : (
+            </Box>
+
+            {/* Phone Number */}
+            <Box>
+              <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#111827', mb: 0.6 }}>
+                Phone Number
+              </Typography>
               <TextField
-                select
-                label="Budget Range"
+                required
                 fullWidth
                 size="small"
-                value={dialogFormData.budget}
-                onChange={(e) => setDialogFormData((p) => ({ ...p, budget: e.target.value }))}
-              >
-                <MenuItem value="Under ₹4 Lakh">Under ₹4 Lakh</MenuItem>
-                <MenuItem value="₹4 - 7 Lakh">₹4 - 7 Lakh</MenuItem>
-                <MenuItem value="₹7 - 10 Lakh">₹7 - 10 Lakh</MenuItem>
-                <MenuItem value="₹10 Lakh+">₹10 Lakh+</MenuItem>
-              </TextField>
-            )}
+                type="tel"
+                placeholder="10-digit mobile number"
+                value={dialogFormData.phone}
+                onChange={(e) => setDialogFormData((p) => ({ ...p, phone: e.target.value }))}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '8px',
+                    backgroundColor: '#ffffff',
+                    '& fieldset': { borderColor: '#e5e7eb' },
+                    '&:hover fieldset': { borderColor: '#cbd5e1' },
+                    '&.Mui-focused fieldset': { borderColor: '#e7210b' },
+                  },
+                }}
+              />
+            </Box>
 
-            <TextField
-              select
-              label="Preferred Showroom Location"
-              fullWidth
-              size="small"
-              value={dialogFormData.preferredLocation}
-              onChange={(e) => setDialogFormData((p) => ({ ...p, preferredLocation: e.target.value }))}
-            >
-              <MenuItem value="Mahadevpura">Bimal True Value Mahadevpura</MenuItem>
-              <MenuItem value="Yelahanka">Bimal True Value Yelahanka</MenuItem>
-              <MenuItem value="Domlur">Bimal True Value Domlur</MenuItem>
-              <MenuItem value="Banashankari">Bimal True Value Banashankari</MenuItem>
-            </TextField>
+            {/* Car Model */}
+            <Box>
+              <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#111827', mb: 0.6 }}>
+                Car Model
+              </Typography>
+              <TextField
+                select
+                fullWidth
+                size="small"
+                value={dialogFormData.carModel}
+                onChange={(e) => setDialogFormData((p) => ({ ...p, carModel: e.target.value }))}
+                slotProps={{
+                  select: {
+                    displayEmpty: true,
+                    renderValue: (selected) => {
+                      if (!selected) {
+                        return <span style={{ color: '#9ca3af' }}>Select your car model</span>;
+                      }
+                      return selected;
+                    },
+                  },
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '8px',
+                    backgroundColor: '#ffffff',
+                    '& fieldset': { borderColor: '#e5e7eb' },
+                    '&:hover fieldset': { borderColor: '#cbd5e1' },
+                    '&.Mui-focused fieldset': { borderColor: '#e7210b' },
+                  },
+                }}
+              >
+                <MenuItem value="" disabled sx={{ color: '#9ca3af' }}>
+                  Select your car model
+                </MenuItem>
+                {carModelOptions.map((model) => (
+                  <MenuItem key={model} value={model}>
+                    {model}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+
+            {/* Year of Manufacture */}
+            <Box>
+              <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#111827', mb: 0.6 }}>
+                Year of Manufacture
+              </Typography>
+              <TextField
+                select
+                fullWidth
+                size="small"
+                value={dialogFormData.yearOfManufacture}
+                onChange={(e) => setDialogFormData((p) => ({ ...p, yearOfManufacture: e.target.value }))}
+                slotProps={{
+                  select: {
+                    displayEmpty: true,
+                    renderValue: (selected) => {
+                      if (!selected) {
+                        return <span style={{ color: '#9ca3af' }}>Select year</span>;
+                      }
+                      return selected;
+                    },
+                  },
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '8px',
+                    backgroundColor: '#ffffff',
+                    '& fieldset': { borderColor: '#e5e7eb' },
+                    '&:hover fieldset': { borderColor: '#cbd5e1' },
+                    '&.Mui-focused fieldset': { borderColor: '#e7210b' },
+                  },
+                }}
+              >
+                <MenuItem value="" disabled sx={{ color: '#9ca3af' }}>
+                  Select year
+                </MenuItem>
+                {yearOptions.map((year) => (
+                  <MenuItem key={year} value={year}>
+                    {year}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+
+            {/* Approximate KMs Driven */}
+            <Box>
+              <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#111827', mb: 0.6 }}>
+                Approximate KMs Driven
+              </Typography>
+              <TextField
+                select
+                fullWidth
+                size="small"
+                value={dialogFormData.kmsDriven}
+                onChange={(e) => setDialogFormData((p) => ({ ...p, kmsDriven: e.target.value }))}
+                slotProps={{
+                  select: {
+                    displayEmpty: true,
+                    renderValue: (selected) => {
+                      if (!selected) {
+                        return <span style={{ color: '#9ca3af' }}>Select KM range</span>;
+                      }
+                      return selected;
+                    },
+                  },
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '8px',
+                    backgroundColor: '#ffffff',
+                    '& fieldset': { borderColor: '#e5e7eb' },
+                    '&:hover fieldset': { borderColor: '#cbd5e1' },
+                    '&.Mui-focused fieldset': { borderColor: '#e7210b' },
+                  },
+                }}
+              >
+                <MenuItem value="" disabled sx={{ color: '#9ca3af' }}>
+                  Select KM range
+                </MenuItem>
+                {kmOptions.map((range) => (
+                  <MenuItem key={range} value={range}>
+                    {range}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+
+            {/* Preferred Callback Time */}
+            <Box>
+              <Typography sx={{ fontSize: '13px', fontWeight: 600, color: '#111827', mb: 0.6 }}>
+                Preferred Callback Time
+              </Typography>
+              <TextField
+                select
+                fullWidth
+                size="small"
+                value={dialogFormData.preferredCallbackTime}
+                onChange={(e) => setDialogFormData((p) => ({ ...p, preferredCallbackTime: e.target.value }))}
+                slotProps={{
+                  select: {
+                    displayEmpty: true,
+                    renderValue: (selected) => {
+                      if (!selected) {
+                        return <span style={{ color: '#9ca3af' }}>Select time slot</span>;
+                      }
+                      return selected;
+                    },
+                  },
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '8px',
+                    backgroundColor: '#ffffff',
+                    '& fieldset': { borderColor: '#e5e7eb' },
+                    '&:hover fieldset': { borderColor: '#cbd5e1' },
+                    '&.Mui-focused fieldset': { borderColor: '#e7210b' },
+                  },
+                }}
+              >
+                <MenuItem value="" disabled sx={{ color: '#9ca3af' }}>
+                  Select time slot
+                </MenuItem>
+                {callbackTimeOptions.map((time) => (
+                  <MenuItem key={time} value={time}>
+                    {time}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
           </DialogContent>
 
-          <DialogActions sx={{ px: 3, pb: 2.5 }}>
-            <Button onClick={handleCloseDialog} sx={{ color: TEXT_MUTED, textTransform: 'none' }}>
+          <DialogActions sx={{ px: 0, pt: 2.5, pb: 0, display: 'flex', justifyContent: 'flex-end', gap: 1.5 }}>
+            <Button
+              onClick={handleCloseDialog}
+              variant="outlined"
+              sx={{
+                borderColor: '#e5e7eb',
+                color: '#111827',
+                fontWeight: 600,
+                fontSize: '13.5px',
+                textTransform: 'none',
+                borderRadius: '6px',
+                px: 3,
+                py: 0.8,
+                '&:hover': {
+                  borderColor: '#d1d5db',
+                  backgroundColor: '#f9fafb',
+                },
+              }}
+            >
               Cancel
             </Button>
             <Button
               type="submit"
               variant="contained"
               sx={{
-                backgroundColor: AMBER_BG,
-                color: '#111827',
-                fontWeight: 700,
+                backgroundColor: '#e7210b',
+                color: '#ffffff',
+                fontWeight: 600,
+                fontSize: '13.5px',
                 textTransform: 'none',
-                px: 3,
-                '&:hover': { backgroundColor: AMBER_HOVER },
+                borderRadius: '6px',
+                px: 3.5,
+                py: 0.8,
+                boxShadow: 'none',
+                '&:hover': {
+                  backgroundColor: '#cf1904',
+                  boxShadow: '0 4px 12px rgba(231, 33, 11, 0.25)',
+                },
               }}
             >
-              {dialogType === 'sell' ? 'Submit for Valuation' : 'Request Inventory'}
+              Submit
             </Button>
           </DialogActions>
         </Box>
