@@ -115,6 +115,9 @@ export default function Header() {
     if (pathname === '/true-value') {
       return item.path === '/true-value' || item.title.toLowerCase() === 'true value';
     }
+    if (pathname === '/driving-school') {
+      return item.path === '/driving-school' || item.title.toLowerCase() === 'driving school';
+    }
     if (pathname === '/contact') {
       return item.path === '/contact' || item.title.toLowerCase() === 'contact';
     }

@@ -21,7 +21,7 @@ export const siteConfig = {
     { title: "Offers", path: "/offers", testId: "link-nav-offers", isOffers: true },
     { title: "Service", path: "/service", testId: "link-nav-service" },
     { title: "True Value", path: "/true-value", testId: "link-nav-true-value" },
-    { title: "Driving School", path: "/#driving-school", testId: "link-nav-driving-school" },
+    { title: "Driving School", path: "/driving-school", testId: "link-nav-driving-school" },
     { title: "Accessories", path: "/#accessories", testId: "link-nav-accessories" },
     { title: "Locations", path: "/#locations", testId: "link-nav-locations" },
     { title: "Contact", path: "/contact", testId: "link-nav-contact" },
