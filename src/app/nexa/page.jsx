@@ -683,6 +683,150 @@ export default function NexaPage() {
         </Container>
       </Box>
 
+      {/* Experience the Nexa difference Blue Banner CTA (matching screenshot) */}
+      <Box
+        sx={{
+          backgroundColor: '#1565c0',
+          color: '#ffffff',
+          py: { xs: 4.5, md: 5.5 },
+          width: '100%',
+        }}
+      >
+        <Container
+          maxWidth={false}
+          sx={{
+            maxWidth: '1440px',
+            px: { xs: 3, sm: 4, md: 6, lg: 8 },
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: { xs: 'flex-start', md: 'center' },
+            justifyContent: 'space-between',
+            gap: { xs: 3, md: 4 },
+          }}
+        >
+          {/* Left Text */}
+          <Box>
+            <Typography
+              variant="h3"
+              sx={{
+                fontFamily: '"Rajdhani", sans-serif',
+                fontWeight: 700,
+                fontSize: { xs: '1.6rem', sm: '1.9rem', md: '2.15rem' },
+                color: '#ffffff',
+                lineHeight: 1.2,
+                mb: 0.8,
+              }}
+            >
+              Experience the Nexa difference
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: { xs: '0.9rem', sm: '0.98rem' },
+                color: 'rgba(255, 255, 255, 0.92)',
+                lineHeight: 1.5,
+              }}
+            >
+              Exclusive Nexa lounges in Bangalore. Book a premium test drive experience.
+            </Typography>
+          </Box>
+
+          {/* Right Action Buttons */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: 'center',
+              gap: 1.8,
+              width: { xs: '100%', sm: 'auto' },
+              flexShrink: 0,
+            }}
+          >
+            {/* 1. View Offers */}
+            <Button
+              component={Link}
+              href="/offers"
+              variant="contained"
+              sx={{
+                backgroundColor: '#ffffff',
+                color: '#1565c0',
+                border: '1.5px solid #dc2626',
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                textTransform: 'none',
+                textDecoration: 'none',
+                px: 3.2,
+                py: 1.15,
+                borderRadius: '6px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                width: { xs: '100%', sm: 'auto' },
+                '&:hover': {
+                  backgroundColor: '#f8fafc',
+                  color: '#1565c0',
+                  borderColor: '#b91c1c',
+                },
+              }}
+            >
+              View Offers
+            </Button>
+
+            {/* 2. Book Test Drive */}
+            <Button
+              component={Link}
+              href="/contact"
+              variant="contained"
+              sx={{
+                backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                border: '1px solid rgba(255, 255, 255, 0.4)',
+                color: '#ffffff',
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                textTransform: 'none',
+                textDecoration: 'none',
+                px: 3.2,
+                py: 1.15,
+                borderRadius: '6px',
+                boxShadow: 'none',
+                width: { xs: '100%', sm: 'auto' },
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.25)',
+                  borderColor: 'rgba(255, 255, 255, 0.7)',
+                  color: '#ffffff',
+                },
+              }}
+            >
+              Book Test Drive
+            </Button>
+
+            {/* 3. Find Nexa */}
+            <Button
+              component={Link}
+              href="/locations"
+              variant="outlined"
+              sx={{
+                borderColor: 'rgba(255, 255, 255, 0.85)',
+                color: '#ffffff',
+                backgroundColor: 'transparent',
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                textTransform: 'none',
+                textDecoration: 'none',
+                px: 3.2,
+                py: 1.15,
+                borderRadius: '6px',
+                width: { xs: '100%', sm: 'auto' },
+                '&:hover': {
+                  borderColor: '#ffffff',
+                  backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                  color: '#ffffff',
+                },
+              }}
+            >
+              Find Nexa
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+
       {/* Interactive Modal matching Screenshots (Book Test Drive / Get Price / EMI Calculator) */}
       <VehicleModal
         open={dialogOpen}
