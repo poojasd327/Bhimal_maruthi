@@ -17,7 +17,7 @@ export const siteConfig = {
   navLinks: [
     { title: "Arena", path: "/arena", testId: "link-nav-arena" },
     { title: "Nexa", path: "/nexa", testId: "link-nav-nexa" },
-    { title: "Commercial", path: "/#commercial", testId: "link-nav-commercial" },
+    { title: "Commercial", path: "/commercial", testId: "link-nav-commercial" },
     { title: "Offers", path: "/#offers", testId: "link-nav-offers", isOffers: true },
     { title: "Service", path: "/services", testId: "link-nav-service" },
     { title: "True Value", path: "/#true-value", testId: "link-nav-true-value" },

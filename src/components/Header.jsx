@@ -103,6 +103,9 @@ export default function Header() {
     if (pathname === '/nexa') {
       return item.path === '/nexa' || item.title.toLowerCase() === 'nexa';
     }
+    if (pathname === '/commercial') {
+      return item.path === '/commercial' || item.title.toLowerCase() === 'commercial';
+    }
     if (pathname === '/services') {
       return item.path === '/services' || item.title.toLowerCase() === 'service';
     }
