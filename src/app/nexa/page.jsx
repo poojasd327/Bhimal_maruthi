@@ -20,6 +20,8 @@ import {
   IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import VehicleModal from '@/components/VehicleModal';
+import { getBrochureUrl } from '@/config/brochures';
 
 const NEXA_BLUE = '#1d68c9';
 const NEXA_DARK_BLUE = '#144a91';
@@ -601,12 +603,13 @@ export default function NexaPage() {
                         </Box>
 
                         <Box
-                          component="button"
-                          onClick={() => handleActionClick('Brochure', car)}
+                          component="a"
+                          href={getBrochureUrl(car)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-foreground font-medium transition-colors underline-offset-2 hover:underline hover:text-primary"
                           sx={{
-                            background: 'none',
-                            border: 'none',
-                            p: 0,
+                            textDecoration: 'none',
                             font: 'inherit',
                             color: 'inherit',
                             cursor: 'pointer',
@@ -680,193 +683,18 @@ export default function NexaPage() {
         </Container>
       </Box>
 
-      {/* Interactive Modal (Test Drive / Brochure / Get Price / EMI Calculator) */}
-      <Dialog
+      {/* Interactive Modal matching Screenshots (Book Test Drive / Get Price / EMI Calculator) */}
+      <VehicleModal
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        maxWidth="sm"
-        fullWidth
-        slotProps={{
-          paper: {
-            sx: {
-              borderRadius: 3,
-              p: 1,
-            },
-          },
+        action={dialogAction}
+        vehicleName={activeCar?.name || 'Maruti Suzuki Grand Vitara'}
+        onSuccess={(data) => {
+          const type = data.action === 'Book Test Drive' ? 'Nexa Test Drive request' : 'Nexa Price quote request';
+          setSnackbarMsg(`Thank you, ${data.fullName || 'valued customer'}! Your ${type} for ${data.model} has been received.`);
+          setSnackbarOpen(true);
         }}
-      >
-        <DialogTitle sx={{ m: 0, p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h6" sx={{ fontWeight: 700, color: TEXT_DARK }}>
-            {dialogAction === 'EMI Calculator'
-              ? `EMI Calculator: ${activeCar.name}`
-              : `${dialogAction}: ${activeCar.name}`}
-          </Typography>
-          <IconButton onClick={() => setDialogOpen(false)} size="small" aria-label="close">
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-
-        {dialogAction === 'EMI Calculator' ? (
-          <Box sx={{ p: 3 }}>
-            <Box
-              sx={{
-                p: 2.5,
-                borderRadius: 2,
-                backgroundColor: '#f8fafc',
-                border: '1px solid #e2e8f0',
-                mb: 3,
-                textAlign: 'center',
-              }}
-            >
-              <Typography variant="body2" sx={{ color: TEXT_MUTED, mb: 0.5 }}>
-                Estimated Monthly EMI for {activeCar.name} ({activeCar.price})
-              </Typography>
-              <Typography
-                sx={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  fontWeight: 700,
-                  fontSize: '2.5rem',
-                  color: NEXA_BLUE,
-                }}
-              >
-                ₹{calculateEMI()}
-                <Typography component="span" sx={{ fontSize: '1rem', color: TEXT_MUTED }}>
-                  /month
-                </Typography>
-              </Typography>
-              <Typography variant="caption" sx={{ color: TEXT_MUTED, display: 'block', mt: 0.5 }}>
-                *Calculated with 85% loan funding at {interestRate}% p.a. over {loanTenure} years.
-              </Typography>
-            </Box>
-
-            <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2" sx={{ fontWeight: 600, color: TEXT_DARK }}>
-                  Loan Tenure
-                </Typography>
-                <Typography variant="body2" sx={{ fontWeight: 700, color: NEXA_BLUE }}>
-                  {loanTenure} Years ({loanTenure * 12} Months)
-                </Typography>
-              </Box>
-              <Slider
-                value={loanTenure}
-                min={1}
-                max={7}
-                step={1}
-                marks
-                onChange={(e, val) => setLoanTenure(val)}
-                sx={{ color: NEXA_BLUE }}
-              />
-            </Box>
-
-            <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2" sx={{ fontWeight: 600, color: TEXT_DARK }}>
-                  Interest Rate (p.a.)
-                </Typography>
-                <Typography variant="body2" sx={{ fontWeight: 700, color: NEXA_BLUE }}>
-                  {interestRate}%
-                </Typography>
-              </Box>
-              <Slider
-                value={interestRate}
-                min={7.5}
-                max={14}
-                step={0.25}
-                onChange={(e, val) => setInterestRate(val)}
-                sx={{ color: NEXA_BLUE }}
-              />
-            </Box>
-
-            <DialogActions sx={{ px: 0, pt: 2 }}>
-              <Button onClick={() => setDialogOpen(false)} sx={{ color: TEXT_MUTED }}>
-                Close
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setDialogAction('Get Price');
-                }}
-                sx={{
-                  backgroundColor: NEXA_BLUE,
-                  color: '#ffffff',
-                  fontWeight: 700,
-                  px: 3,
-                  '&:hover': { backgroundColor: NEXA_DARK_BLUE },
-                }}
-              >
-                Apply for Nexa Finance
-              </Button>
-            </DialogActions>
-          </Box>
-        ) : (
-          <Box component="form" onSubmit={handleFormSubmit}>
-            <DialogContent dividers sx={{ p: 3 }}>
-              <Typography variant="body2" sx={{ color: TEXT_MUTED, mb: 3 }}>
-                Enter your details to receive an instant {dialogAction.toLowerCase()} quotation and exclusive showroom offers from Bimal Maruti Nexa.
-              </Typography>
-
-              <Grid container spacing={2}>
-                <Grid size={{ xs: 12, sm: 6 }}>
-                  <TextField required fullWidth label="Full Name" size="small" defaultValue="Customer" />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 6 }}>
-                  <TextField required fullWidth label="Phone Number" size="small" defaultValue="+91 " />
-                </Grid>
-                <Grid size={{ xs: 12 }}>
-                  <TextField
-                    select
-                    fullWidth
-                    label="Preferred Nexa Showroom"
-                    size="small"
-                    defaultValue="Bangalore - Indiranagar Nexa"
-                  >
-                    <MenuItem value="Bangalore - Indiranagar Nexa">Bangalore - Indiranagar Nexa</MenuItem>
-                    <MenuItem value="Bangalore - Whitefield Nexa">Bangalore - Whitefield Nexa</MenuItem>
-                    <MenuItem value="Bangalore - Yelahanka Nexa">Bangalore - Yelahanka Nexa</MenuItem>
-                    <MenuItem value="Bangalore - Mahadevapura Nexa">Bangalore - Mahadevapura Nexa</MenuItem>
-                    <MenuItem value="Mysore - Hunsur Road Nexa">Mysore - Hunsur Road Nexa</MenuItem>
-                    <MenuItem value="Mangalore - Bejai Nexa">Mangalore - Bejai Nexa</MenuItem>
-                  </TextField>
-                </Grid>
-                <Grid size={{ xs: 12 }}>
-                  <TextField
-                    fullWidth
-                    multiline
-                    rows={2}
-                    label="Variant / Powertrain Preference"
-                    size="small"
-                    placeholder="e.g. Strong Hybrid / Smart Hybrid / Electric, AllGrip AWD, or test drive at home"
-                  />
-                </Grid>
-              </Grid>
-            </DialogContent>
-
-            <DialogActions sx={{ p: 2.5 }}>
-              <Button onClick={() => setDialogOpen(false)} sx={{ color: TEXT_MUTED }}>
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  backgroundColor: NEXA_BLUE,
-                  color: '#ffffff',
-                  fontWeight: 700,
-                  px: 3,
-                  '&:hover': { backgroundColor: NEXA_DARK_BLUE },
-                }}
-              >
-                {dialogAction === 'Brochure'
-                  ? 'Download Nexa Brochure'
-                  : dialogAction === 'Test Drive'
-                  ? 'Schedule Nexa Test Drive'
-                  : 'Get Nexa On-Road Quote'}
-              </Button>
-            </DialogActions>
-          </Box>
-        )}
-      </Dialog>
+      />
 
       {/* Snackbar feedback */}
       <Snackbar

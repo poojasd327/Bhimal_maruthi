@@ -20,6 +20,8 @@ import {
   IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import VehicleModal from '@/components/VehicleModal';
+import { getBrochureUrl } from '@/config/brochures';
 
 const ACCENT_RED = '#e7210b';
 const TEXT_MUTED = '#64748b';
@@ -598,12 +600,13 @@ export default function CommercialPage() {
                         </Box>
 
                         <Box
-                          component="button"
-                          onClick={() => handleActionClick('Brochure', car)}
+                          component="a"
+                          href={getBrochureUrl(car)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-foreground font-medium transition-colors underline-offset-2 hover:underline hover:text-primary"
                           sx={{
-                            background: 'none',
-                            border: 'none',
-                            p: 0,
+                            textDecoration: 'none',
                             font: 'inherit',
                             color: 'inherit',
                             cursor: 'pointer',
@@ -873,200 +876,18 @@ export default function CommercialPage() {
         </Container>
       </Box>
 
-      {/* Interactive Modal (Test Drive / Brochure / Get Price / EMI Calculator / Demo) */}
-      <Dialog
+      {/* Interactive Modal matching Screenshots (Book Test Drive / Get Price / EMI Calculator) */}
+      <VehicleModal
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        maxWidth="sm"
-        fullWidth
-        slotProps={{
-          paper: {
-            sx: {
-              borderRadius: 3,
-              p: 1,
-            },
-          },
+        action={dialogAction}
+        vehicleName={activeCar?.name || 'Maruti Suzuki Super Carry'}
+        onSuccess={(data) => {
+          const type = data.action === 'Book Test Drive' ? 'Commercial Demo/Test Drive request' : 'Commercial Price quote request';
+          setSnackbarMsg(`Thank you, ${data.fullName || 'valued customer'}! Your ${type} for ${data.model} has been received.`);
+          setSnackbarOpen(true);
         }}
-      >
-        <DialogTitle sx={{ m: 0, p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h6" sx={{ fontWeight: 700, color: TEXT_DARK }}>
-            {dialogAction === 'EMI Calculator'
-              ? `Commercial EMI Calculator: ${activeCar.name}`
-              : `${dialogAction}: ${activeCar.name}`}
-          </Typography>
-          <IconButton onClick={() => setDialogOpen(false)} size="small" aria-label="close">
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-
-        {dialogAction === 'EMI Calculator' ? (
-          <Box sx={{ p: 3 }}>
-            <Box
-              sx={{
-                p: 2.5,
-                borderRadius: 2,
-                backgroundColor: '#f8fafc',
-                border: '1px solid #e2e8f0',
-                mb: 3,
-                textAlign: 'center',
-              }}
-            >
-              <Typography variant="body2" sx={{ color: TEXT_MUTED, mb: 0.5 }}>
-                Estimated Monthly EMI for {activeCar.name} ({activeCar.price})
-              </Typography>
-              <Typography
-                sx={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  fontWeight: 700,
-                  fontSize: '2.5rem',
-                  color: ACCENT_RED,
-                }}
-              >
-                ₹{calculateEMI()}
-                <Typography component="span" sx={{ fontSize: '1rem', color: TEXT_MUTED }}>
-                  /month
-                </Typography>
-              </Typography>
-              <Typography variant="caption" sx={{ color: TEXT_MUTED, display: 'block', mt: 0.5 }}>
-                *Calculated with 85% commercial loan funding at {interestRate}% p.a. over {loanTenure} years.
-              </Typography>
-            </Box>
-
-            <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2" sx={{ fontWeight: 600, color: TEXT_DARK }}>
-                  Loan Tenure
-                </Typography>
-                <Typography variant="body2" sx={{ fontWeight: 700, color: ACCENT_RED }}>
-                  {loanTenure} Years ({loanTenure * 12} Months)
-                </Typography>
-              </Box>
-              <Slider
-                value={loanTenure}
-                min={1}
-                max={7}
-                step={1}
-                marks
-                onChange={(e, val) => setLoanTenure(val)}
-                sx={{ color: ACCENT_RED }}
-              />
-            </Box>
-
-            <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2" sx={{ fontWeight: 600, color: TEXT_DARK }}>
-                  Commercial Interest Rate (p.a.)
-                </Typography>
-                <Typography variant="body2" sx={{ fontWeight: 700, color: ACCENT_RED }}>
-                  {interestRate}%
-                </Typography>
-              </Box>
-              <Slider
-                value={interestRate}
-                min={7.5}
-                max={15}
-                step={0.25}
-                onChange={(e, val) => setInterestRate(val)}
-                sx={{ color: ACCENT_RED }}
-              />
-            </Box>
-
-            <DialogActions sx={{ px: 0, pt: 2 }}>
-              <Button onClick={() => setDialogOpen(false)} sx={{ color: TEXT_MUTED }}>
-                Close
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setDialogAction('Get Price');
-                }}
-                sx={{
-                  backgroundColor: ACCENT_RED,
-                  color: '#ffffff',
-                  fontWeight: 700,
-                  px: 3,
-                  '&:hover': { backgroundColor: '#dc2626' },
-                }}
-              >
-                Apply for Commercial Finance
-              </Button>
-            </DialogActions>
-          </Box>
-        ) : (
-          <Box component="form" onSubmit={handleFormSubmit}>
-            <DialogContent dividers sx={{ p: 3 }}>
-              <Typography variant="body2" sx={{ color: TEXT_MUTED, mb: 3 }}>
-                Enter your business or personal details to receive an instant commercial quote and customized fleet
-                financing options from Bimal Maruti.
-              </Typography>
-
-              <Grid container spacing={2}>
-                <Grid size={{ xs: 12, sm: 6 }}>
-                  <TextField required fullWidth label="Contact Name" size="small" defaultValue="Business Owner" />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 6 }}>
-                  <TextField required fullWidth label="Phone Number" size="small" defaultValue="+91 " />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 6 }}>
-                  <TextField fullWidth label="Business / Company Name (Optional)" size="small" />
-                </Grid>
-                <Grid size={{ xs: 12, sm: 6 }}>
-                  <TextField
-                    select
-                    fullWidth
-                    label="Fleet Size Required"
-                    size="small"
-                    defaultValue="1 Vehicle"
-                  >
-                    <MenuItem value="1 Vehicle">1 Vehicle</MenuItem>
-                    <MenuItem value="2 - 5 Vehicles">2 - 5 Vehicles (Small Fleet)</MenuItem>
-                    <MenuItem value="6 - 15 Vehicles">6 - 15 Vehicles (Medium Fleet)</MenuItem>
-                    <MenuItem value="16+ Vehicles">16+ Vehicles (Corporate Fleet)</MenuItem>
-                  </TextField>
-                </Grid>
-                <Grid size={{ xs: 12 }}>
-                  <TextField
-                    select
-                    fullWidth
-                    label="Preferred Commercial Showroom"
-                    size="small"
-                    defaultValue="Bangalore - Indiranagar Commercial"
-                  >
-                    <MenuItem value="Bangalore - Indiranagar Commercial">Bangalore - Indiranagar Commercial</MenuItem>
-                    <MenuItem value="Bangalore - Whitefield Commercial">Bangalore - Whitefield Commercial</MenuItem>
-                    <MenuItem value="Bangalore - Yelahanka Commercial">Bangalore - Yelahanka Commercial</MenuItem>
-                    <MenuItem value="Bangalore - Mahadevapura Commercial">Bangalore - Mahadevapura Commercial</MenuItem>
-                    <MenuItem value="Mysore - Hunsur Road Commercial">Mysore - Hunsur Road Commercial</MenuItem>
-                  </TextField>
-                </Grid>
-              </Grid>
-            </DialogContent>
-
-            <DialogActions sx={{ p: 2.5 }}>
-              <Button onClick={() => setDialogOpen(false)} sx={{ color: TEXT_MUTED }}>
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  backgroundColor: ACCENT_RED,
-                  color: '#ffffff',
-                  fontWeight: 700,
-                  px: 3,
-                  '&:hover': { backgroundColor: '#dc2626' },
-                }}
-              >
-                {dialogAction === 'Brochure'
-                  ? 'Download Commercial Brochure'
-                  : dialogAction === 'Test Drive'
-                  ? 'Schedule Test Drive'
-                  : 'Get Fleet Quote'}
-              </Button>
-            </DialogActions>
-          </Box>
-        )}
-      </Dialog>
+      />
 
       {/* Snackbar feedback */}
       <Snackbar

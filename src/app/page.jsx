@@ -21,6 +21,8 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HeroSlider from '@/components/HeroSlider';
+import VehicleModal from '@/components/VehicleModal';
+import { getBrochureUrl } from '@/config/brochures';
 
 const ACCENT_RED = '#e7210b';
 const ACCENT_BLUE = '#1d68c9';
@@ -881,7 +883,7 @@ export default function HomePage() {
                     >
                       <Box
                         component="button"
-                        onClick={() => handleOpenAction('Test Drive', car.name)}
+                        onClick={() => handleOpenAction('Book Test Drive', car.name)}
                         sx={{
                           border: 'none',
                           background: 'none',
@@ -898,19 +900,17 @@ export default function HomePage() {
                       <Box component="span" sx={{ color: '#cbd5e1' }}>|</Box>
 
                       <Box
-                        component="button"
-                        onClick={() => {
-                          setSnackbarMsg(`Downloading official brochure for ${car.name}...`);
-                          setSnackbarOpen(true);
-                        }}
+                        component="a"
+                        href={getBrochureUrl(car)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-foreground font-medium transition-colors underline-offset-2 hover:underline hover:text-primary"
                         sx={{
-                          border: 'none',
-                          background: 'none',
-                          p: 0,
-                          cursor: 'pointer',
+                          textDecoration: 'none',
                           fontWeight: 600,
                           color: TEXT_DARK,
                           transition: 'color 0.15s ease',
+                          cursor: 'pointer',
                           '&:hover': { color: ACCENT_RED, textDecoration: 'underline' },
                         }}
                       >
@@ -920,7 +920,7 @@ export default function HomePage() {
 
                       <Box
                         component="button"
-                        onClick={() => handleOpenAction('Get On-Road Price', car.name)}
+                        onClick={() => handleOpenAction('Get Price', car.name)}
                         sx={{
                           border: 'none',
                           background: 'none',
@@ -1563,92 +1563,18 @@ export default function HomePage() {
         </Container>
       </Box>
 
-      {/* Interactive Booking / Test Drive Dialog */}
-      <Dialog
+      {/* Interactive Modal matching Screenshots (Book Test Drive / Get Price / EMI Calculator) */}
+      <VehicleModal
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        maxWidth="sm"
-        fullWidth
-        slotProps={{
-          paper: {
-            sx: {
-              borderRadius: 3,
-              p: 1,
-            },
-          },
+        action={dialogAction}
+        vehicleName={selectedVehicle}
+        onSuccess={(data) => {
+          const type = data.action === 'Book Test Drive' ? 'Test Drive request' : 'On-Road Price quote request';
+          setSnackbarMsg(`Thank you, ${data.fullName || 'valued customer'}! Your ${type} for ${data.model} has been received.`);
+          setSnackbarOpen(true);
         }}
-      >
-        <DialogTitle sx={{ m: 0, p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h6" sx={{ fontWeight: 700, color: TEXT_DARK }}>
-            {dialogAction}: {selectedVehicle}
-          </Typography>
-          <IconButton onClick={() => setDialogOpen(false)} size="small" aria-label="close">
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-
-        <Box component="form" onSubmit={handleFormSubmit}>
-          <DialogContent dividers sx={{ p: 3 }}>
-            <Typography variant="body2" sx={{ color: TEXT_MUTED, mb: 3 }}>
-              Enter your contact details to schedule your {dialogAction.toLowerCase()} or receive an instant price quote from Bimal Maruti.
-            </Typography>
-
-            <Grid container spacing={2}>
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <TextField required fullWidth label="Full Name" size="small" defaultValue="Customer" />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 6 }}>
-                <TextField required fullWidth label="Phone Number" size="small" defaultValue="+91 " />
-              </Grid>
-              <Grid size={{ xs: 12 }}>
-                <TextField
-                  select
-                  fullWidth
-                  label="Preferred City / Showroom"
-                  size="small"
-                  defaultValue="Bangalore - Indiranagar"
-                >
-                  <MenuItem value="Bangalore - Indiranagar">Bangalore - Indiranagar</MenuItem>
-                  <MenuItem value="Bangalore - Whitefield">Bangalore - Whitefield</MenuItem>
-                  <MenuItem value="Bangalore - Yelahanka">Bangalore - Yelahanka</MenuItem>
-                  <MenuItem value="Mysore - Hunsur Road">Mysore - Hunsur Road</MenuItem>
-                  <MenuItem value="Mangalore - Bejai">Mangalore - Bejai</MenuItem>
-                  <MenuItem value="Kochi - Edappally">Kochi - Edappally</MenuItem>
-                </TextField>
-              </Grid>
-              <Grid size={{ xs: 12 }}>
-                <TextField
-                  fullWidth
-                  multiline
-                  rows={2}
-                  label="Special Requirements / Note"
-                  size="small"
-                  placeholder="e.g. Preferred test drive time, exchange evaluation, or financing request"
-                />
-              </Grid>
-            </Grid>
-          </DialogContent>
-
-          <DialogActions sx={{ p: 2.5 }}>
-            <Button onClick={() => setDialogOpen(false)} sx={{ color: TEXT_MUTED }}>
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{
-                backgroundColor: ACCENT_RED,
-                color: '#ffffff',
-                fontWeight: 700,
-                px: 3,
-                '&:hover': { backgroundColor: '#dc2626' },
-              }}
-            >
-              Submit Request
-            </Button>
-          </DialogActions>
-        </Box>
-      </Dialog>
+      />
 
       {/* Snackbar feedback */}
       <Snackbar
