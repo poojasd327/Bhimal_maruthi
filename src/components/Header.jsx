@@ -93,41 +93,14 @@ function MenuIconSvg() {
 export default function Header() {
   const pathname = usePathname();
 
-  // Active tab state (defaults to 'Arena' as in the screenshot)
-  const [activeTab, setActiveTab] = useState('Arena');
-
   const isLinkActive = (item) => {
-    if (pathname === '/arena') {
-      return item.path === '/arena' || item.title.toLowerCase() === 'arena';
+    if (!pathname || pathname === '/') {
+      return false;
     }
-    if (pathname === '/nexa') {
-      return item.path === '/nexa' || item.title.toLowerCase() === 'nexa';
+    if (item.path === '/service' || item.path === '/services') {
+      return pathname === '/service' || pathname === '/services';
     }
-    if (pathname === '/commercial') {
-      return item.path === '/commercial' || item.title.toLowerCase() === 'commercial';
-    }
-    if (pathname === '/offers') {
-      return item.path === '/offers' || item.title.toLowerCase() === 'offers';
-    }
-    if (pathname === '/services' || pathname === '/service') {
-      return item.path === '/services' || item.path === '/service' || item.title.toLowerCase() === 'service';
-    }
-    if (pathname === '/true-value') {
-      return item.path === '/true-value' || item.title.toLowerCase() === 'true value';
-    }
-    if (pathname === '/driving-school') {
-      return item.path === '/driving-school' || item.title.toLowerCase() === 'driving school';
-    }
-    if (pathname === '/accessories') {
-      return item.path === '/accessories' || item.title.toLowerCase() === 'accessories';
-    }
-    if (pathname === '/locations') {
-      return item.path === '/locations' || item.title.toLowerCase() === 'locations';
-    }
-    if (pathname === '/contact') {
-      return item.path === '/contact' || item.title.toLowerCase() === 'contact';
-    }
-    return activeTab.toLowerCase() === item.title.toLowerCase();
+    return pathname === item.path || pathname.startsWith(item.path + '/');
   };
 
   // Mobile drawer state
@@ -233,7 +206,6 @@ export default function Header() {
                     component={Link}
                     href={item.path}
                     data-testid={item.testId}
-                    onClick={() => setActiveTab(item.title)}
                     sx={{
                       position: 'relative',
                       px: { md: 0.5, lg: 0.8, xl: 1.2 },
@@ -256,7 +228,6 @@ export default function Header() {
                   component={Link}
                   href={item.path}
                   data-testid={item.testId}
-                  onClick={() => setActiveTab(item.title)}
                   sx={{
                     position: 'relative',
                     px: { md: 0.5, lg: 0.8, xl: 1.2 },
@@ -493,7 +464,6 @@ export default function Header() {
                   component={Link}
                   href={item.path}
                   onClick={() => {
-                    setActiveTab(item.title);
                     setMobileOpen(false);
                   }}
                   sx={{
