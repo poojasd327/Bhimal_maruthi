@@ -121,6 +121,9 @@ export default function Header() {
     if (pathname === '/accessories') {
       return item.path === '/accessories' || item.title.toLowerCase() === 'accessories';
     }
+    if (pathname === '/locations') {
+      return item.path === '/locations' || item.title.toLowerCase() === 'locations';
+    }
     if (pathname === '/contact') {
       return item.path === '/contact' || item.title.toLowerCase() === 'contact';
     }
