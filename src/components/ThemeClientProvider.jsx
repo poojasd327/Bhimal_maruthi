@@ -23,10 +23,7 @@ function subscribe(callback) {
 
 function getSnapshot() {
   const saved = localStorage.getItem('theme-mode');
-  if (saved === 'light' || saved === 'dark') return saved;
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark';
-  }
+  if (saved === 'dark') return 'dark';
   return 'light';
 }
 

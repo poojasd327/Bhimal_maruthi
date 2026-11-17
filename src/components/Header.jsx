@@ -122,7 +122,7 @@ export default function Header() {
       color="default"
       elevation={0}
       sx={{
-        backgroundColor: isDark ? '#0f172a' : '#fafafa',
+        backgroundColor: isDark ? '#0f172a' : '#ffffff',
         borderBottom: '1px solid',
         borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#ecedf0',
         transition: 'all 0.2s ease',

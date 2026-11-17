@@ -20,14 +20,14 @@ export const getTheme = (mode = 'light') => {
         contrastText: '#ffffff',
       },
       background: {
-        default: isDark ? '#0f172a' : '#f8fafc',
+        default: isDark ? '#0f172a' : '#ffffff',
         paper: isDark ? '#1e293b' : '#ffffff',
       },
       text: {
         primary: isDark ? '#f1f5f9' : '#0f172a',
         secondary: isDark ? '#94a3b8' : '#64748b',
       },
-      divider: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)',
+      divider: isDark ? 'rgba(255, 255, 255, 0.08)' : '#ecedf0',
     },
     shape: {
       borderRadius: 10,

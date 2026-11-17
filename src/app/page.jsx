@@ -46,7 +46,7 @@ export default function HomePage() {
           overflow: 'hidden',
           background: isDark
             ? 'radial-gradient(ellipse at 50% 20%, rgba(30, 58, 138, 0.25) 0%, rgba(15, 23, 42, 0) 70%)'
-            : 'radial-gradient(ellipse at 50% 20%, rgba(219, 234, 254, 0.7) 0%, rgba(248, 250, 252, 0) 70%)',
+            : '#ffffff',
         }}
       >
         <Container maxWidth="lg">
@@ -233,7 +233,7 @@ export default function HomePage() {
       </Container>
 
       {/* Quick Architecture Highlights */}
-      <Box sx={{ py: 10, backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : '#f1f5f9' }}>
+      <Box sx={{ py: 10, backgroundColor: isDark ? '#1e293b' : '#ffffff', borderTop: '1px solid', borderBottom: '1px solid', borderColor: 'divider' }}>
         <Container maxWidth="lg">
           <Grid container spacing={6} sx={{ alignItems: 'center' }}>
             <Grid size={{ xs: 12, md: 6 }}>
