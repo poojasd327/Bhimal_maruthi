@@ -12,8 +12,8 @@ const slides = [
     ctaText: 'EXPLORE BALENO',
     ctaHref: '#range',
     ctaBg: '#1d68c9', // Signature Baleno Nexa blue
-    image: '/images/hero-baleno.jpg',
-    overlayOpacity: 0.45,
+    image: '/images/hero-baleno.png',
+    overlayOpacity: 0.4,
   },
   {
     id: 2,
@@ -21,49 +21,49 @@ const slides = [
     title: 'Exclusive Offers This Month',
     ctaText: 'VIEW OFFERS',
     ctaHref: '#offers',
-    ctaBg: '#e7210b',
+    ctaBg: '#e7210b', // Bimal Red
     image: '/images/hero-nexa.webp',
-    overlayOpacity: 0.55,
+    overlayOpacity: 0.45,
   },
   {
     id: 3,
-    subtitle: 'MARUTI SUZUKI E VITARA / GRAND VITARA',
-    title: 'Go Electric. Go Nexa.',
+    subtitle: 'MARUTI SUZUKI FRONX / BALENO',
+    title: 'Drive the Future — Nexa Collection',
     ctaText: 'EXPLORE NEXA',
     ctaHref: '#range',
-    ctaBg: '#1d68c9',
-    image: '/images/e-vitara.webp',
-    overlayOpacity: 0.55,
+    ctaBg: '#1d68c9', // Nexa Blue
+    image: '/images/hero-arena.webp',
+    overlayOpacity: 0.4,
   },
   {
     id: 4,
-    subtitle: 'HOT & TECHY CITY SUV',
-    title: 'Maruti Suzuki Brezza',
-    ctaText: 'EXPLORE ARENA',
+    subtitle: 'PREMIUM MID-SIZE CROSSOVER',
+    title: 'The New Victoris',
+    ctaText: 'EXPLORE VICTORIS',
     ctaHref: '#range',
-    ctaBg: '#e7210b',
-    image: '/images/brezza.webp',
+    ctaBg: '#e7210b', // Red
+    image: '/images/hero-victoris.webp',
     overlayOpacity: 0.45,
   },
   {
     id: 5,
-    subtitle: 'PREMIUM MID-SIZE CROSSOVER',
-    title: 'Maruti Suzuki Victoris',
-    ctaText: 'VIEW OFFERS',
-    ctaHref: '#offers',
-    ctaBg: '#e7210b',
-    image: '/images/victoris.webp',
+    subtitle: 'MARUTI SUZUKI E VITARA / GRAND VITARA',
+    title: 'Go Electric. Go Nexa.',
+    ctaText: 'EXPLORE NEXA',
+    ctaHref: '#range',
+    ctaBg: '#1d68c9', // Nexa Blue
+    image: '/images/hero-evitara.webp',
     overlayOpacity: 0.45,
   },
   {
     id: 6,
-    subtitle: 'RULE EVERY ROAD — INTELLIGENT HYBRID',
-    title: 'Grand Vitara Intelligent Hybrid',
-    ctaText: 'EXPLORE NEXA',
+    subtitle: 'LEAD EVERY PLAY',
+    title: 'The New Brezza',
+    ctaText: 'EXPLORE BREZZA',
     ctaHref: '#range',
-    ctaBg: '#1d68c9',
-    image: '/images/grand-vitara-no-bg.png',
-    overlayOpacity: 0.5,
+    ctaBg: '#e7210b', // Red
+    image: '/images/hero-brezza.png',
+    overlayOpacity: 0.45,
   },
 ];
 
@@ -206,10 +206,10 @@ export default function HeroSlider() {
                   <Typography
                     variant="body2"
                     sx={{
-                      mb: 1.5,
-                      fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                      fontWeight: 700,
-                      letterSpacing: '0.2em',
+                      mb: { xs: 1.5, md: 2 },
+                      fontSize: { xs: '0.78rem', sm: '0.875rem' },
+                      fontWeight: 600,
+                      letterSpacing: '0.22em',
                       textTransform: 'uppercase',
                       color: 'rgba(255, 255, 255, 0.9)',
                       textShadow: '0 2px 8px rgba(0,0,0,0.6)',
@@ -224,13 +224,13 @@ export default function HeroSlider() {
                     component="h1"
                     sx={{
                       mb: { xs: 3, md: 4 },
-                      fontSize: { xs: '2.4rem', sm: '3.6rem', md: '4.8rem' },
-                      fontWeight: 800,
-                      letterSpacing: '-0.02em',
+                      fontSize: { xs: '2.6rem', sm: '3.8rem', md: '5rem', lg: '5.4rem' },
+                      fontWeight: 700,
+                      letterSpacing: '-0.01em',
                       color: '#ffffff',
-                      lineHeight: 1.1,
-                      textShadow: '0 4px 16px rgba(0,0,0,0.7)',
-                      fontFamily: '"Rajdhani", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                      lineHeight: 1.05,
+                      textShadow: '0 4px 20px rgba(0,0,0,0.8)',
+                      fontFamily: '"Rajdhani", sans-serif',
                     }}
                   >
                     {slide.title}
@@ -245,13 +245,14 @@ export default function HeroSlider() {
                       backgroundColor: slide.ctaBg,
                       color: '#ffffff',
                       px: { xs: 4, sm: 5 },
-                      py: { xs: 1.2, sm: 1.6 },
-                      fontSize: { xs: '0.9rem', sm: '1.05rem' },
+                      py: { xs: 1.3, sm: 1.6 },
+                      fontSize: { xs: '0.9rem', sm: '1rem' },
                       fontWeight: 700,
                       letterSpacing: '0.08em',
                       textTransform: 'uppercase',
                       borderRadius: '6px',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                      border: slide.ctaBg === '#1d68c9' ? '1px solid #1456a8' : '1px solid #c91804',
+                      boxShadow: '0 4px 18px rgba(0,0,0,0.35)',
                       transition: 'all 0.2s ease',
                       '&:hover': {
                         backgroundColor: slide.ctaBg,
