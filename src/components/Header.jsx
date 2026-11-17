@@ -100,6 +100,9 @@ export default function Header() {
     if (pathname === '/arena') {
       return item.path === '/arena' || item.title.toLowerCase() === 'arena';
     }
+    if (pathname === '/nexa') {
+      return item.path === '/nexa' || item.title.toLowerCase() === 'nexa';
+    }
     if (pathname === '/services') {
       return item.path === '/services' || item.title.toLowerCase() === 'service';
     }
