@@ -1308,21 +1308,27 @@ export default function HomePage() {
               <Box
                 sx={{
                   position: 'relative',
-                  borderRadius: 4,
-                  overflow: 'hidden',
-                  filter: 'drop-shadow(0 0 50px rgba(29, 78, 216, 0.3))',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  filter: 'drop-shadow(0 20px 40px rgba(29, 78, 216, 0.25))',
+                  py: { xs: 2, lg: 4 },
                 }}
               >
                 <Box
                   component="img"
-                  src="/images/e-vitara.webp"
+                  src="/images/suv/e-vitara-no-bg.png"
                   alt="Maruti Suzuki e Vitara"
                   sx={{
                     width: '100%',
+                    maxWidth: 580,
                     height: 'auto',
-                    objectFit: 'cover',
-                    borderRadius: 4,
+                    objectFit: 'contain',
                     display: 'block',
+                    transition: 'transform 0.4s ease',
+                    '&:hover': {
+                      transform: 'scale(1.02)',
+                    },
                   }}
                 />
               </Box>
