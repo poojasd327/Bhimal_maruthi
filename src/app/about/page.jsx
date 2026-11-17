@@ -48,7 +48,7 @@ export default function AboutPage() {
             mb: 10,
           }}
         >
-          <Grid container spacing={4} alignItems="center">
+          <Grid container spacing={4} sx={{ alignItems: 'center' }}>
             <Grid size={{ xs: 12, md: 5 }}>
               <Typography variant="overline" color="primary" sx={{ fontWeight: 700, letterSpacing: '0.1em' }}>
                 Why We Exist
@@ -129,7 +129,7 @@ export default function AboutPage() {
             subtitle="Passionate builders and designers committed to exceptional craft."
           />
 
-          <Grid container spacing={4} justifyContent="center">
+          <Grid container spacing={4} sx={{ justifyContent: 'center' }}>
             {aboutContent.team.map((member, idx) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
                 <Card

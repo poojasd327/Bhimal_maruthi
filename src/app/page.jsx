@@ -152,7 +152,7 @@ export default function HomePage() {
               : '0 10px 30px rgba(0,0,0,0.06)',
           }}
         >
-          <Grid container spacing={3} alignItems="center">
+          <Grid container spacing={3} sx={{ alignItems: 'center' }}>
             {homeContent.stats.map((stat, index) => (
               <Grid size={{ xs: 6, md: 3 }} key={index} sx={{ textAlign: 'center' }}>
                 <Typography
@@ -235,7 +235,7 @@ export default function HomePage() {
       {/* Quick Architecture Highlights */}
       <Box sx={{ py: 10, backgroundColor: isDark ? 'rgba(30, 41, 59, 0.5)' : '#f1f5f9' }}>
         <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
+          <Grid container spacing={6} sx={{ alignItems: 'center' }}>
             <Grid size={{ xs: 12, md: 6 }}>
               <Chip
                 label="Developer Friendly"
