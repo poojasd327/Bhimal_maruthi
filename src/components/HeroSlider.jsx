@@ -20,7 +20,7 @@ const slides = [
     subtitle: 'CASH DISCOUNTS + EXCHANGE BONUS + 0% EMI',
     title: 'Exclusive Offers This Month',
     ctaText: 'VIEW OFFERS',
-    ctaHref: '#offers',
+    ctaHref: '/offers',
     ctaBg: '#e7210b', // Bimal Red
     image: '/images/hero-nexa.webp',
     overlayOpacity: 0.45,
@@ -30,7 +30,7 @@ const slides = [
     subtitle: 'MARUTI SUZUKI FRONX / BALENO',
     title: 'Drive the Future — Nexa Collection',
     ctaText: 'EXPLORE NEXA',
-    ctaHref: '#range',
+    ctaHref: '/nexa',
     ctaBg: '#1d68c9', // Nexa Blue
     image: '/images/hero-arena.webp',
     overlayOpacity: 0.4,
@@ -50,7 +50,7 @@ const slides = [
     subtitle: 'MARUTI SUZUKI E VITARA / GRAND VITARA',
     title: 'Go Electric. Go Nexa.',
     ctaText: 'EXPLORE NEXA',
-    ctaHref: '#range',
+    ctaHref: '/nexa',
     ctaBg: '#1d68c9', // Nexa Blue
     image: '/images/hero-evitara.webp',
     overlayOpacity: 0.45,

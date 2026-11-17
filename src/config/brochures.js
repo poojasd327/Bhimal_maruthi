@@ -79,3 +79,4 @@ export function getCarOnRoadPrice(car) {
   if (name.includes('super carry')) return 590000;
   return 1069500;
 }
+

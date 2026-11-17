@@ -1289,7 +1289,8 @@ export default function HomePage() {
                   </Button>
 
                   <Button
-                    onClick={() => handleOpenAction('Explore Details', 'Maruti Suzuki e Vitara')}
+                    component={Link}
+                    href="/nexa"
                     variant="outlined"
                     sx={{
                       px: 4.5,
@@ -1301,6 +1302,7 @@ export default function HomePage() {
                       borderRadius: '6px',
                       boxShadow: '0 0 20px rgba(29, 78, 216, 0.2)',
                       textTransform: 'none',
+                      textDecoration: 'none',
                       '&:hover': {
                         borderColor: ACCENT_BLUE,
                         backgroundColor: ACCENT_BLUE,
