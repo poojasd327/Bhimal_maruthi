@@ -1039,242 +1039,278 @@ export default function HomePage() {
       <Box
         component="section"
         sx={{
-          py: { xs: 8, md: 12 },
-          backgroundColor: '#090d16',
-          color: '#ffffff',
           position: 'relative',
+          width: '100%',
           overflow: 'hidden',
+          backgroundColor: 'color-mix(in oklab, hsl(210, 40%, 96.1%) 40%, transparent)',
+          borderTop: '1px solid',
+          borderBottom: '1px solid',
+          borderColor: BORDER_COLOR,
+          py: { xs: 8, md: 12, lg: 14 },
         }}
       >
-        <Container maxWidth="lg">
-          <Grid container spacing={{ xs: 4, md: 8 }} sx={{ alignItems: 'center' }}>
+        {/* Subtle accent gradient overlay */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to right, rgba(29, 104, 201, 0.08), transparent, transparent)',
+            pointerEvents: 'none',
+          }}
+        />
+
+        <Container maxWidth={false} sx={{ maxWidth: '1600px', px: { xs: 3, md: 6, lg: 10 }, position: 'relative', zIndex: 10 }}>
+          <Grid container spacing={{ xs: 6, lg: 8 }} sx={{ alignItems: 'center' }}>
             {/* Left Content */}
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Box
-                sx={{
-                  display: 'inline-block',
-                  px: 2,
-                  py: 0.6,
-                  borderRadius: '9999px',
-                  backgroundColor: 'rgba(231, 33, 11, 0.15)',
-                  border: '1px solid rgba(231, 33, 11, 0.3)',
-                  color: '#f87171',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  mb: 2.5,
-                }}
-              >
-                NOW AVAILABLE — INDIA&apos;S FIRST ELECTRIC SUV FROM MARUTI
-              </Box>
-
-              <Typography
-                variant="h2"
-                sx={{
-                  fontSize: { xs: '2.5rem', sm: '3.2rem', md: '4rem' },
-                  fontWeight: 800,
-                  color: '#ffffff',
-                  lineHeight: 1.1,
-                  fontFamily: 'inherit',
-                  mb: 1.5,
-                }}
-              >
-                Maruti Suzuki e Vitara
-              </Typography>
-
-              <Typography
-                sx={{
-                  fontSize: { xs: '1.1rem', md: '1.35rem' },
-                  color: '#94a3b8',
-                  mb: 4,
-                  fontWeight: 500,
-                }}
-              >
-                Zero Emissions. Maximum Luxury.
-              </Typography>
-
-              {/* 4 Specs Grid */}
-              <Grid container spacing={2.5} sx={{ mb: 4.5 }}>
-                <Grid size={{ xs: 6, sm: 6 }}>
+            <Grid size={{ xs: 12, lg: 6 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <Box>
                   <Box
+                    component="span"
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 2,
-                      p: 2,
-                      borderRadius: 2.5,
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      display: 'inline-block',
+                      px: 2,
+                      py: 0.6,
+                      borderRadius: '9999px',
+                      backgroundColor: 'rgba(231, 33, 11, 0.1)',
+                      border: '1px solid rgba(231, 33, 11, 0.2)',
+                      color: ACCENT_RED,
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      boxShadow: '0 0 10px rgba(220, 38, 38, 0.2)',
+                      mb: 2,
                     }}
                   >
-                    <Box
-                      sx={{
-                        p: 1.2,
-                        borderRadius: 2,
-                        backgroundColor: 'rgba(29, 104, 201, 0.25)',
-                        display: 'flex',
-                      }}
-                    >
-                      <ZapIconSvg />
-                    </Box>
-                    <Box>
-                      <Typography sx={{ fontSize: '0.75rem', color: '#94a3b8' }}>Range</Typography>
-                      <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
-                        500+ km
-                      </Typography>
-                    </Box>
+                    NOW AVAILABLE — INDIA&apos;S FIRST ELECTRIC SUV FROM MARUTI
                   </Box>
-                </Grid>
 
-                <Grid size={{ xs: 6, sm: 6 }}>
-                  <Box
+                  <Typography
+                    variant="h2"
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 2,
-                      p: 2,
-                      borderRadius: 2.5,
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      fontSize: { xs: '2.8rem', sm: '3.8rem', lg: '4.8rem' },
+                      fontWeight: 700,
+                      color: TEXT_DARK,
+                      lineHeight: 1.05,
+                      fontFamily: '"Rajdhani", sans-serif',
+                      mb: 1.5,
                     }}
                   >
-                    <Box
-                      sx={{
-                        p: 1.2,
-                        borderRadius: 2,
-                        backgroundColor: 'rgba(29, 104, 201, 0.25)',
-                        display: 'flex',
-                      }}
-                    >
-                      <GaugeIconSvg />
-                    </Box>
-                    <Box>
-                      <Typography sx={{ fontSize: '0.75rem', color: '#94a3b8' }}>Power</Typography>
-                      <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
-                        144 PS
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Grid>
+                    Maruti Suzuki e Vitara
+                  </Typography>
 
-                <Grid size={{ xs: 6, sm: 6 }}>
-                  <Box
+                  <Typography
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 2,
-                      p: 2,
-                      borderRadius: 2.5,
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      fontSize: { xs: '1.15rem', md: '1.35rem' },
+                      color: TEXT_MUTED,
+                      fontWeight: 500,
                     }}
                   >
+                    Zero Emissions. Maximum Luxury.
+                  </Typography>
+                </Box>
+
+                {/* 4 Specs Grid */}
+                <Grid container spacing={3}>
+                  <Grid size={{ xs: 6, sm: 6 }}>
                     <Box
                       sx={{
-                        p: 1.2,
-                        borderRadius: 2,
-                        backgroundColor: 'rgba(29, 104, 201, 0.25)',
                         display: 'flex',
+                        alignItems: 'center',
+                        gap: 2,
+                        p: 2.5,
+                        borderRadius: 3,
+                        backgroundColor: 'rgba(255, 255, 255, 0.65)',
+                        backdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(226, 232, 240, 0.8)',
+                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.02)',
                       }}
                     >
-                      <BatteryChargeIconSvg />
+                      <Box
+                        sx={{
+                          p: 1.5,
+                          borderRadius: 2,
+                          backgroundColor: 'rgba(29, 104, 201, 0.15)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <ZapIconSvg />
+                      </Box>
+                      <Box>
+                        <Typography sx={{ fontSize: '0.85rem', color: TEXT_MUTED }}>Range</Typography>
+                        <Typography sx={{ fontSize: '1.2rem', fontWeight: 700, color: TEXT_DARK }}>
+                          500+ km
+                        </Typography>
+                      </Box>
                     </Box>
-                    <Box>
-                      <Typography sx={{ fontSize: '0.75rem', color: '#94a3b8' }}>Charging</Typography>
-                      <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
-                        DC Fast Charge
-                      </Typography>
+                  </Grid>
+
+                  <Grid size={{ xs: 6, sm: 6 }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 2,
+                        p: 2.5,
+                        borderRadius: 3,
+                        backgroundColor: 'rgba(255, 255, 255, 0.65)',
+                        backdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(226, 232, 240, 0.8)',
+                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.02)',
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          p: 1.5,
+                          borderRadius: 2,
+                          backgroundColor: 'rgba(29, 104, 201, 0.15)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <GaugeIconSvg />
+                      </Box>
+                      <Box>
+                        <Typography sx={{ fontSize: '0.85rem', color: TEXT_MUTED }}>Motor</Typography>
+                        <Typography sx={{ fontSize: '1.2rem', fontWeight: 700, color: TEXT_DARK }}>
+                          144 PS
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
+                  </Grid>
+
+                  <Grid size={{ xs: 6, sm: 6 }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 2,
+                        p: 2.5,
+                        borderRadius: 3,
+                        backgroundColor: 'rgba(255, 255, 255, 0.65)',
+                        backdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(226, 232, 240, 0.8)',
+                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.02)',
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          p: 1.5,
+                          borderRadius: 2,
+                          backgroundColor: 'rgba(29, 104, 201, 0.15)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <ZapIconSvg />
+                      </Box>
+                      <Box>
+                        <Typography sx={{ fontSize: '0.85rem', color: TEXT_MUTED }}>Charging</Typography>
+                        <Typography sx={{ fontSize: '1.2rem', fontWeight: 700, color: TEXT_DARK }}>
+                          DC Fast Charge
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+
+                  <Grid size={{ xs: 6, sm: 6 }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 2,
+                        p: 2.5,
+                        borderRadius: 3,
+                        backgroundColor: 'rgba(255, 255, 255, 0.65)',
+                        backdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(226, 232, 240, 0.8)',
+                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.02)',
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          p: 1.5,
+                          borderRadius: 2,
+                          backgroundColor: 'rgba(29, 104, 201, 0.15)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <TagIconSvg />
+                      </Box>
+                      <Box>
+                        <Typography sx={{ fontSize: '0.85rem', color: TEXT_MUTED }}>Price</Typography>
+                        <Typography sx={{ fontSize: '1.2rem', fontWeight: 700, color: TEXT_DARK }}>
+                          ₹17.49 Lakh+
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
                 </Grid>
 
-                <Grid size={{ xs: 6, sm: 6 }}>
-                  <Box
+                {/* CTAs */}
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, pt: 1 }}>
+                  <Button
+                    onClick={() => handleOpenAction('Pre-Book', 'Maruti Suzuki e Vitara')}
+                    variant="contained"
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 2,
-                      p: 2,
-                      borderRadius: 2.5,
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      px: 4.5,
+                      py: 1.4,
+                      fontSize: '0.95rem',
+                      fontWeight: 600,
+                      backgroundColor: ACCENT_RED,
+                      color: '#ffffff',
+                      borderRadius: '6px',
+                      boxShadow: '0 0 20px rgba(220, 38, 38, 0.4)',
+                      textTransform: 'none',
+                      '&:hover': {
+                        backgroundColor: '#dc2626',
+                      },
                     }}
                   >
-                    <Box
-                      sx={{
-                        p: 1.2,
-                        borderRadius: 2,
-                        backgroundColor: 'rgba(29, 104, 201, 0.25)',
-                        display: 'flex',
-                      }}
-                    >
-                      <RupeeIconSvg />
-                    </Box>
-                    <Box>
-                      <Typography sx={{ fontSize: '0.75rem', color: '#94a3b8' }}>Starting at</Typography>
-                      <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
-                        ₹17.49 Lakh+
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Grid>
-              </Grid>
+                    Book Now
+                  </Button>
 
-              {/* CTAs */}
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
-                <Button
-                  onClick={() => handleOpenAction('Pre-Book', 'Maruti Suzuki e Vitara')}
-                  variant="contained"
-                  sx={{
-                    px: 4,
-                    py: 1.5,
-                    fontSize: '1rem',
-                    fontWeight: 700,
-                    backgroundColor: ACCENT_RED,
-                    color: '#ffffff',
-                    boxShadow: '0 4px 20px rgba(231, 33, 11, 0.4)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    '&:hover': {
-                      backgroundColor: '#dc2626',
-                    },
-                  }}
-                >
-                  Book Now
-                </Button>
-
-                <Button
-                  onClick={() => handleOpenAction('Explore Details', 'Maruti Suzuki e Vitara')}
-                  variant="outlined"
-                  sx={{
-                    px: 4,
-                    py: 1.5,
-                    fontSize: '1rem',
-                    fontWeight: 700,
-                    borderColor: 'rgba(255, 255, 255, 0.4)',
-                    color: '#ffffff',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    '&:hover': {
-                      borderColor: '#ffffff',
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    },
-                  }}
-                >
-                  Explore e Vitara
-                </Button>
+                  <Button
+                    onClick={() => handleOpenAction('Explore Details', 'Maruti Suzuki e Vitara')}
+                    variant="outlined"
+                    sx={{
+                      px: 4.5,
+                      py: 1.4,
+                      fontSize: '0.95rem',
+                      fontWeight: 600,
+                      borderColor: ACCENT_BLUE,
+                      color: ACCENT_BLUE,
+                      borderRadius: '6px',
+                      boxShadow: '0 0 20px rgba(29, 78, 216, 0.2)',
+                      textTransform: 'none',
+                      '&:hover': {
+                        borderColor: ACCENT_BLUE,
+                        backgroundColor: ACCENT_BLUE,
+                        color: '#ffffff',
+                      },
+                    }}
+                  >
+                    Explore e Vitara
+                  </Button>
+                </Box>
               </Box>
             </Grid>
 
             {/* Right Image */}
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, lg: 6 }}>
               <Box
                 sx={{
                   position: 'relative',
                   borderRadius: 4,
                   overflow: 'hidden',
-                  boxShadow: '0 0 50px rgba(29, 104, 201, 0.3)',
+                  filter: 'drop-shadow(0 0 50px rgba(29, 78, 216, 0.3))',
                 }}
               >
                 <Box
