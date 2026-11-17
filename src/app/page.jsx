@@ -773,8 +773,9 @@ export default function HomePage() {
                       sx={{
                         width: '100%',
                         height: '100%',
-                        objectFit: 'contain',
-                        p: 2,
+                        objectFit: 'cover',
+                        display: 'block',
+                        p: 0,
                         transition: 'transform 0.4s ease',
                       }}
                     />

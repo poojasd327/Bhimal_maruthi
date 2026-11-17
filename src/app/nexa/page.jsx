@@ -442,7 +442,7 @@ export default function NexaPage() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        p: 3,
+                        p: 0,
                         overflow: 'hidden',
                       }}
                     >
@@ -506,9 +506,10 @@ export default function NexaPage() {
                         alt={car.name}
                         loading="lazy"
                         sx={{
-                          maxWidth: '100%',
-                          maxHeight: '100%',
-                          objectFit: 'contain',
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          display: 'block',
                           transform: isHovered ? 'scale(1.04)' : 'scale(1)',
                           transition: 'transform 0.3s ease',
                         }}
