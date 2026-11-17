@@ -118,11 +118,8 @@ export default function Header() {
     if (pathname === '/driving-school') {
       return item.path === '/driving-school' || item.title.toLowerCase() === 'driving school';
     }
-    if (pathname === '/true-value') {
-      return item.path === '/true-value' || item.title.toLowerCase() === 'true value';
-    }
-    if (pathname === '/driving-school') {
-      return item.path === '/driving-school' || item.title.toLowerCase() === 'driving school';
+    if (pathname === '/accessories') {
+      return item.path === '/accessories' || item.title.toLowerCase() === 'accessories';
     }
     if (pathname === '/contact') {
       return item.path === '/contact' || item.title.toLowerCase() === 'contact';

@@ -34,7 +34,7 @@ export default function Footer() {
   const moreServices = [
     { title: 'True Value', path: '/true-value' },
     { title: 'Driving School', path: '/driving-school' },
-    { title: 'Accessories', path: '/#accessories' },
+    { title: 'Accessories', path: '/accessories' },
     { title: 'Locations', path: '/#locations' },
     { title: 'Contact', path: '/contact' },
   ];
