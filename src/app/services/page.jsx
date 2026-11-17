@@ -18,7 +18,6 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText,
   useTheme,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -91,10 +90,9 @@ export default function ServicesPage() {
                         <ListItemIcon sx={{ minWidth: 28 }}>
                           <CheckCircleIcon color="primary" fontSize="small" />
                         </ListItemIcon>
-                        <ListItemText
-                          primary={item}
-                          primaryTypographyProps={{ variant: 'body2', color: 'text.secondary' }}
-                        />
+                        <Typography variant="body2" color="text.secondary">
+                          {item}
+                        </Typography>
                       </ListItem>
                     ))}
                   </List>

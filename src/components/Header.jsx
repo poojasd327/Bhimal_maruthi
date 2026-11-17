@@ -13,7 +13,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemText,
   Menu,
   MenuItem,
   Divider,
@@ -490,15 +489,17 @@ export default function Header() {
                   alignItems: 'center',
                 }}
               >
-                <ListItemText
-                  primary={item.title}
-                  primaryTypographyProps={{
+                <Typography
+                  sx={{
                     fontSize: '0.85rem',
                     fontWeight: 600,
                     textTransform: 'uppercase',
                     letterSpacing: '0.08em',
+                    color: 'text.primary',
                   }}
-                />
+                >
+                  {item.title}
+                </Typography>
                 {item.isOffers && (
                   <span className="offers-pill offers-pulse" style={{ fontSize: '9px', padding: '2px 8px' }}>
                     Offers
