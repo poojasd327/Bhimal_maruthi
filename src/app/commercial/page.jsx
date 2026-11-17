@@ -22,6 +22,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import VehicleModal from '@/components/VehicleModal';
 import { getBrochureUrl } from '@/config/brochures';
+import { siteConfig } from '@/config/siteConfig';
 
 const ACCENT_RED = '#e7210b';
 const TEXT_MUTED = '#64748b';
@@ -849,15 +850,15 @@ export default function CommercialPage() {
 
               <Button
                 variant="outlined"
-                onClick={() => {
-                  handleActionClick('Fleet Demo', commercialModels[0]);
-                }}
+                component="a"
+                href={siteConfig.phoneTel || 'tel:08030693069'}
                 sx={{
                   borderColor: '#d1d5db',
                   color: '#374151',
                   fontWeight: 600,
                   fontSize: '0.85rem',
                   textTransform: 'none',
+                  textDecoration: 'none',
                   px: 2.8,
                   py: 1,
                   borderRadius: '6px',
