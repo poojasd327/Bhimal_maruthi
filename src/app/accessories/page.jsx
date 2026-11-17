@@ -355,6 +355,38 @@ export default function AccessoriesPage() {
           >
             Enhance your car with 100% genuine Maruti accessories — designed for perfect fit and lasting performance.
           </Typography>
+
+          {/* Hero CTA Button */}
+          <Button
+            component="a"
+            href="https://www.marutisuzuki.com/genuine-accessories"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="contained"
+            sx={{
+              mt: 3,
+              backgroundColor: ACCENT_RED,
+              color: '#ffffff',
+              fontWeight: 700,
+              fontSize: '13.5px',
+              textTransform: 'none',
+              textDecoration: 'none',
+              borderRadius: '6px',
+              px: 3.2,
+              py: 1.1,
+              boxShadow: '0 4px 14px rgba(231, 33, 11, 0.35)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              '&:hover': {
+                backgroundColor: ACCENT_RED_HOVER,
+                color: '#ffffff',
+              },
+            }}
+          >
+            <span>Browse Accessories</span>
+            <ArrowUpRightSvg />
+          </Button>
         </Container>
       </Box>
 
@@ -488,19 +520,22 @@ export default function AccessoriesPage() {
               fontWeight: 700,
               fontSize: '14px',
               textTransform: 'none',
+              textDecoration: 'none',
               borderRadius: '8px',
               px: 3.5,
               py: 1.3,
               boxShadow: '0 4px 14px rgba(231, 33, 11, 0.3)',
               display: 'inline-flex',
               alignItems: 'center',
+              cursor: 'pointer',
               '&:hover': {
                 backgroundColor: ACCENT_RED_HOVER,
                 boxShadow: '0 6px 18px rgba(231, 33, 11, 0.4)',
+                color: '#ffffff',
               },
             }}
           >
-            <span>Browse All Accessories on Maruti Suzuki</span>
+            <span>Browse Accessories</span>
             <ArrowUpRightSvg />
           </Button>
         </Box>
