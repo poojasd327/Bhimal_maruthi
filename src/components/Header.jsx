@@ -216,10 +216,11 @@ export default function Header() {
               display: { xs: 'none', md: 'flex' },
               alignItems: 'center',
               flex: 1,
-              gap: { md: 0.1, lg: 0.3, xl: 0.6 },
               height: '100%',
               flexWrap: 'nowrap',
-              justifyContent: 'flex-start',
+              justifyContent: 'space-between',
+              pl: { md: 1, lg: 1.5, xl: 2 },
+              pr: { md: 0.5, lg: 1, xl: 1.5 },
             }}
           >
             {navLinks.map((item) => {
@@ -235,7 +236,7 @@ export default function Header() {
                     onClick={() => setActiveTab(item.title)}
                     sx={{
                       position: 'relative',
-                      px: { md: 0.6, lg: 1, xl: 1.2 },
+                      px: { md: 0.5, lg: 0.8, xl: 1.2 },
                       height: '100%',
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -258,14 +259,14 @@ export default function Header() {
                   onClick={() => setActiveTab(item.title)}
                   sx={{
                     position: 'relative',
-                    px: { md: 0.6, lg: 0.9, xl: 1.3 },
+                    px: { md: 0.5, lg: 0.8, xl: 1.2 },
                     height: '100%',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    fontSize: { md: '10.5px', lg: '11px' },
+                    fontSize: { md: '10.5px', lg: '11px', xl: '11.5px' },
                     fontWeight: 600,
                     textTransform: 'uppercase',
-                    letterSpacing: { md: '0.06em', lg: '0.08em', xl: '0.1em' },
+                    letterSpacing: { md: '0.04em', lg: '0.06em', xl: '0.08em' },
                     whiteSpace: 'nowrap',
                     textDecoration: 'none',
                     color: isActive ? ACCENT_RED : TEXT_MUTED,
@@ -286,8 +287,8 @@ export default function Header() {
                       sx={{
                         position: 'absolute',
                         bottom: 0,
-                        left: { md: 4, lg: 6, xl: 8 },
-                        right: { md: 4, lg: 6, xl: 8 },
+                        left: { md: 2, lg: 4, xl: 6 },
+                        right: { md: 2, lg: 4, xl: 6 },
                         height: '2.5px',
                         backgroundColor: ACCENT_RED,
                         borderRadius: '1px 1px 0 0',
@@ -309,7 +310,7 @@ export default function Header() {
               alignItems: 'center',
               gap: { md: 1.2, lg: 1.8 },
               flexShrink: 0,
-              ml: 'auto',
+              ml: { md: 1.5, lg: 2.5, xl: 3 },
             }}
           >
             {/* Phone link */}
