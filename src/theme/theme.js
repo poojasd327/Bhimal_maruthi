@@ -8,9 +8,9 @@ export const getTheme = (mode = 'light') => {
     palette: {
       mode,
       primary: {
-        main: '#1976d2',
-        light: '#42a5f5',
-        dark: '#1565c0',
+        main: '#e52b20',
+        light: '#ef4444',
+        dark: '#b91c1c',
         contrastText: '#ffffff',
       },
       secondary: {
@@ -80,7 +80,7 @@ export const getTheme = (mode = 'light') => {
           },
           containedPrimary: {
             '&:hover': {
-              boxShadow: '0 4px 14px 0 rgba(25, 118, 210, 0.39)',
+              boxShadow: '0 4px 14px 0 rgba(229, 43, 32, 0.39)',
             },
           },
         },
