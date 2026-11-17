@@ -22,6 +22,7 @@ import HubIcon from '@mui/icons-material/Hub';
 import DevicesIcon from '@mui/icons-material/Devices';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import SectionHeader from '@/components/SectionHeader';
+import HeroSlider from '@/components/HeroSlider';
 import { homeContent } from '@/data/content';
 import { siteConfig } from '@/config/siteConfig';
 
@@ -38,104 +39,8 @@ export default function HomePage() {
 
   return (
     <Box>
-      {/* Hero Section */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 14 },
-          position: 'relative',
-          overflow: 'hidden',
-          background: isDark
-            ? 'radial-gradient(ellipse at 50% 20%, rgba(30, 58, 138, 0.25) 0%, rgba(15, 23, 42, 0) 70%)'
-            : '#ffffff',
-        }}
-      >
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', maxWidth: 860, mx: 'auto' }}>
-            <Chip
-              label={homeContent.hero.badge}
-              color="primary"
-              variant="outlined"
-              size="medium"
-              sx={{
-                mb: 3,
-                fontWeight: 600,
-                px: 1,
-                borderRadius: '16px',
-                borderColor: 'primary.main',
-              }}
-            />
-            <Typography
-              variant="h1"
-              component="h1"
-              sx={{
-                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.2rem' },
-                lineHeight: 1.15,
-                mb: 3,
-                fontWeight: 800,
-              }}
-            >
-              Innovate, Build &amp;{' '}
-              <Box
-                component="span"
-                sx={{
-                  background: isDark
-                    ? 'linear-gradient(90deg, #60a5fa 0%, #c084fc 100%)'
-                    : 'linear-gradient(90deg, #1976d2 0%, #9c27b0 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                Scale Your Vision
-              </Box>
-            </Typography>
-            <Typography
-              variant="h5"
-              color="text.secondary"
-              sx={{
-                maxWidth: 700,
-                mx: 'auto',
-                mb: 5,
-                lineHeight: 1.6,
-                fontWeight: 400,
-                fontSize: { xs: '1.05rem', sm: '1.25rem' },
-              }}
-            >
-              {homeContent.hero.subtitle}
-            </Typography>
-
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              spacing={2}
-              sx={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                component={Link}
-                href={homeContent.hero.primaryCta.href}
-                endIcon={<ArrowForwardIcon />}
-                sx={{ px: 4, py: 1.5, fontSize: '1rem' }}
-              >
-                {homeContent.hero.primaryCta.label}
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                size="large"
-                component={Link}
-                href={homeContent.hero.secondaryCta.href}
-                sx={{ px: 4, py: 1.5, fontSize: '1rem' }}
-              >
-                {homeContent.hero.secondaryCta.label}
-              </Button>
-            </Stack>
-          </Box>
-        </Container>
-      </Box>
+      {/* Dynamic Hero Carousel Section */}
+      <HeroSlider />
 
       {/* Stats Bar */}
       <Container maxWidth="lg" sx={{ mt: -4, mb: 10, position: 'relative', zIndex: 2 }}>
