@@ -276,107 +276,212 @@ const exclusiveOffers = [
   },
 ];
 
-// Vehicles Data
-const vehiclesData = [
-  {
-    id: 'brezza',
-    name: 'Maruti Suzuki Brezza',
-    price: '₹8.26 – 13.13 Lakh',
-    category: 'Compact SUV',
-    bodyType: 'SUV',
-    channel: 'arena',
-    image: '/images/brezza.webp',
-  },
-  {
-    id: 'victoris',
-    name: 'Maruti Suzuki Victoris',
-    price: '₹10.49 – 19.98 Lakh',
-    category: 'Premium Mid-Size Crossover',
-    bodyType: 'SUV',
-    channel: 'arena',
-    image: '/images/victoris.webp',
-  },
-  {
-    id: 's-presso',
-    name: 'Maruti Suzuki S-Presso',
-    price: '₹3.49 – 5.24 Lakh',
-    category: 'Micro-SUV Hatchback',
-    bodyType: 'Hatchback',
-    channel: 'arena',
-    image: '/images/s-presso.webp',
-  },
-  {
-    id: 'e-vitara',
-    name: 'Maruti Suzuki e Vitara',
-    price: '₹15.99 – 20.21 Lakh',
-    category: 'Born-Electric SUV Flagship',
-    bodyType: 'Electric',
-    channel: 'nexa',
-    image: '/images/e-vitara-no-bg.png',
-  },
-  {
-    id: 'grand-vitara',
-    name: 'Maruti Suzuki Grand Vitara',
-    price: '₹10.76 – 19.72 Lakh',
-    category: 'Mid-Size Hybrid SUV',
-    bodyType: 'SUV',
-    channel: 'nexa',
-    image: '/images/grand-vitara-no-bg.png',
-  },
-  {
-    id: 'fronx',
-    name: 'Maruti Suzuki Fronx',
-    price: '₹6.84 – 11.97 Lakh',
-    category: 'Compact SUV-Coupe',
-    bodyType: 'SUV',
-    channel: 'nexa',
-    image: '/images/fronx-no-bg.png',
-  },
-  {
-    id: 'jimny',
-    name: 'Maruti Suzuki Jimny',
-    price: '₹12.39 – 14.52 Lakh',
-    category: '4x4 Off-Road SUV',
-    bodyType: 'SUV',
-    channel: 'nexa',
-    image: '/images/jimny-no-bg.png',
-  },
-  {
-    id: 'baleno',
-    name: 'Maruti Suzuki Baleno',
-    price: '₹6.66 – 9.88 Lakh',
-    category: 'Premium Hatchback',
-    bodyType: 'Hatchback',
-    channel: 'nexa',
-    image: '/images/hero-baleno.jpg',
-  },
-  {
-    id: 'dzire',
-    name: 'Maruti Suzuki Dzire',
-    price: '₹6.79 – 10.14 Lakh',
-    category: '5-Star Safety Sedan',
-    bodyType: 'Sedan',
-    channel: 'arena',
-    image: '/images/brezza.webp',
-  },
-  {
-    id: 'ertiga',
-    name: 'Maruti Suzuki Ertiga',
-    price: '₹8.69 – 13.03 Lakh',
-    category: 'India’s No.1 7-Seater MPV',
-    bodyType: 'MPV',
-    channel: 'arena',
-    image: '/images/victoris.webp',
-  },
-  {
-    id: 'super-carry',
-    name: 'Maruti Super Carry',
-    price: '₹5.15 – 6.30 Lakh',
-    category: 'Commercial Mini-Truck',
-    bodyType: 'Commercial',
-    channel: 'commercial',
-    image: '/images/s-presso.webp',
-  },
+// Vehicles Data Grouped by Body Type
+const vehiclesByCategory = {
+  SUV: [
+    {
+      id: 'brezza',
+      name: 'Maruti Suzuki Brezza',
+      price: '₹8.26 – 13.13 Lakh',
+      category: 'Compact SUV',
+      channel: 'arena',
+      image: '/images/suv/brezza.webp',
+    },
+    {
+      id: 'victoris',
+      name: 'Maruti Suzuki Victoris',
+      price: '₹10.49 – 19.98 Lakh',
+      category: 'Premium Mid-Size Crossover',
+      channel: 'arena',
+      image: '/images/suv/victoris.webp',
+    },
+    {
+      id: 's-presso',
+      name: 'Maruti Suzuki S-Presso',
+      price: '₹3.49 – 5.24 Lakh',
+      category: 'Micro-SUV Hatchback',
+      channel: 'arena',
+      image: '/images/suv/s-presso.webp',
+    },
+    {
+      id: 'e-vitara-suv',
+      name: 'Maruti Suzuki e Vitara',
+      price: '₹15.99 – 20.21 Lakh',
+      category: 'Born-Electric SUV Flagship',
+      channel: 'nexa',
+      image: '/images/suv/e-vitara-no-bg.png',
+    },
+    {
+      id: 'grand-vitara',
+      name: 'Maruti Suzuki Grand Vitara',
+      price: '₹10.76 – 19.72 Lakh',
+      category: 'Mid-Size Hybrid SUV',
+      channel: 'nexa',
+      image: '/images/suv/grand-vitara-no-bg.png',
+    },
+    {
+      id: 'fronx',
+      name: 'Maruti Suzuki Fronx',
+      price: '₹6.84 – 11.97 Lakh',
+      category: 'Compact SUV-Coupe',
+      channel: 'nexa',
+      image: '/images/suv/fronx-no-bg.png',
+    },
+    {
+      id: 'jimny',
+      name: 'Maruti Suzuki Jimny',
+      price: '₹12.39 – 14.52 Lakh',
+      category: '4x4 Off-Road SUV',
+      channel: 'nexa',
+      image: '/images/suv/jimny-no-bg.png',
+    },
+  ],
+  Hatchback: [
+    {
+      id: 'swift',
+      name: 'Maruti Suzuki Swift',
+      price: '₹5.79 – 8.84 Lakh',
+      category: 'Premium Hatchback',
+      channel: 'arena',
+      image: '/images/hatchback/swift.webp',
+    },
+    {
+      id: 'wagon-r',
+      name: 'Maruti Suzuki Wagon R',
+      price: '₹4.98 – 7.23 Lakh',
+      category: 'Tallboy Hatchback',
+      channel: 'arena',
+      image: '/images/hatchback/wagon-r.webp',
+    },
+    {
+      id: 'celerio',
+      name: 'Maruti Suzuki Celerio',
+      price: '₹4.69 – 6.72 Lakh',
+      category: 'Compact Hatchback',
+      channel: 'arena',
+      image: '/images/hatchback/celerio.webp',
+    },
+    {
+      id: 'alto-k10',
+      name: 'Maruti Suzuki Alto K10',
+      price: '₹3.69 – 5.44 Lakh',
+      category: 'Entry-Level Hatchback',
+      channel: 'arena',
+      image: '/images/hatchback/alto-k10.webp',
+    },
+    {
+      id: 'baleno',
+      name: 'Maruti Suzuki Baleno',
+      price: '₹5.98 – 9.17 Lakh',
+      category: 'Premium Hatchback',
+      channel: 'nexa',
+      image: '/images/hatchback/baleno-no-bg.png',
+    },
+  ],
+  Sedan: [
+    {
+      id: 'dzire',
+      name: 'Maruti Suzuki Dzire',
+      price: '₹6.25 – 9.36 Lakh',
+      category: 'Compact Sedan',
+      channel: 'arena',
+      image: '/images/sedan/dzire.webp',
+    },
+  ],
+  Electric: [
+    {
+      id: 'e-vitara-electric',
+      name: 'Maruti Suzuki e Vitara',
+      price: '₹15.99 – 20.21 Lakh',
+      category: 'Born-Electric SUV Flagship',
+      channel: 'nexa',
+      image: '/images/electric/e-vitara-no-bg.png',
+    },
+  ],
+  Commercial: [
+    {
+      id: 'super-carry',
+      name: 'Maruti Super Carry',
+      price: '₹5.15 – 6.30 Lakh',
+      category: 'Commercial Mini-Truck',
+      channel: 'commercial',
+      image: '/images/commercial/super-carry.webp',
+    },
+    {
+      id: 'eeco-cargo',
+      name: 'Maruti Suzuki Eeco Cargo',
+      price: '₹5.42 – 6.74 Lakh',
+      category: 'Commercial Delivery Van',
+      channel: 'commercial',
+      image: '/images/commercial/eeco-cargo.webp',
+    },
+    {
+      id: 'tour-s',
+      name: 'Maruti Suzuki Tour S',
+      price: '₹6.51 – 7.46 Lakh',
+      category: 'Commercial Taxi Sedan',
+      channel: 'commercial',
+      image: '/images/commercial/tour-s.webp',
+    },
+    {
+      id: 'tour-m',
+      name: 'Maruti Suzuki Tour M',
+      price: '₹9.68 – 10.63 Lakh',
+      category: 'Commercial Taxi MPV',
+      channel: 'commercial',
+      image: '/images/commercial/tour-m.webp',
+    },
+    {
+      id: 'tour-h1',
+      name: 'Maruti Suzuki Tour H1',
+      price: '₹4.80 – 5.70 Lakh',
+      category: 'Commercial Entry Fleet',
+      channel: 'commercial',
+      image: '/images/commercial/tour-h1.webp',
+    },
+  ],
+  MPV: [
+    {
+      id: 'ertiga',
+      name: 'Maruti Suzuki Ertiga',
+      price: '₹8.69 – 13.03 Lakh',
+      category: 'India’s No.1 7-Seater MPV',
+      channel: 'arena',
+      image: '/images/mpv/ertiga.webp',
+    },
+    {
+      id: 'xl6',
+      name: 'Maruti Suzuki XL6',
+      price: '₹11.61 – 14.77 Lakh',
+      category: 'Premium 6-Seater MPV',
+      channel: 'nexa',
+      image: '/images/mpv/xl6-no-bg.png',
+    },
+    {
+      id: 'invicto',
+      name: 'Maruti Suzuki Invicto',
+      price: '₹25.21 – 28.92 Lakh',
+      category: 'Intelligent Electric Hybrid MPV',
+      channel: 'nexa',
+      image: '/images/mpv/invicto-no-bg.png',
+    },
+    {
+      id: 'eeco',
+      name: 'Maruti Suzuki Eeco',
+      price: '₹5.32 – 6.58 Lakh',
+      category: 'Versatile 7-Seater Van',
+      channel: 'arena',
+      image: '/images/mpv/eeco.webp',
+    },
+  ],
+};
+
+const allVehicles = [
+  ...vehiclesByCategory.SUV,
+  ...vehiclesByCategory.Hatchback,
+  ...vehiclesByCategory.Sedan,
+  ...vehiclesByCategory.Commercial,
+  ...vehiclesByCategory.MPV,
 ];
 
 const categories = ['SUV', 'Hatchback', 'Sedan', 'Electric', 'Commercial', 'MPV', 'All'];
@@ -389,10 +494,10 @@ export default function HomePage() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
 
-  // Filter vehicles
+  // Filter vehicles by category
   const filteredVehicles = useMemo(() => {
-    if (selectedCategory === 'All') return vehiclesData;
-    return vehiclesData.filter((v) => v.bodyType === selectedCategory);
+    if (selectedCategory === 'All') return allVehicles;
+    return vehiclesByCategory[selectedCategory] || [];
   }, [selectedCategory]);
 
   const handleOpenAction = (action, vehicleName) => {
@@ -700,10 +805,11 @@ export default function HomePage() {
                     <Typography
                       variant="h3"
                       sx={{
-                        fontSize: '1.25rem',
+                        fontFamily: '"Rajdhani", sans-serif',
+                        fontSize: '1.45rem',
                         fontWeight: 700,
                         color: TEXT_DARK,
-                        lineHeight: 1.3,
+                        lineHeight: 1.25,
                       }}
                     >
                       {car.name}
@@ -711,8 +817,8 @@ export default function HomePage() {
 
                     <Typography
                       sx={{
-                        mt: 0.8,
-                        fontSize: '1.15rem',
+                        mt: 0.6,
+                        fontSize: '1.25rem',
                         fontWeight: 700,
                         color: ACCENT_RED,
                       }}
@@ -726,7 +832,8 @@ export default function HomePage() {
                         display: 'flex',
                         alignItems: 'center',
                         flexWrap: 'wrap',
-                        gap: 1,
+                        columnGap: 1.2,
+                        rowGap: 0.5,
                         mt: 2.5,
                         pt: 2,
                         borderTop: '1px solid',
@@ -805,7 +912,7 @@ export default function HomePage() {
                           '&:hover': { color: ACCENT_RED, textDecoration: 'underline' },
                         }}
                       >
-                        EMI Calc
+                        EMI Calculator
                       </Box>
                     </Box>
                   </Box>
