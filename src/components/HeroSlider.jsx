@@ -106,6 +106,8 @@ function ChevronRightIcon() {
 export default function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
   const totalSlides = slides.length;
 
   // Auto-play timer
@@ -127,16 +129,39 @@ export default function HeroSlider() {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
   };
 
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 45) {
+      handleNext();
+    } else if (diff < -45) {
+      handlePrev();
+    }
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
   const current = slides[currentSlide];
 
   return (
     <Box
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       sx={{
         position: 'relative',
-        height: { xs: '52vh', sm: '58vh', md: '64vh' },
-        minHeight: { xs: '420px', md: '500px' },
+        height: { xs: '56vh', sm: '58vh', md: '64vh' },
+        minHeight: { xs: '390px', md: '500px' },
         width: '100%',
         overflow: 'hidden',
         backgroundColor: '#0a0a0a',
@@ -223,8 +248,8 @@ export default function HeroSlider() {
                     variant="h1"
                     component="h1"
                     sx={{
-                      mb: { xs: 3, md: 4 },
-                      fontSize: { xs: '2.6rem', sm: '3.8rem', md: '5rem', lg: '5.4rem' },
+                      mb: { xs: 2.5, md: 4 },
+                      fontSize: { xs: '2.1rem', sm: '3.4rem', md: '5rem', lg: '5.4rem' },
                       fontWeight: 700,
                       letterSpacing: '-0.01em',
                       color: '#ffffff',
@@ -244,9 +269,9 @@ export default function HeroSlider() {
                     sx={{
                       backgroundColor: slide.ctaBg,
                       color: '#ffffff',
-                      px: { xs: 4, sm: 5 },
-                      py: { xs: 1.3, sm: 1.6 },
-                      fontSize: { xs: '0.9rem', sm: '1rem' },
+                      px: { xs: 3.5, sm: 5 },
+                      py: { xs: 1.1, sm: 1.6 },
+                      fontSize: { xs: '0.85rem', sm: '1rem' },
                       fontWeight: 700,
                       letterSpacing: '0.08em',
                       textTransform: 'uppercase',
@@ -277,19 +302,20 @@ export default function HeroSlider() {
         aria-label="Previous slide"
         sx={{
           position: 'absolute',
-          left: { xs: 12, sm: 24, md: 36 },
+          left: { xs: 6, sm: 18, md: 36 },
           top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 30,
           color: '#ffffff',
-          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          backgroundColor: 'rgba(0, 0, 0, 0.35)',
           backdropFilter: 'blur(8px)',
-          width: { xs: 44, md: 52 },
-          height: { xs: 44, md: 52 },
+          width: { xs: 36, sm: 44, md: 52 },
+          height: { xs: 36, sm: 44, md: 52 },
+          p: { xs: 0.5, sm: 1 },
           border: '1px solid rgba(255, 255, 255, 0.15)',
           transition: 'all 0.2s ease',
           '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
             borderColor: 'rgba(255, 255, 255, 0.3)',
             transform: 'translateY(-50%) scale(1.05)',
           },
@@ -304,19 +330,20 @@ export default function HeroSlider() {
         aria-label="Next slide"
         sx={{
           position: 'absolute',
-          right: { xs: 12, sm: 24, md: 36 },
+          right: { xs: 6, sm: 18, md: 36 },
           top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 30,
           color: '#ffffff',
-          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          backgroundColor: 'rgba(0, 0, 0, 0.35)',
           backdropFilter: 'blur(8px)',
-          width: { xs: 44, md: 52 },
-          height: { xs: 44, md: 52 },
+          width: { xs: 36, sm: 44, md: 52 },
+          height: { xs: 36, sm: 44, md: 52 },
+          p: { xs: 0.5, sm: 1 },
           border: '1px solid rgba(255, 255, 255, 0.15)',
           transition: 'all 0.2s ease',
           '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
             borderColor: 'rgba(255, 255, 255, 0.3)',
             transform: 'translateY(-50%) scale(1.05)',
           },
@@ -329,7 +356,7 @@ export default function HeroSlider() {
       <Box
         sx={{
           position: 'absolute',
-          bottom: { xs: 16, sm: 28 },
+          bottom: { xs: 12, sm: 24 },
           left: 0,
           right: 0,
           zIndex: 30,

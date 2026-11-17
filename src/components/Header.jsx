@@ -449,11 +449,13 @@ export default function Header() {
         slotProps={{
           paper: {
             sx: {
-              width: 300,
+              width: { xs: '84vw', sm: 320 },
+              maxWidth: 340,
               backgroundColor: '#ffffff',
               display: 'flex',
               flexDirection: 'column',
               p: 2.5,
+              overflowY: 'auto',
             },
           },
         }}

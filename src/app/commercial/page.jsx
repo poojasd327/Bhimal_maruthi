@@ -339,7 +339,7 @@ export default function CommercialPage() {
             sx={{
               fontFamily: "'Rajdhani', sans-serif",
               fontWeight: 700,
-              fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem' },
+              fontSize: { xs: '2.1rem', sm: '3.2rem', md: '4.5rem' },
               color: '#ffffff',
               lineHeight: 1.08,
               letterSpacing: '-0.02em',
@@ -355,7 +355,7 @@ export default function CommercialPage() {
           {/* Subtitle */}
           <Typography
             sx={{
-              fontSize: { xs: '1rem', sm: '1.125rem' },
+              fontSize: { xs: '0.95rem', sm: '1.125rem' },
               color: 'rgba(255, 255, 255, 0.88)',
               maxWidth: 620,
               lineHeight: 1.5,
@@ -368,12 +368,12 @@ export default function CommercialPage() {
       </Box>
 
       {/* 2. Main Content Container */}
-      <Box sx={{ py: { xs: 6, md: 8 }, backgroundColor: '#ffffff' }}>
+      <Box sx={{ py: { xs: 5, md: 8 }, backgroundColor: '#ffffff' }}>
         <Container
           maxWidth={false}
           sx={{
             maxWidth: '1440px',
-            px: { xs: 3, md: 6, lg: 8 },
+            px: { xs: 2.5, sm: 4, md: 6, lg: 8 },
           }}
         >
           {/* Section Header */}
@@ -382,10 +382,10 @@ export default function CommercialPage() {
             sx={{
               fontFamily: "'Rajdhani', sans-serif",
               fontWeight: 700,
-              fontSize: { xs: '1.75rem', sm: '2.25rem', md: '2.6rem' },
+              fontSize: { xs: '1.5rem', sm: '2.25rem', md: '2.6rem' },
               color: TEXT_DARK,
               lineHeight: 1.2,
-              mb: { xs: 4, md: 5 },
+              mb: { xs: 3.5, md: 5 },
             }}
           >
             Our Commercial Range
@@ -564,8 +564,9 @@ export default function CommercialPage() {
                           display: 'flex',
                           alignItems: 'center',
                           flexWrap: 'wrap',
-                          gap: { xs: 0.6, md: 0.8 },
-                          fontSize: '12.5px',
+                          columnGap: { xs: 0.6, sm: 0.8 },
+                          rowGap: 0.6,
+                          fontSize: { xs: '11.5px', sm: '12.5px' },
                           fontWeight: 500,
                           color: '#374151',
                         }}
@@ -810,12 +811,13 @@ export default function CommercialPage() {
                 alignItems: 'center',
                 gap: 2,
                 flexWrap: 'wrap',
+                width: { xs: '100%', sm: 'auto' },
                 alignSelf: { xs: 'stretch', sm: 'flex-start', lg: 'center' },
               }}
             >
               <Button
                 component={Link}
-                href="/#offers"
+                href="/offers"
                 variant="contained"
                 sx={{
                   backgroundColor: ACCENT_RED,
@@ -827,8 +829,10 @@ export default function CommercialPage() {
                   py: 1,
                   borderRadius: '6px',
                   boxShadow: 'none',
+                  width: { xs: '100%', sm: 'auto' },
                   display: 'inline-flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   '&:hover': {
                     backgroundColor: '#dc2626',
                     boxShadow: '0 4px 12px rgba(231, 33, 11, 0.25)',
@@ -853,6 +857,8 @@ export default function CommercialPage() {
                   px: 2.8,
                   py: 1,
                   borderRadius: '6px',
+                  width: { xs: '100%', sm: 'auto' },
+                  justifyContent: 'center',
                   '&:hover': {
                     borderColor: '#9ca3af',
                     backgroundColor: '#f9fafb',

@@ -454,7 +454,7 @@ export default function OffersPage() {
             sx={{
               fontFamily: "'Rajdhani', sans-serif",
               fontWeight: 700,
-              fontSize: { xs: '2.2rem', sm: '3.2rem', md: '4.2rem' },
+              fontSize: { xs: '1.9rem', sm: '3rem', md: '4.2rem' },
               color: '#ffffff',
               lineHeight: 1.08,
               letterSpacing: '-0.02em',
@@ -468,7 +468,7 @@ export default function OffersPage() {
           {/* Subtitle */}
           <Typography
             sx={{
-              fontSize: { xs: '0.95rem', sm: '1.1rem' },
+              fontSize: { xs: '0.9rem', sm: '1.1rem' },
               color: 'rgba(255, 255, 255, 0.88)',
               maxWidth: 680,
               lineHeight: 1.5,
@@ -741,6 +741,11 @@ export default function OffersPage() {
                 p: 0.5,
                 borderRadius: 9999,
                 border: '1px solid #e2e8f0',
+                maxWidth: '100%',
+                overflowX: 'auto',
+                scrollbarWidth: 'none',
+                '&::-webkit-scrollbar': { display: 'none' },
+                WebkitOverflowScrolling: 'touch',
               }}
             >
               {['All', 'Arena', 'Nexa', 'Commercial'].map((channel) => {
@@ -1140,6 +1145,7 @@ export default function OffersPage() {
                 justifyContent: 'center',
                 gap: 2,
                 flexWrap: 'wrap',
+                width: '100%',
               }}
             >
               <Button
@@ -1156,8 +1162,10 @@ export default function OffersPage() {
                   py: 1.2,
                   borderRadius: '6px',
                   boxShadow: 'none',
+                  width: { xs: '100%', sm: 'auto' },
                   display: 'inline-flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   '&:hover': {
                     backgroundColor: '#f8fafc',
                   },
@@ -1180,8 +1188,10 @@ export default function OffersPage() {
                   px: 3.5,
                   py: 1.2,
                   borderRadius: '6px',
+                  width: { xs: '100%', sm: 'auto' },
                   display: 'inline-flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   '&:hover': {
                     borderColor: '#ffffff',
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -1327,3 +1337,4 @@ export default function OffersPage() {
     </Box>
   );
 }
+

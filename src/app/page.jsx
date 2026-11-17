@@ -677,15 +677,21 @@ export default function HomePage() {
             </Typography>
           </Box>
 
-          {/* Filter Pills */}
+          {/* Filter Pills with smooth horizontal touch scroll on mobile */}
           <Box
             sx={{
               display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
+              flexWrap: { xs: 'nowrap', sm: 'wrap' },
+              overflowX: { xs: 'auto', sm: 'visible' },
+              justifyContent: { xs: 'flex-start', sm: 'center' },
               alignItems: 'center',
-              gap: 1.2,
-              mb: 6,
+              gap: { xs: 1, sm: 1.2 },
+              mb: { xs: 4, md: 6 },
+              px: { xs: 1, sm: 0 },
+              py: 0.5,
+              scrollbarWidth: 'none',
+              '&::-webkit-scrollbar': { display: 'none' },
+              WebkitOverflowScrolling: 'touch',
             }}
           >
             {categories.map((cat) => {
@@ -1112,14 +1118,14 @@ export default function HomePage() {
                 </Box>
 
                 {/* 4 Specs Grid */}
-                <Grid container spacing={3}>
+                <Grid container spacing={{ xs: 1.5, sm: 2.5, md: 3 }}>
                   <Grid size={{ xs: 6, sm: 6 }}>
                     <Box
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 2,
-                        p: 2.5,
+                        gap: { xs: 1.2, sm: 2 },
+                        p: { xs: 1.5, sm: 2.5 },
                         borderRadius: 3,
                         backgroundColor: 'rgba(255, 255, 255, 0.65)',
                         backdropFilter: 'blur(8px)',
@@ -1129,19 +1135,20 @@ export default function HomePage() {
                     >
                       <Box
                         sx={{
-                          p: 1.5,
+                          p: { xs: 1, sm: 1.5 },
                           borderRadius: 2,
                           backgroundColor: 'rgba(29, 104, 201, 0.15)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
+                          flexShrink: 0,
                         }}
                       >
                         <ZapIconSvg />
                       </Box>
                       <Box>
-                        <Typography sx={{ fontSize: '0.85rem', color: TEXT_MUTED }}>Range</Typography>
-                        <Typography sx={{ fontSize: '1.2rem', fontWeight: 700, color: TEXT_DARK }}>
+                        <Typography sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' }, color: TEXT_MUTED }}>Range</Typography>
+                        <Typography sx={{ fontSize: { xs: '1rem', sm: '1.2rem' }, fontWeight: 700, color: TEXT_DARK }}>
                           500+ km
                         </Typography>
                       </Box>
@@ -1153,8 +1160,8 @@ export default function HomePage() {
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 2,
-                        p: 2.5,
+                        gap: { xs: 1.2, sm: 2 },
+                        p: { xs: 1.5, sm: 2.5 },
                         borderRadius: 3,
                         backgroundColor: 'rgba(255, 255, 255, 0.65)',
                         backdropFilter: 'blur(8px)',
@@ -1164,19 +1171,20 @@ export default function HomePage() {
                     >
                       <Box
                         sx={{
-                          p: 1.5,
+                          p: { xs: 1, sm: 1.5 },
                           borderRadius: 2,
                           backgroundColor: 'rgba(29, 104, 201, 0.15)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
+                          flexShrink: 0,
                         }}
                       >
                         <GaugeIconSvg />
                       </Box>
                       <Box>
-                        <Typography sx={{ fontSize: '0.85rem', color: TEXT_MUTED }}>Motor</Typography>
-                        <Typography sx={{ fontSize: '1.2rem', fontWeight: 700, color: TEXT_DARK }}>
+                        <Typography sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' }, color: TEXT_MUTED }}>Motor</Typography>
+                        <Typography sx={{ fontSize: { xs: '1rem', sm: '1.2rem' }, fontWeight: 700, color: TEXT_DARK }}>
                           144 PS
                         </Typography>
                       </Box>
@@ -1188,8 +1196,8 @@ export default function HomePage() {
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 2,
-                        p: 2.5,
+                        gap: { xs: 1.2, sm: 2 },
+                        p: { xs: 1.5, sm: 2.5 },
                         borderRadius: 3,
                         backgroundColor: 'rgba(255, 255, 255, 0.65)',
                         backdropFilter: 'blur(8px)',
@@ -1199,20 +1207,21 @@ export default function HomePage() {
                     >
                       <Box
                         sx={{
-                          p: 1.5,
+                          p: { xs: 1, sm: 1.5 },
                           borderRadius: 2,
                           backgroundColor: 'rgba(29, 104, 201, 0.15)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
+                          flexShrink: 0,
                         }}
                       >
                         <ZapIconSvg />
                       </Box>
                       <Box>
-                        <Typography sx={{ fontSize: '0.85rem', color: TEXT_MUTED }}>Charging</Typography>
-                        <Typography sx={{ fontSize: '1.2rem', fontWeight: 700, color: TEXT_DARK }}>
-                          DC Fast Charge
+                        <Typography sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' }, color: TEXT_MUTED }}>Charging</Typography>
+                        <Typography sx={{ fontSize: { xs: '0.95rem', sm: '1.2rem' }, fontWeight: 700, color: TEXT_DARK }}>
+                          Fast Charge
                         </Typography>
                       </Box>
                     </Box>
@@ -1223,8 +1232,8 @@ export default function HomePage() {
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 2,
-                        p: 2.5,
+                        gap: { xs: 1.2, sm: 2 },
+                        p: { xs: 1.5, sm: 2.5 },
                         borderRadius: 3,
                         backgroundColor: 'rgba(255, 255, 255, 0.65)',
                         backdropFilter: 'blur(8px)',
@@ -1234,20 +1243,21 @@ export default function HomePage() {
                     >
                       <Box
                         sx={{
-                          p: 1.5,
+                          p: { xs: 1, sm: 1.5 },
                           borderRadius: 2,
                           backgroundColor: 'rgba(29, 104, 201, 0.15)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
+                          flexShrink: 0,
                         }}
                       >
-                        <TagIconSvg />
+                        <RupeeIconSvg />
                       </Box>
                       <Box>
-                        <Typography sx={{ fontSize: '0.85rem', color: TEXT_MUTED }}>Price</Typography>
-                        <Typography sx={{ fontSize: '1.2rem', fontWeight: 700, color: TEXT_DARK }}>
-                          ₹17.49 Lakh+
+                        <Typography sx={{ fontSize: { xs: '0.75rem', sm: '0.85rem' }, color: TEXT_MUTED }}>Starting</Typography>
+                        <Typography sx={{ fontSize: { xs: '0.95rem', sm: '1.2rem' }, fontWeight: 700, color: TEXT_DARK }}>
+                          ₹15.99 L*
                         </Typography>
                       </Box>
                     </Box>
