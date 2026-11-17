@@ -176,15 +176,16 @@ export default function Header() {
             }}
           />
 
-          {/* Full Navigation Links (Visible on all desktop/tablet screens >= 900px) */}
+          {/* Full Navigation Links (Visible on all desktop/tablet screens >= 900px, including 1171px) */}
           <Box
             sx={{
               display: { xs: 'none', md: 'flex' },
               alignItems: 'center',
               flex: 1,
-              gap: { md: 0.2, lg: 0.5 },
+              gap: { md: 0.1, lg: 0.3, xl: 0.6 },
               height: '100%',
-              overflow: 'hidden',
+              flexWrap: 'nowrap',
+              justifyContent: 'flex-start',
             }}
           >
             {navLinks.map((item) => {
@@ -200,12 +201,13 @@ export default function Header() {
                     onClick={() => setActiveTab(item.title)}
                     sx={{
                       position: 'relative',
-                      px: { md: 1, lg: 1.5 },
+                      px: { md: 0.6, lg: 1, xl: 1.2 },
                       height: '100%',
                       display: 'inline-flex',
                       alignItems: 'center',
                       textDecoration: 'none',
                       whiteSpace: 'nowrap',
+                      flexShrink: 0,
                     }}
                   >
                     <span className="offers-pill offers-pulse">{item.title}</span>
@@ -222,19 +224,20 @@ export default function Header() {
                   onClick={() => setActiveTab(item.title)}
                   sx={{
                     position: 'relative',
-                    px: { md: 0.8, lg: 1.2, xl: 1.5 },
+                    px: { md: 0.6, lg: 0.9, xl: 1.3 },
                     height: '100%',
                     display: 'inline-flex',
                     alignItems: 'center',
                     fontSize: { md: '10.5px', lg: '11px' },
                     fontWeight: 600,
                     textTransform: 'uppercase',
-                    letterSpacing: { md: '0.08em', lg: '0.12em' },
+                    letterSpacing: { md: '0.06em', lg: '0.08em', xl: '0.1em' },
                     whiteSpace: 'nowrap',
                     textDecoration: 'none',
                     color: isActive ? ACCENT_RED : TEXT_MUTED,
                     transition: 'color 0.15s ease',
                     cursor: 'pointer',
+                    flexShrink: 0,
                     '&:hover': {
                       color: isActive ? ACCENT_RED : TEXT_DARK,
                     },
@@ -247,8 +250,8 @@ export default function Header() {
                       sx={{
                         position: 'absolute',
                         bottom: 0,
-                        left: { md: 6, lg: 10 },
-                        right: { md: 6, lg: 10 },
+                        left: { md: 4, lg: 6, xl: 8 },
+                        right: { md: 4, lg: 6, xl: 8 },
                         height: '2.5px',
                         backgroundColor: ACCENT_RED,
                         borderRadius: '1px 1px 0 0',
@@ -263,13 +266,14 @@ export default function Header() {
           {/* Spacer for mobile screens */}
           <Box sx={{ flex: 1, display: { md: 'none' } }} />
 
-          {/* Desktop Right Side: Phone & Region Selector */}
+          {/* Desktop Right Side: Phone & Region Selector (Matches screenshots 1, 2, 3, 5) */}
           <Box
             sx={{
               display: { xs: 'none', md: 'flex' },
               alignItems: 'center',
-              gap: { md: 1.5, lg: 2 },
+              gap: { md: 1.2, lg: 1.8 },
               flexShrink: 0,
+              ml: 'auto',
             }}
           >
             {/* Phone link */}
@@ -280,7 +284,7 @@ export default function Header() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: 1,
-                fontSize: '12px',
+                fontSize: { md: '11.5px', lg: '12px' },
                 fontWeight: 500,
                 color: TEXT_MUTED,
                 textDecoration: 'none',
@@ -295,36 +299,33 @@ export default function Header() {
               <span>{siteConfig.phone || '080-3069 3069'}</span>
             </Box>
 
-            {/* Region Selector Button */}
+            {/* Region Selector Square Icon Button */}
             <Box
               component="button"
               onClick={handleRegionClick}
               data-testid="button-region-selector"
+              aria-label={`Select Region (Current: ${selectedRegion})`}
+              title={`Region: ${selectedRegion}`}
               sx={{
-                height: 32, // h-8
-                px: 1.5, // px-3
-                fontSize: '12px', // text-xs
-                fontWeight: 500,
-                color: TEXT_DARK,
-                border: '1px solid',
-                borderColor: '#e2e8f0',
-                borderRadius: '6px', // rounded-md
-                whiteSpace: 'nowrap',
+                width: 36,
+                height: 36,
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 0.8,
+                justifyContent: 'center',
+                borderRadius: '6px',
+                border: '1px solid',
+                borderColor: '#e2e8f0',
                 backgroundColor: '#ffffff',
                 cursor: 'pointer',
-                outline: 'none',
+                p: 0,
                 transition: 'all 0.15s ease',
                 '&:hover': {
-                  borderColor: '#cbd5e1',
                   backgroundColor: '#f8fafc',
+                  borderColor: '#cbd5e1',
                 },
               }}
             >
               <MapPinIconSvg />
-              <span>{selectedRegion}</span>
             </Box>
           </Box>
 

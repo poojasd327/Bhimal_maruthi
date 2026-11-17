@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
   Box,
@@ -8,261 +8,1468 @@ import {
   Typography,
   Button,
   Grid,
-  Card,
-  CardContent,
-  Chip,
-  Paper,
-  Stack,
-  useTheme,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  MenuItem,
+  Snackbar,
+  Alert,
+  IconButton,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import SpeedIcon from '@mui/icons-material/Speed';
-import DesignServicesIcon from '@mui/icons-material/DesignServices';
-import HubIcon from '@mui/icons-material/Hub';
-import DevicesIcon from '@mui/icons-material/Devices';
-import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
-import SectionHeader from '@/components/SectionHeader';
 import HeroSlider from '@/components/HeroSlider';
-import { homeContent } from '@/data/content';
-import { siteConfig } from '@/config/siteConfig';
 
-const iconMap = {
-  Speed: SpeedIcon,
-  DesignServices: DesignServicesIcon,
-  Hub: HubIcon,
-  Devices: DevicesIcon,
-};
+const ACCENT_RED = '#e7210b';
+const ACCENT_BLUE = '#1d68c9';
+const TEXT_MUTED = '#64748b';
+const TEXT_DARK = '#0f172a';
+const BORDER_COLOR = '#e2e8f0';
+
+// Tag icon for offers
+function TagIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_RED}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ marginBottom: 12 }}
+    >
+      <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+      <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+    </svg>
+  );
+}
+
+// Zap Icon
+function ZapIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_BLUE}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  );
+}
+
+// Speedometer Icon
+function GaugeIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_BLUE}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m12 14 4-4" />
+      <path d="M3.34 19a10 10 0 1 1 17.32 0" />
+    </svg>
+  );
+}
+
+// Battery Charging Icon
+function BatteryChargeIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_BLUE}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M15 7h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2" />
+      <path d="M6 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1" />
+      <path d="m11 7-3 5h4l-3 5" />
+      <line x1="22" x2="22" y1="11" y2="13" />
+    </svg>
+  );
+}
+
+// Rupee Icon
+function RupeeIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_BLUE}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 3h12" />
+      <path d="M6 8h12" />
+      <path d="m6 13 8.5 8" />
+      <path d="M6 13h3a4 4 0 0 0 0-8" />
+    </svg>
+  );
+}
+
+// Value Proposition Icons
+function TrophyIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_RED}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+      <path d="M4 22h16" />
+      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+    </svg>
+  );
+}
+
+function UsersIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_RED}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+
+function ShieldCheckIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_RED}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
+}
+
+function WrenchIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_RED}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" />
+    </svg>
+  );
+}
+
+function ClockIconSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_RED}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+  );
+}
+
+function MapPinFilledSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={ACCENT_RED}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
+// Exclusive Offers Data
+const exclusiveOffers = [
+  {
+    id: 1,
+    title: 'Up to ₹1,25,000 Exchange + up to ₹40,000 Cash on Victoris',
+    description: 'Premium crossover with corporate benefit up to ₹15,000',
+  },
+  {
+    id: 2,
+    title: 'Up to ₹75,000 Cash + ₹20,000 – ₹1,00,000 Exchange on Grand Vitara',
+    description: 'Smart Hybrid & Strong Hybrid with 5-year warranty',
+  },
+  {
+    id: 3,
+    title: '₹30,000 – ₹80,000 Exchange Bonus on Invicto',
+    description: 'Luxury MPV with complimentary 3-year service package',
+  },
+  {
+    id: 4,
+    title: '₹15,000 – ₹20,000 Cash + ₹20,000 Exchange on XL6',
+    description: '6-seater premium MPV with special interest rate 6.99%',
+  },
+];
+
+// Vehicles Data
+const vehiclesData = [
+  {
+    id: 'brezza',
+    name: 'Maruti Suzuki Brezza',
+    price: '₹8.26 – 13.13 Lakh',
+    category: 'Compact SUV',
+    bodyType: 'SUV',
+    channel: 'arena',
+    image: '/images/brezza.webp',
+  },
+  {
+    id: 'victoris',
+    name: 'Maruti Suzuki Victoris',
+    price: '₹10.49 – 19.98 Lakh',
+    category: 'Premium Mid-Size Crossover',
+    bodyType: 'SUV',
+    channel: 'arena',
+    image: '/images/victoris.webp',
+  },
+  {
+    id: 's-presso',
+    name: 'Maruti Suzuki S-Presso',
+    price: '₹3.49 – 5.24 Lakh',
+    category: 'Micro-SUV Hatchback',
+    bodyType: 'Hatchback',
+    channel: 'arena',
+    image: '/images/s-presso.webp',
+  },
+  {
+    id: 'e-vitara',
+    name: 'Maruti Suzuki e Vitara',
+    price: '₹15.99 – 20.21 Lakh',
+    category: 'Born-Electric SUV Flagship',
+    bodyType: 'Electric',
+    channel: 'nexa',
+    image: '/images/e-vitara-no-bg.png',
+  },
+  {
+    id: 'grand-vitara',
+    name: 'Maruti Suzuki Grand Vitara',
+    price: '₹10.76 – 19.72 Lakh',
+    category: 'Mid-Size Hybrid SUV',
+    bodyType: 'SUV',
+    channel: 'nexa',
+    image: '/images/grand-vitara-no-bg.png',
+  },
+  {
+    id: 'fronx',
+    name: 'Maruti Suzuki Fronx',
+    price: '₹6.84 – 11.97 Lakh',
+    category: 'Compact SUV-Coupe',
+    bodyType: 'SUV',
+    channel: 'nexa',
+    image: '/images/fronx-no-bg.png',
+  },
+  {
+    id: 'jimny',
+    name: 'Maruti Suzuki Jimny',
+    price: '₹12.39 – 14.52 Lakh',
+    category: '4x4 Off-Road SUV',
+    bodyType: 'SUV',
+    channel: 'nexa',
+    image: '/images/jimny-no-bg.png',
+  },
+  {
+    id: 'baleno',
+    name: 'Maruti Suzuki Baleno',
+    price: '₹6.66 – 9.88 Lakh',
+    category: 'Premium Hatchback',
+    bodyType: 'Hatchback',
+    channel: 'nexa',
+    image: '/images/hero-baleno.jpg',
+  },
+  {
+    id: 'dzire',
+    name: 'Maruti Suzuki Dzire',
+    price: '₹6.79 – 10.14 Lakh',
+    category: '5-Star Safety Sedan',
+    bodyType: 'Sedan',
+    channel: 'arena',
+    image: '/images/brezza.webp',
+  },
+  {
+    id: 'ertiga',
+    name: 'Maruti Suzuki Ertiga',
+    price: '₹8.69 – 13.03 Lakh',
+    category: 'India’s No.1 7-Seater MPV',
+    bodyType: 'MPV',
+    channel: 'arena',
+    image: '/images/victoris.webp',
+  },
+  {
+    id: 'super-carry',
+    name: 'Maruti Super Carry',
+    price: '₹5.15 – 6.30 Lakh',
+    category: 'Commercial Mini-Truck',
+    bodyType: 'Commercial',
+    channel: 'commercial',
+    image: '/images/s-presso.webp',
+  },
+];
+
+const categories = ['SUV', 'Hatchback', 'Sedan', 'Electric', 'Commercial', 'MPV', 'All'];
 
 export default function HomePage() {
-  const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
+  const [selectedCategory, setSelectedCategory] = useState('SUV');
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogAction, setDialogAction] = useState('Test Drive');
+  const [selectedVehicle, setSelectedVehicle] = useState('Maruti Suzuki Brezza');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMsg, setSnackbarMsg] = useState('');
+
+  // Filter vehicles
+  const filteredVehicles = useMemo(() => {
+    if (selectedCategory === 'All') return vehiclesData;
+    return vehiclesData.filter((v) => v.bodyType === selectedCategory);
+  }, [selectedCategory]);
+
+  const handleOpenAction = (action, vehicleName) => {
+    setDialogAction(action);
+    setSelectedVehicle(vehicleName || 'Maruti Suzuki');
+    setDialogOpen(true);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setDialogOpen(false);
+    setSnackbarMsg(`Thank you! Your request for ${selectedVehicle} (${dialogAction}) has been submitted.`);
+    setSnackbarOpen(true);
+  };
 
   return (
-    <Box>
-      {/* Dynamic Hero Carousel Section */}
+    <Box sx={{ backgroundColor: '#ffffff', minHeight: '100vh', width: '100%' }}>
+      {/* 1. Hero Carousel Slider */}
       <HeroSlider />
 
-      {/* Stats Bar */}
-      <Container maxWidth="lg" sx={{ mt: -4, mb: 10, position: 'relative', zIndex: 2 }}>
-        <Paper
-          elevation={0}
-          sx={{
-            p: { xs: 3, md: 4 },
-            borderRadius: 3,
-            backgroundColor: 'background.paper',
-            border: '1px solid',
-            borderColor: 'divider',
-            boxShadow: isDark
-              ? '0 10px 30px rgba(0,0,0,0.5)'
-              : '0 10px 30px rgba(0,0,0,0.06)',
-          }}
-        >
-          <Grid container spacing={3} sx={{ alignItems: 'center' }}>
-            {homeContent.stats.map((stat, index) => (
-              <Grid size={{ xs: 6, md: 3 }} key={index} sx={{ textAlign: 'center' }}>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontWeight: 800,
-                    color: 'primary.main',
-                    mb: 0.5,
-                    fontSize: { xs: '1.8rem', md: '2.5rem' },
-                  }}
-                >
-                  {stat.value}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
-                  {stat.label}
-                </Typography>
-              </Grid>
-            ))}
-          </Grid>
-        </Paper>
-      </Container>
+      {/* 2. Exclusive Offers Section (id="offers") */}
+      <Box
+        id="offers"
+        component="section"
+        sx={{
+          py: { xs: 8, md: 10 },
+          backgroundColor: '#fafbfc',
+          borderTop: '1px solid',
+          borderBottom: '1px solid',
+          borderColor: BORDER_COLOR,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontSize: { xs: '2rem', md: '2.5rem' },
+                fontWeight: 700,
+                color: TEXT_DARK,
+                fontFamily: 'inherit',
+              }}
+            >
+              Exclusive Offers
+            </Typography>
+            <Typography sx={{ color: TEXT_MUTED, mt: 1, fontSize: '1.05rem' }}>
+              Unbeatable deals in <strong style={{ color: TEXT_DARK }}>Karnataka</strong>
+            </Typography>
+            <Typography sx={{ fontSize: '0.8rem', color: TEXT_MUTED, mt: 0.5 }}>
+              October 2026 offers · Valid through 31 October 2026
+            </Typography>
+          </Box>
 
-      {/* Features Section */}
-      <Container maxWidth="lg" sx={{ py: 6 }}>
-        <SectionHeader
-          badge="Features &amp; Strengths"
-          title="Engineered for Performance &amp; Scalability"
-          subtitle="Everything you need to launch a high-impact digital presence with full responsiveness and clean maintainable code."
-        />
-
-        <Grid container spacing={3}>
-          {homeContent.features.map((feature, idx) => {
-            const IconComponent = iconMap[feature.icon] || SpeedIcon;
-            return (
-              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={idx}>
-                <Card
+          <Grid container spacing={3}>
+            {exclusiveOffers.map((offer) => (
+              <Grid size={{ xs: 12, sm: 6, lg: 3 }} key={offer.id}>
+                <Box
+                  onClick={() => handleOpenAction('Claim Offer', offer.title)}
                   sx={{
+                    position: 'relative',
                     height: '100%',
+                    p: 3,
+                    borderRadius: 3,
+                    backgroundColor: '#ffffff',
+                    border: '1px solid',
+                    borderColor: 'rgba(231, 33, 11, 0.25)',
+                    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                    transition: 'all 0.25s ease',
                     display: 'flex',
                     flexDirection: 'column',
-                    p: 2,
                     '&:hover': {
-                      transform: 'translateY(-6px)',
-                      boxShadow: isDark
-                        ? '0 12px 30px rgba(0,0,0,0.7)'
-                        : '0 12px 30px rgba(25, 118, 210, 0.12)',
+                      borderColor: ACCENT_RED,
+                      boxShadow: '0 8px 24px rgba(231, 33, 11, 0.1)',
+                      transform: 'translateY(-3px)',
                     },
                   }}
                 >
-                  <CardContent sx={{ flexGrow: 1, p: 2 }}>
+                  {/* Left Red Accent Line */}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '4px',
+                      height: '100%',
+                      backgroundColor: ACCENT_RED,
+                    }}
+                  />
+
+                  <TagIconSvg />
+
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: '1rem',
+                      fontWeight: 700,
+                      lineHeight: 1.35,
+                      color: TEXT_DARK,
+                      mb: 1,
+                    }}
+                  >
+                    {offer.title}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontSize: '0.85rem',
+                      color: TEXT_MUTED,
+                      lineHeight: 1.5,
+                      mt: 'auto',
+                    }}
+                  >
+                    {offer.description}
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* 3. Explore Our Range (id="range") */}
+      <Box id="range" component="section" sx={{ py: { xs: 8, md: 12 }, backgroundColor: '#ffffff' }}>
+        <Container maxWidth="lg">
+          {/* Section Header */}
+          <Box sx={{ textAlign: 'center', mb: 5 }}>
+            <Box
+              sx={{
+                display: 'inline-block',
+                px: 2,
+                py: 0.5,
+                mb: 1.5,
+                borderRadius: '9999px',
+                backgroundColor: 'rgba(231, 33, 11, 0.08)',
+                color: ACCENT_RED,
+                border: '1px solid rgba(231, 33, 11, 0.2)',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Explore Our Range
+            </Box>
+            <Typography
+              variant="h2"
+              sx={{
+                fontSize: { xs: '2rem', md: '2.75rem' },
+                fontWeight: 700,
+                color: TEXT_DARK,
+                fontFamily: 'inherit',
+              }}
+            >
+              Find Your Perfect Maruti
+            </Typography>
+            <Typography sx={{ color: TEXT_MUTED, mt: 1.5, maxWidth: 600, mx: 'auto', fontSize: '1rem' }}>
+              Browse by body type — from compact hatchbacks to premium SUVs and electric vehicles.
+            </Typography>
+          </Box>
+
+          {/* Filter Pills */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 1.2,
+              mb: 6,
+            }}
+          >
+            {categories.map((cat) => {
+              const isSelected = selectedCategory === cat;
+              return (
+                <Box
+                  key={cat}
+                  component="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  sx={{
+                    px: { xs: 2.2, md: 3 },
+                    py: 1.1,
+                    borderRadius: '9999px',
+                    fontSize: '0.85rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    whiteSpace: 'nowrap',
+                    border: '1px solid',
+                    borderColor: isSelected ? ACCENT_RED : BORDER_COLOR,
+                    backgroundColor: isSelected ? ACCENT_RED : '#ffffff',
+                    color: isSelected ? '#ffffff' : TEXT_MUTED,
+                    boxShadow: isSelected ? '0 4px 14px rgba(231, 33, 11, 0.25)' : 'none',
+                    '&:hover': {
+                      backgroundColor: isSelected ? '#dc2626' : '#f8fafc',
+                      color: isSelected ? '#ffffff' : TEXT_DARK,
+                    },
+                  }}
+                >
+                  {cat}
+                </Box>
+              );
+            })}
+          </Box>
+
+          {/* Vehicle Cards Grid */}
+          <Grid container spacing={3.5}>
+            {filteredVehicles.map((car) => (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={car.id}>
+                <Box
+                  sx={{
+                    borderRadius: 3,
+                    border: '1px solid',
+                    borderColor: BORDER_COLOR,
+                    backgroundColor: '#ffffff',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
+                    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.04)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      borderColor: 'rgba(231, 33, 11, 0.4)',
+                      boxShadow: '0 12px 28px rgba(0, 0, 0, 0.08)',
+                      transform: 'translateY(-4px)',
+                      '& .car-img': {
+                        transform: 'scale(1.05)',
+                      },
+                    },
+                  }}
+                >
+                  {/* Image Container with Badges */}
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      height: 220,
+                      backgroundColor: '#f8fafc',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      className="car-img"
+                      src={car.image}
+                      alt={car.name}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        p: 2,
+                        transition: 'transform 0.4s ease',
+                      }}
+                    />
+
+                    {/* Top Left: Category Badge */}
                     <Box
                       sx={{
-                        width: 50,
-                        height: 50,
+                        position: 'absolute',
+                        top: 12,
+                        left: 12,
+                        px: 1.2,
+                        py: 0.4,
+                        borderRadius: 1.5,
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                        backdropFilter: 'blur(4px)',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        color: TEXT_DARK,
+                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
+                      }}
+                    >
+                      {car.category}
+                    </Box>
+
+                    {/* Top Right: Channel Badge */}
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: 12,
+                        right: 12,
+                        px: 1.2,
+                        py: 0.4,
+                        borderRadius: 1.5,
+                        backgroundColor: car.channel === 'nexa' ? 'rgba(29, 104, 201, 0.1)' : 'rgba(231, 33, 11, 0.1)',
+                        color: car.channel === 'nexa' ? ACCENT_BLUE : ACCENT_RED,
+                        border: '1px solid',
+                        borderColor: car.channel === 'nexa' ? 'rgba(29, 104, 201, 0.25)' : 'rgba(231, 33, 11, 0.25)',
+                        fontSize: '10px',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.08em',
+                      }}
+                    >
+                      {car.channel}
+                    </Box>
+                  </Box>
+
+                  {/* Card Content */}
+                  <Box sx={{ p: 3, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                    <Typography
+                      variant="h3"
+                      sx={{
+                        fontSize: '1.25rem',
+                        fontWeight: 700,
+                        color: TEXT_DARK,
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {car.name}
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        mt: 0.8,
+                        fontSize: '1.15rem',
+                        fontWeight: 700,
+                        color: ACCENT_RED,
+                      }}
+                    >
+                      {car.price}
+                    </Typography>
+
+                    {/* Action Links */}
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        gap: 1,
+                        mt: 2.5,
+                        pt: 2,
+                        borderTop: '1px solid',
+                        borderColor: BORDER_COLOR,
+                        fontSize: '12px',
+                      }}
+                    >
+                      <Box
+                        component="button"
+                        onClick={() => handleOpenAction('Test Drive', car.name)}
+                        sx={{
+                          border: 'none',
+                          background: 'none',
+                          p: 0,
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          color: TEXT_DARK,
+                          transition: 'color 0.15s ease',
+                          '&:hover': { color: ACCENT_RED, textDecoration: 'underline' },
+                        }}
+                      >
+                        Test Drive
+                      </Box>
+                      <Box component="span" sx={{ color: '#cbd5e1' }}>|</Box>
+
+                      <Box
+                        component="button"
+                        onClick={() => {
+                          setSnackbarMsg(`Downloading official brochure for ${car.name}...`);
+                          setSnackbarOpen(true);
+                        }}
+                        sx={{
+                          border: 'none',
+                          background: 'none',
+                          p: 0,
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          color: TEXT_DARK,
+                          transition: 'color 0.15s ease',
+                          '&:hover': { color: ACCENT_RED, textDecoration: 'underline' },
+                        }}
+                      >
+                        Brochure
+                      </Box>
+                      <Box component="span" sx={{ color: '#cbd5e1' }}>|</Box>
+
+                      <Box
+                        component="button"
+                        onClick={() => handleOpenAction('Get On-Road Price', car.name)}
+                        sx={{
+                          border: 'none',
+                          background: 'none',
+                          p: 0,
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          color: TEXT_DARK,
+                          transition: 'color 0.15s ease',
+                          '&:hover': { color: ACCENT_RED, textDecoration: 'underline' },
+                        }}
+                      >
+                        Get Price
+                      </Box>
+                      <Box component="span" sx={{ color: '#cbd5e1' }}>|</Box>
+
+                      <Box
+                        component="button"
+                        onClick={() => handleOpenAction('EMI Calculator', car.name)}
+                        sx={{
+                          border: 'none',
+                          background: 'none',
+                          p: 0,
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          color: TEXT_DARK,
+                          transition: 'color 0.15s ease',
+                          '&:hover': { color: ACCENT_RED, textDecoration: 'underline' },
+                        }}
+                      >
+                        EMI Calc
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* Explore by Channel Links */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 2,
+              mt: 8,
+            }}
+          >
+            <Button
+              component={Link}
+              href="/arena"
+              variant="outlined"
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                py: 1.2,
+                px: 3,
+                borderRadius: 2,
+                borderColor: 'rgba(231, 33, 11, 0.4)',
+                color: ACCENT_RED,
+                fontWeight: 600,
+                textTransform: 'none',
+                '&:hover': {
+                  borderColor: ACCENT_RED,
+                  backgroundColor: ACCENT_RED,
+                  color: '#ffffff',
+                },
+              }}
+            >
+              View All Arena
+            </Button>
+
+            <Button
+              component={Link}
+              href="/nexa"
+              variant="outlined"
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                py: 1.2,
+                px: 3,
+                borderRadius: 2,
+                borderColor: 'rgba(29, 104, 201, 0.4)',
+                color: ACCENT_BLUE,
+                fontWeight: 600,
+                textTransform: 'none',
+                '&:hover': {
+                  borderColor: ACCENT_BLUE,
+                  backgroundColor: ACCENT_BLUE,
+                  color: '#ffffff',
+                },
+              }}
+            >
+              View All Nexa
+            </Button>
+
+            <Button
+              component={Link}
+              href="/commercial"
+              variant="outlined"
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                py: 1.2,
+                px: 3,
+                borderRadius: 2,
+                borderColor: '#64748b',
+                color: '#475569',
+                fontWeight: 600,
+                textTransform: 'none',
+                '&:hover': {
+                  borderColor: '#0f172a',
+                  backgroundColor: '#0f172a',
+                  color: '#ffffff',
+                },
+              }}
+            >
+              View All Commercial
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* 4. Maruti Suzuki e Vitara Spotlight Section */}
+      <Box
+        component="section"
+        sx={{
+          py: { xs: 8, md: 12 },
+          backgroundColor: '#090d16',
+          color: '#ffffff',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        <Container maxWidth="lg">
+          <Grid container spacing={{ xs: 4, md: 8 }} sx={{ alignItems: 'center' }}>
+            {/* Left Content */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box
+                sx={{
+                  display: 'inline-block',
+                  px: 2,
+                  py: 0.6,
+                  borderRadius: '9999px',
+                  backgroundColor: 'rgba(231, 33, 11, 0.15)',
+                  border: '1px solid rgba(231, 33, 11, 0.3)',
+                  color: '#f87171',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  mb: 2.5,
+                }}
+              >
+                NOW AVAILABLE — INDIA&apos;S FIRST ELECTRIC SUV FROM MARUTI
+              </Box>
+
+              <Typography
+                variant="h2"
+                sx={{
+                  fontSize: { xs: '2.5rem', sm: '3.2rem', md: '4rem' },
+                  fontWeight: 800,
+                  color: '#ffffff',
+                  lineHeight: 1.1,
+                  fontFamily: 'inherit',
+                  mb: 1.5,
+                }}
+              >
+                Maruti Suzuki e Vitara
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontSize: { xs: '1.1rem', md: '1.35rem' },
+                  color: '#94a3b8',
+                  mb: 4,
+                  fontWeight: 500,
+                }}
+              >
+                Zero Emissions. Maximum Luxury.
+              </Typography>
+
+              {/* 4 Specs Grid */}
+              <Grid container spacing={2.5} sx={{ mb: 4.5 }}>
+                <Grid size={{ xs: 6, sm: 6 }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      p: 2,
+                      borderRadius: 2.5,
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        p: 1.2,
+                        borderRadius: 2,
+                        backgroundColor: 'rgba(29, 104, 201, 0.25)',
+                        display: 'flex',
+                      }}
+                    >
+                      <ZapIconSvg />
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontSize: '0.75rem', color: '#94a3b8' }}>Range</Typography>
+                      <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
+                        500+ km
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+
+                <Grid size={{ xs: 6, sm: 6 }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      p: 2,
+                      borderRadius: 2.5,
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        p: 1.2,
+                        borderRadius: 2,
+                        backgroundColor: 'rgba(29, 104, 201, 0.25)',
+                        display: 'flex',
+                      }}
+                    >
+                      <GaugeIconSvg />
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontSize: '0.75rem', color: '#94a3b8' }}>Power</Typography>
+                      <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
+                        144 PS
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+
+                <Grid size={{ xs: 6, sm: 6 }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      p: 2,
+                      borderRadius: 2.5,
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        p: 1.2,
+                        borderRadius: 2,
+                        backgroundColor: 'rgba(29, 104, 201, 0.25)',
+                        display: 'flex',
+                      }}
+                    >
+                      <BatteryChargeIconSvg />
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontSize: '0.75rem', color: '#94a3b8' }}>Charging</Typography>
+                      <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
+                        DC Fast Charge
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+
+                <Grid size={{ xs: 6, sm: 6 }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      p: 2,
+                      borderRadius: 2.5,
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        p: 1.2,
+                        borderRadius: 2,
+                        backgroundColor: 'rgba(29, 104, 201, 0.25)',
+                        display: 'flex',
+                      }}
+                    >
+                      <RupeeIconSvg />
+                    </Box>
+                    <Box>
+                      <Typography sx={{ fontSize: '0.75rem', color: '#94a3b8' }}>Starting at</Typography>
+                      <Typography sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
+                        ₹17.49 Lakh+
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              </Grid>
+
+              {/* CTAs */}
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                <Button
+                  onClick={() => handleOpenAction('Pre-Book', 'Maruti Suzuki e Vitara')}
+                  variant="contained"
+                  sx={{
+                    px: 4,
+                    py: 1.5,
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    backgroundColor: ACCENT_RED,
+                    color: '#ffffff',
+                    boxShadow: '0 4px 20px rgba(231, 33, 11, 0.4)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    '&:hover': {
+                      backgroundColor: '#dc2626',
+                    },
+                  }}
+                >
+                  Book Now
+                </Button>
+
+                <Button
+                  onClick={() => handleOpenAction('Explore Details', 'Maruti Suzuki e Vitara')}
+                  variant="outlined"
+                  sx={{
+                    px: 4,
+                    py: 1.5,
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    borderColor: 'rgba(255, 255, 255, 0.4)',
+                    color: '#ffffff',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    '&:hover': {
+                      borderColor: '#ffffff',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    },
+                  }}
+                >
+                  Explore e Vitara
+                </Button>
+              </Box>
+            </Grid>
+
+            {/* Right Image */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                  boxShadow: '0 0 50px rgba(29, 104, 201, 0.3)',
+                }}
+              >
+                <Box
+                  component="img"
+                  src="/images/e-vitara.webp"
+                  alt="Maruti Suzuki e Vitara"
+                  sx={{
+                    width: '100%',
+                    height: 'auto',
+                    objectFit: 'cover',
+                    borderRadius: 4,
+                    display: 'block',
+                  }}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* 5. Why Choose Bimal Maruti Section */}
+      <Box component="section" sx={{ py: { xs: 8, md: 14 }, backgroundColor: '#ffffff' }}>
+        <Container maxWidth="lg">
+          {/* Header */}
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontSize: { xs: '2rem', md: '2.75rem' },
+                fontWeight: 700,
+                color: TEXT_DARK,
+                fontFamily: 'inherit',
+              }}
+            >
+              Why Choose Bimal Maruti
+            </Typography>
+            <Typography sx={{ color: TEXT_MUTED, mt: 1.5, maxWidth: 650, mx: 'auto', fontSize: '1.05rem' }}>
+              Experience the difference of dealing with South India&apos;s most trusted automotive partner.
+            </Typography>
+          </Box>
+
+          {/* 6 Value Cards */}
+          <Grid container spacing={3.5} sx={{ mb: 8 }}>
+            {[
+              {
+                title: 'Award-Winning Dealer',
+                desc: 'Consistently ranked #1 Maruti Suzuki dealership in South India for sales and service satisfaction',
+                icon: TrophyIconSvg,
+              },
+              {
+                title: '5,00,000+ Happy Customers',
+                desc: 'Four decades of creating smiles across Karnataka and Kerala with trusted automotive solutions',
+                icon: UsersIconSvg,
+              },
+              {
+                title: 'Transparent Pricing',
+                desc: 'No hidden charges. Best-price guarantee on all new and preowned cars',
+                icon: ShieldCheckIconSvg,
+              },
+              {
+                title: 'Certified Technicians',
+                desc: 'Maruti Suzuki trained technicians and Genuine Parts in every service',
+                icon: WrenchIconSvg,
+              },
+              {
+                title: 'Quick Service Turnaround',
+                desc: 'Express service in under 2 hours for scheduled maintenance',
+                icon: ClockIconSvg,
+              },
+              {
+                title: 'Multi-State Network',
+                desc: '25 showrooms in Karnataka, expanding to 5 cities in Kerala',
+                icon: MapPinFilledSvg,
+              },
+            ].map((item, idx) => {
+              const IconComp = item.icon;
+              return (
+                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
+                  <Box
+                    sx={{
+                      p: 3.5,
+                      height: '100%',
+                      borderRadius: 3,
+                      backgroundColor: '#ffffff',
+                      border: '1px solid',
+                      borderColor: BORDER_COLOR,
+                      boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
+                      transition: 'all 0.25s ease',
+                      '&:hover': {
+                        borderColor: 'rgba(231, 33, 11, 0.4)',
+                        boxShadow: '0 8px 24px rgba(231, 33, 11, 0.08)',
+                        transform: 'translateY(-3px)',
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 52,
+                        height: 52,
                         borderRadius: 2.5,
-                        backgroundColor: isDark ? 'rgba(96, 165, 250, 0.15)' : 'rgba(25, 118, 210, 0.08)',
-                        color: 'primary.main',
+                        backgroundColor: 'rgba(231, 33, 11, 0.08)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         mb: 2.5,
                       }}
                     >
-                      <IconComponent fontSize="medium" />
+                      <IconComp />
                     </Box>
-                    <Typography variant="h6" component="h3" sx={{ fontWeight: 700, mb: 1.5 }}>
-                      {feature.title}
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        fontSize: '1.2rem',
+                        fontWeight: 700,
+                        color: TEXT_DARK,
+                        mb: 1,
+                      }}
+                    >
+                      {item.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                      {feature.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Container>
-
-      {/* Quick Architecture Highlights */}
-      <Box sx={{ py: 10, backgroundColor: isDark ? '#1e293b' : '#ffffff', borderTop: '1px solid', borderBottom: '1px solid', borderColor: 'divider' }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={6} sx={{ alignItems: 'center' }}>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Chip
-                label="Developer Friendly"
-                color="secondary"
-                size="small"
-                sx={{ mb: 2, fontWeight: 600 }}
-              />
-              <Typography variant="h3" sx={{ fontWeight: 800, mb: 2 }}>
-                Modular Components &amp; Clean Content Separation
-              </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.7 }}>
-                This setup is purposefully configured so you can drop your own content, brand name, and images anytime. All data lives in structured, predictable files.
-              </Typography>
-
-              <Stack spacing={2}>
-                {[
-                  'Customizable theme tokens in src/theme/theme.js',
-                  'Centralized text content in src/data/content.js',
-                  'Ready-made pages for About, Services, Portfolio, and Contact',
-                  'Client-side theme toggle with automatic OS preference detection',
-                ].map((item, i) => (
-                  <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                    <CheckCircleOutlinedIcon color="primary" fontSize="small" />
-                    <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                      {item}
+                    <Typography
+                      sx={{
+                        fontSize: '0.9rem',
+                        color: TEXT_MUTED,
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      {item.desc}
                     </Typography>
                   </Box>
-                ))}
-              </Stack>
-            </Grid>
+                </Grid>
+              );
+            })}
+          </Grid>
 
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Paper
-                elevation={0}
+          {/* 3-Column Stats Banner */}
+          <Box
+            sx={{
+              p: { xs: 4, md: 6 },
+              borderRadius: 4,
+              backgroundColor: '#f8fafc',
+              border: '1px solid',
+              borderColor: BORDER_COLOR,
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
+            }}
+          >
+            <Grid container spacing={4} sx={{ textAlign: 'center', alignItems: 'center' }}>
+              <Grid size={{ xs: 12, md: 4 }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: '2.5rem', md: '3.5rem' },
+                    fontWeight: 800,
+                    color: TEXT_DARK,
+                    lineHeight: 1,
+                    mb: 1,
+                  }}
+                >
+                  42+ Years
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '0.85rem',
+                    fontWeight: 600,
+                    color: TEXT_MUTED,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.12em',
+                  }}
+                >
+                  Of Excellence
+                </Typography>
+              </Grid>
+
+              <Grid
+                size={{ xs: 12, md: 4 }}
                 sx={{
-                  p: 3,
-                  borderRadius: 3,
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  backgroundColor: 'background.paper',
-                  fontFamily: 'monospace',
-                  fontSize: '0.85rem',
+                  borderLeft: { md: '1px solid #e2e8f0' },
+                  borderRight: { md: '1px solid #e2e8f0' },
+                  borderTop: { xs: '1px solid #e2e8f0', md: 'none' },
+                  borderBottom: { xs: '1px solid #e2e8f0', md: 'none' },
+                  py: { xs: 3, md: 0 },
                 }}
               >
-                <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 1 }}>
-                  {`// Project structure overview`}
+                <Typography
+                  sx={{
+                    fontSize: { xs: '2.5rem', md: '3.5rem' },
+                    fontWeight: 800,
+                    color: TEXT_DARK,
+                    lineHeight: 1,
+                    mb: 1,
+                  }}
+                >
+                  50,000+
                 </Typography>
-                <Box component="pre" sx={{ m: 0, overflowX: 'auto', color: 'primary.main' }}>
-{`src/
-├── app/
-│   ├── page.jsx        # Home Page
-│   ├── about/          # About Page
-│   ├── services/       # Services & Solutions
-│   ├── portfolio/      # Projects Showcase
-│   ├── contact/        # Interactive Contact Form
-│   └── layout.jsx      # Theme & App Router Cache
-├── components/         # Reusable MUI Components
-├── config/             # Site metadata & navigation
-├── data/               # Centralized page content
-└── theme/              # MUI Palette & Styles`}
-                </Box>
-              </Paper>
+                <Typography
+                  sx={{
+                    fontSize: '0.85rem',
+                    fontWeight: 600,
+                    color: TEXT_MUTED,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.12em',
+                  }}
+                >
+                  Cars Sold
+                </Typography>
+              </Grid>
+
+              <Grid size={{ xs: 12, md: 4 }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: '2.5rem', md: '3.5rem' },
+                    fontWeight: 800,
+                    color: ACCENT_RED,
+                    lineHeight: 1,
+                    mb: 1,
+                  }}
+                >
+                  4.8★
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '0.85rem',
+                    fontWeight: 600,
+                    color: TEXT_MUTED,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.12em',
+                  }}
+                >
+                  Average Rating
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
+          </Box>
         </Container>
       </Box>
 
-      {/* CTA Banner */}
-      <Container maxWidth="lg" sx={{ py: 10 }}>
-        <Paper
-          elevation={0}
-          sx={{
-            p: { xs: 4, md: 8 },
-            borderRadius: 4,
-            textAlign: 'center',
-            background: isDark
-              ? 'linear-gradient(135deg, #1e3a8a 0%, #4c1d95 100%)'
-              : 'linear-gradient(135deg, #1976d2 0%, #7b1fa2 100%)',
-            color: '#ffffff',
-          }}
-        >
-          <Typography
-            variant="h3"
-            component="h2"
-            sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.8rem', md: '2.5rem' } }}
-          >
-            {homeContent.ctaBanner.title}
+      {/* Interactive Booking / Test Drive Dialog */}
+      <Dialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        maxWidth="sm"
+        fullWidth
+        slotProps={{
+          paper: {
+            sx: {
+              borderRadius: 3,
+              p: 1,
+            },
+          },
+        }}
+      >
+        <DialogTitle sx={{ m: 0, p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="h6" sx={{ fontWeight: 700, color: TEXT_DARK }}>
+            {dialogAction}: {selectedVehicle}
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              maxWidth: 650,
-              mx: 'auto',
-              mb: 4,
-              opacity: 0.9,
-              fontWeight: 400,
-              fontSize: { xs: '1rem', md: '1.2rem' },
-            }}
-          >
-            {homeContent.ctaBanner.subtitle}
-          </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            component={Link}
-            href={homeContent.ctaBanner.buttonHref}
-            sx={{
-              backgroundColor: '#ffffff',
-              color: 'primary.main',
-              fontWeight: 700,
-              px: 4,
-              py: 1.5,
-              fontSize: '1rem',
-              '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-              },
-            }}
-          >
-            {homeContent.ctaBanner.buttonLabel}
-          </Button>
-        </Paper>
-      </Container>
+          <IconButton onClick={() => setDialogOpen(false)} size="small" aria-label="close">
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+
+        <Box component="form" onSubmit={handleFormSubmit}>
+          <DialogContent dividers sx={{ p: 3 }}>
+            <Typography variant="body2" sx={{ color: TEXT_MUTED, mb: 3 }}>
+              Enter your contact details to schedule your {dialogAction.toLowerCase()} or receive an instant price quote from Bimal Maruti.
+            </Typography>
+
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <TextField required fullWidth label="Full Name" size="small" defaultValue="Customer" />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <TextField required fullWidth label="Phone Number" size="small" defaultValue="+91 " />
+              </Grid>
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  select
+                  fullWidth
+                  label="Preferred City / Showroom"
+                  size="small"
+                  defaultValue="Bangalore - Indiranagar"
+                >
+                  <MenuItem value="Bangalore - Indiranagar">Bangalore - Indiranagar</MenuItem>
+                  <MenuItem value="Bangalore - Whitefield">Bangalore - Whitefield</MenuItem>
+                  <MenuItem value="Bangalore - Yelahanka">Bangalore - Yelahanka</MenuItem>
+                  <MenuItem value="Mysore - Hunsur Road">Mysore - Hunsur Road</MenuItem>
+                  <MenuItem value="Mangalore - Bejai">Mangalore - Bejai</MenuItem>
+                  <MenuItem value="Kochi - Edappally">Kochi - Edappally</MenuItem>
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={2}
+                  label="Special Requirements / Note"
+                  size="small"
+                  placeholder="e.g. Preferred test drive time, exchange evaluation, or financing request"
+                />
+              </Grid>
+            </Grid>
+          </DialogContent>
+
+          <DialogActions sx={{ p: 2.5 }}>
+            <Button onClick={() => setDialogOpen(false)} sx={{ color: TEXT_MUTED }}>
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                backgroundColor: ACCENT_RED,
+                color: '#ffffff',
+                fontWeight: 700,
+                px: 3,
+                '&:hover': { backgroundColor: '#dc2626' },
+              }}
+            >
+              Submit Request
+            </Button>
+          </DialogActions>
+        </Box>
+      </Dialog>
+
+      {/* Snackbar feedback */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={4000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={() => setSnackbarOpen(false)} severity="success" sx={{ width: '100%' }}>
+          {snackbarMsg}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
