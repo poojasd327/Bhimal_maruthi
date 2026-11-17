@@ -47,3 +47,4 @@ export default function BimalLogo({ height = 40 }) {
     </Box>
   );
 }
+

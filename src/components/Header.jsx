@@ -35,7 +35,7 @@ function PhoneIconSvg({ sx = {} }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#e52b20"
+      stroke="#e7210b"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -54,7 +54,7 @@ function MapPinIconSvg({ sx = {} }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#e52b20"
+      stroke="#e7210b"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -123,9 +123,9 @@ export default function Header() {
       color="default"
       elevation={0}
       sx={{
-        backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : '#ffffff',
+        backgroundColor: isDark ? '#0f172a' : '#fafafa',
         borderBottom: '1px solid',
-        borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#e5e7eb',
+        borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#ecedf0',
         transition: 'all 0.2s ease',
         zIndex: 1100,
       }}
@@ -164,7 +164,7 @@ export default function Header() {
               display: { xs: 'none', xl: 'block' },
               width: '1px',
               height: 24,
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.15)' : '#e5e7eb',
+              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.15)' : '#e3e5e8',
               flexShrink: 0,
               mx: 0.5,
             }}
@@ -220,10 +220,10 @@ export default function Header() {
                     letterSpacing: '0.12em',
                     whiteSpace: 'nowrap',
                     textDecoration: 'none',
-                    color: isActive ? 'text.primary' : 'text.secondary',
+                    color: isActive ? (isDark ? '#f8fafc' : '#111827') : (isDark ? '#94a3b8' : '#7d8a9c'),
                     transition: 'color 0.15s ease',
                     '&:hover': {
-                      color: 'text.primary',
+                      color: isDark ? '#ffffff' : '#111827',
                     },
                   }}
                 >
@@ -278,9 +278,9 @@ export default function Header() {
                     letterSpacing: '0.08em',
                     whiteSpace: 'nowrap',
                     textDecoration: 'none',
-                    color: 'text.secondary',
+                    color: isDark ? '#94a3b8' : '#7d8a9c',
                     '&:hover': {
-                      color: 'text.primary',
+                      color: isDark ? '#ffffff' : '#111827',
                     },
                   }}
                 >
@@ -315,12 +315,12 @@ export default function Header() {
                 gap: 1,
                 fontSize: '0.75rem',
                 fontWeight: 600,
-                color: 'text.secondary',
+                color: isDark ? '#94a3b8' : '#7d8a9c',
                 textDecoration: 'none',
                 whiteSpace: 'nowrap',
                 transition: 'color 0.15s ease',
                 '&:hover': {
-                  color: 'text.primary',
+                  color: isDark ? '#ffffff' : '#111827',
                 },
               }}
             >
@@ -556,3 +556,4 @@ export default function Header() {
     </AppBar>
   );
 }
+

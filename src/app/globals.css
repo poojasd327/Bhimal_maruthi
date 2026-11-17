@@ -19,21 +19,21 @@ a {
 /* Offers pulse animation matching Bimal Maruti navbar */
 @keyframes offers-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(229, 43, 32, 0.7);
+    box-shadow: 0 0 0 0 rgba(231, 33, 11, 0.7);
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 0 6px rgba(229, 43, 32, 0);
+    box-shadow: 0 0 0 6px rgba(231, 33, 11, 0);
     transform: scale(1.02);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(229, 43, 32, 0);
+    box-shadow: 0 0 0 0 rgba(231, 33, 11, 0);
     transform: scale(1);
   }
 }
 
 .offers-pill {
-  background-color: #e52b20;
+  background-color: #e7210b;
   color: #ffffff;
   padding: 4px 12px;
   border-radius: 9999px;
