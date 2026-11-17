@@ -8,8 +8,8 @@ export const getTheme = (mode = 'light') => {
     palette: {
       mode,
       primary: {
-        main: '#e52b20',
-        light: '#ef4444',
+        main: '#e7210b',
+        light: '#f87171',
         dark: '#b91c1c',
         contrastText: '#ffffff',
       },

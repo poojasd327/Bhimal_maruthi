@@ -21,80 +21,83 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import BimalLogo from '@/components/BimalLogo';
 import { siteConfig } from '@/config/siteConfig';
-import { useColorMode } from '@/components/ThemeClientProvider';
 
-// SVG Icons matching user's Lucide icons with red accent
-function PhoneIconSvg({ sx = {} }) {
+// Exact red color from Bimal Maruti header: #e7210b
+const ACCENT_RED = '#e7210b';
+const TEXT_MUTED = '#7d8a9c';
+const TEXT_DARK = '#111827';
+const BORDER_COLOR = '#ecedf0';
+
+function PhoneIconSvg() {
   return (
-    <Box
-      component="svg"
+    <svg
       xmlns="http://www.w3.org/2000/svg"
+      width="13"
+      height="13"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#e7210b"
+      stroke={ACCENT_RED}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      sx={{ width: 14, height: 14, shrink: 0, ...sx }}
       aria-hidden="true"
+      style={{ flexShrink: 0 }}
     >
-      <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
-    </Box>
+      <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+    </svg>
   );
 }
 
-function MapPinIconSvg({ sx = {} }) {
+function MapPinIconSvg() {
   return (
-    <Box
-      component="svg"
+    <svg
       xmlns="http://www.w3.org/2000/svg"
+      width="13"
+      height="13"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#e7210b"
+      stroke={ACCENT_RED}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      sx={{ width: 14, height: 14, shrink: 0, ...sx }}
       aria-hidden="true"
+      style={{ flexShrink: 0 }}
     >
       <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
       <circle cx="12" cy="10" r="3" />
-    </Box>
+    </svg>
   );
 }
 
-function MenuIconSvg({ sx = {} }) {
+function MenuIconSvg() {
   return (
-    <Box
-      component="svg"
+    <svg
       xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      sx={{ width: 22, height: 22, ...sx }}
       aria-hidden="true"
     >
       <path d="M4 5h16" />
       <path d="M4 12h16" />
       <path d="M4 19h16" />
-    </Box>
+    </svg>
   );
 }
 
 export default function Header() {
   const pathname = usePathname();
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
 
-  // Responsive breakpoints
-  const isXl = useMediaQuery(theme.breakpoints.up('xl'));
-  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
+  // Active tab state (defaults to 'Arena' as in the screenshot)
+  const [activeTab, setActiveTab] = useState('Arena');
 
   // Mobile drawer state
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -122,21 +125,29 @@ export default function Header() {
       color="default"
       elevation={0}
       sx={{
-        backgroundColor: isDark ? '#0f172a' : '#ffffff',
+        backgroundColor: '#ffffff',
         borderBottom: '1px solid',
-        borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#ecedf0',
-        transition: 'all 0.2s ease',
+        borderColor: BORDER_COLOR,
+        transition: 'all 0.15s ease',
         zIndex: 1100,
+        boxShadow: 'none',
       }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 3 } }}>
+      <Container
+        maxWidth={false}
+        sx={{
+          maxWidth: '1440px',
+          px: { xs: 2, md: 3 },
+          mx: 'auto',
+        }}
+      >
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
-            gap: 2,
             height: 64, // h-16
             width: '100%',
+            gap: 1.5,
           }}
         >
           {/* Logo Button */}
@@ -149,7 +160,6 @@ export default function Header() {
               alignItems: 'center',
               cursor: 'pointer',
               textDecoration: 'none',
-              color: 'inherit',
               flexShrink: 0,
               mr: 1,
             }}
@@ -163,9 +173,9 @@ export default function Header() {
               display: { xs: 'none', xl: 'block' },
               width: '1px',
               height: 24,
-              backgroundColor: isDark ? 'rgba(255, 255, 255, 0.15)' : '#e3e5e8',
+              backgroundColor: '#e3e5e8',
               flexShrink: 0,
-              mx: 0.5,
+              mx: 1,
             }}
           />
 
@@ -176,10 +186,11 @@ export default function Header() {
               alignItems: 'center',
               flex: 1,
               gap: 0.5,
+              height: '100%',
             }}
           >
             {navLinks.map((item) => {
-              const isActive = pathname === item.path;
+              const isActive = activeTab.toLowerCase() === item.title.toLowerCase();
 
               if (item.isOffers) {
                 return (
@@ -188,10 +199,11 @@ export default function Header() {
                     component={Link}
                     href={item.path}
                     data-testid={item.testId}
+                    onClick={() => setActiveTab(item.title)}
                     sx={{
                       position: 'relative',
                       px: 1.5,
-                      py: '18px',
+                      height: '100%',
                       display: 'inline-flex',
                       alignItems: 'center',
                       textDecoration: 'none',
@@ -209,24 +221,42 @@ export default function Header() {
                   component={Link}
                   href={item.path}
                   data-testid={item.testId}
+                  onClick={() => setActiveTab(item.title)}
                   sx={{
                     position: 'relative',
                     px: 1.5,
-                    py: '18px',
+                    height: '100%',
+                    display: 'inline-flex',
+                    alignItems: 'center',
                     fontSize: '11px',
                     fontWeight: 600,
                     textTransform: 'uppercase',
                     letterSpacing: '0.12em',
                     whiteSpace: 'nowrap',
                     textDecoration: 'none',
-                    color: isActive ? (isDark ? '#f8fafc' : '#111827') : (isDark ? '#94a3b8' : '#7d8a9c'),
+                    color: isActive ? ACCENT_RED : TEXT_MUTED,
                     transition: 'color 0.15s ease',
+                    cursor: 'pointer',
                     '&:hover': {
-                      color: isDark ? '#ffffff' : '#111827',
+                      color: isActive ? ACCENT_RED : TEXT_DARK,
                     },
                   }}
                 >
                   {item.title}
+                  {/* Active bottom underline indicator */}
+                  {isActive && (
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 12,
+                        right: 12,
+                        height: '2.5px',
+                        backgroundColor: ACCENT_RED,
+                        borderRadius: '1px 1px 0 0',
+                      }}
+                    />
+                  )}
                 </Box>
               );
             })}
@@ -238,18 +268,21 @@ export default function Header() {
               display: { xs: 'none', lg: 'flex', xl: 'none' },
               alignItems: 'center',
               gap: 0.5,
+              height: '100%',
             }}
           >
             {navLinks.slice(0, 5).map((item) => {
+              const isActive = activeTab.toLowerCase() === item.title.toLowerCase();
+
               if (item.isOffers) {
                 return (
                   <Box
                     key={item.title}
                     component={Link}
                     href={item.path}
+                    onClick={() => setActiveTab(item.title)}
                     sx={{
                       px: 1,
-                      py: 1.5,
                       display: 'inline-flex',
                       alignItems: 'center',
                       textDecoration: 'none',
@@ -268,31 +301,47 @@ export default function Header() {
                   key={item.title}
                   component={Link}
                   href={item.path}
+                  onClick={() => setActiveTab(item.title)}
                   sx={{
+                    position: 'relative',
                     px: 1.2,
-                    py: 1.5,
+                    height: '100%',
+                    display: 'inline-flex',
+                    alignItems: 'center',
                     fontSize: '10px',
                     fontWeight: 600,
                     textTransform: 'uppercase',
                     letterSpacing: '0.08em',
                     whiteSpace: 'nowrap',
                     textDecoration: 'none',
-                    color: isDark ? '#94a3b8' : '#7d8a9c',
+                    color: isActive ? ACCENT_RED : TEXT_MUTED,
                     '&:hover': {
-                      color: isDark ? '#ffffff' : '#111827',
+                      color: isActive ? ACCENT_RED : TEXT_DARK,
                     },
                   }}
                 >
                   {item.title}
+                  {isActive && (
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 8,
+                        right: 8,
+                        height: '2px',
+                        backgroundColor: ACCENT_RED,
+                      }}
+                    />
+                  )}
                 </Box>
               );
             })}
-            <Typography variant="caption" sx={{ color: 'text.secondary', opacity: 0.5, px: 0.5 }}>
+            <Typography variant="caption" sx={{ color: TEXT_MUTED, opacity: 0.5, px: 0.5 }}>
               …
             </Typography>
           </Box>
 
-          {/* Spacer on non-XL screens */}
+          {/* Spacer for non-XL screens */}
           <Box sx={{ flex: 1, display: { xl: 'none' } }} />
 
           {/* Desktop Right Side: Phone & Region Selector (LG & XL) */}
@@ -304,7 +353,7 @@ export default function Header() {
               flexShrink: 0,
             }}
           >
-            {/* Phone link (shown on XL) */}
+            {/* Phone link */}
             <Box
               component="a"
               href={siteConfig.phoneTel || 'tel:08030693069'}
@@ -312,54 +361,55 @@ export default function Header() {
                 display: { xs: 'none', xl: 'flex' },
                 alignItems: 'center',
                 gap: 1,
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                color: isDark ? '#94a3b8' : '#7d8a9c',
+                fontSize: '12px',
+                fontWeight: 500,
+                color: TEXT_MUTED,
                 textDecoration: 'none',
                 whiteSpace: 'nowrap',
                 transition: 'color 0.15s ease',
                 '&:hover': {
-                  color: isDark ? '#ffffff' : '#111827',
+                  color: TEXT_DARK,
                 },
               }}
             >
               <PhoneIconSvg />
-              {siteConfig.phone || '080-3069 3069'}
+              <span>{siteConfig.phone || '080-3069 3069'}</span>
             </Box>
 
             {/* Region Selector Button */}
-            <Button
+            <Box
+              component="button"
               onClick={handleRegionClick}
               data-testid="button-region-selector"
-              size="small"
-              variant="outlined"
               sx={{
-                height: 32,
-                px: 1.5,
-                fontSize: '0.75rem',
+                height: 32, // h-8
+                px: 1.5, // px-3
+                fontSize: '12px', // text-xs
                 fontWeight: 500,
-                textTransform: 'none',
-                color: 'text.primary',
-                borderColor: isDark ? 'rgba(255,255,255,0.15)' : '#e2e8f0',
-                borderRadius: '6px',
+                color: TEXT_DARK,
+                border: '1px solid',
+                borderColor: '#e2e8f0',
+                borderRadius: '6px', // rounded-md
                 whiteSpace: 'nowrap',
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 gap: 0.8,
-                backgroundColor: isDark ? 'rgba(255,255,255,0.02)' : '#ffffff',
+                backgroundColor: '#ffffff',
+                cursor: 'pointer',
+                outline: 'none',
+                transition: 'all 0.15s ease',
                 '&:hover': {
-                  borderColor: isDark ? 'rgba(255,255,255,0.3)' : '#cbd5e1',
-                  backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : '#f8fafc',
+                  borderColor: '#cbd5e1',
+                  backgroundColor: '#f8fafc',
                 },
               }}
             >
               <MapPinIconSvg />
               <span>{selectedRegion}</span>
-              <KeyboardArrowDownIcon sx={{ fontSize: 16, opacity: 0.6 }} />
-            </Button>
+            </Box>
           </Box>
 
-          {/* Mobile Right Side: Region Selector & Menu Button */}
+          {/* Mobile Right Side: Region Selector & Hamburger Button */}
           <Box
             sx={{
               display: { xs: 'flex', lg: 'none' },
@@ -368,42 +418,40 @@ export default function Header() {
               flexShrink: 0,
             }}
           >
-            {/* Region Selector on Mobile */}
-            <Button
+            <Box
+              component="button"
               onClick={handleRegionClick}
-              size="small"
-              variant="outlined"
               sx={{
                 height: 32,
                 px: 1.2,
-                fontSize: '0.75rem',
+                fontSize: '12px',
                 fontWeight: 500,
-                textTransform: 'none',
-                color: 'text.primary',
-                borderColor: isDark ? 'rgba(255,255,255,0.15)' : '#e2e8f0',
+                color: TEXT_DARK,
+                border: '1px solid',
+                borderColor: '#e2e8f0',
                 borderRadius: '6px',
                 whiteSpace: 'nowrap',
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 gap: 0.6,
-                minWidth: 'auto',
+                backgroundColor: '#ffffff',
+                cursor: 'pointer',
               }}
             >
               <MapPinIconSvg />
               <span>{selectedRegion.split(' - ')[0]}</span>
-            </Button>
+            </Box>
 
-            {/* Mobile Hamburger Menu Button */}
             <IconButton
               onClick={() => setMobileOpen(true)}
               data-testid="button-mobile-menu"
               aria-label="Open menu"
               size="small"
               sx={{
-                color: 'text.primary',
+                color: TEXT_DARK,
                 p: 0.8,
                 border: '1px solid',
-                borderColor: isDark ? 'rgba(255,255,255,0.15)' : '#e2e8f0',
+                borderColor: '#e2e8f0',
                 borderRadius: '6px',
               }}
             >
@@ -427,13 +475,14 @@ export default function Header() {
               minWidth: 220,
               borderRadius: '8px',
               border: '1px solid',
-              borderColor: isDark ? 'rgba(255,255,255,0.1)' : '#e5e7eb',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+              borderColor: BORDER_COLOR,
+              boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
+              backgroundColor: '#ffffff',
             },
           },
         }}
       >
-        <Typography variant="caption" sx={{ px: 2, py: 1, display: 'block', color: 'text.secondary', fontWeight: 600 }}>
+        <Typography variant="caption" sx={{ px: 2, py: 1, display: 'block', color: TEXT_MUTED, fontWeight: 600 }}>
           Select Location
         </Typography>
         <Divider />
@@ -459,7 +508,7 @@ export default function Header() {
           paper: {
             sx: {
               width: 300,
-              backgroundColor: isDark ? '#0f172a' : '#ffffff',
+              backgroundColor: '#ffffff',
               display: 'flex',
               flexDirection: 'column',
               p: 2.5,
@@ -467,7 +516,6 @@ export default function Header() {
           },
         }}
       >
-        {/* Drawer Header */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
           <BimalLogo height={32} />
           <IconButton onClick={() => setMobileOpen(false)} aria-label="Close menu" size="small">
@@ -477,46 +525,51 @@ export default function Header() {
 
         <Divider sx={{ mb: 2 }} />
 
-        {/* Drawer Navigation Links */}
         <List sx={{ p: 0, flexGrow: 1 }}>
-          {navLinks.map((item) => (
-            <ListItem key={item.title} disablePadding sx={{ mb: 0.5 }}>
-              <ListItemButton
-                component={Link}
-                href={item.path}
-                onClick={() => setMobileOpen(false)}
-                sx={{
-                  borderRadius: 1.5,
-                  py: 1,
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <Typography
+          {navLinks.map((item) => {
+            const isActive = activeTab.toLowerCase() === item.title.toLowerCase();
+            return (
+              <ListItem key={item.title} disablePadding sx={{ mb: 0.5 }}>
+                <ListItemButton
+                  component={Link}
+                  href={item.path}
+                  onClick={() => {
+                    setActiveTab(item.title);
+                    setMobileOpen(false);
+                  }}
                   sx={{
-                    fontSize: '0.85rem',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    color: 'text.primary',
+                    borderRadius: 1.5,
+                    py: 1,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    backgroundColor: isActive ? 'rgba(231, 33, 11, 0.06)' : 'transparent',
                   }}
                 >
-                  {item.title}
-                </Typography>
-                {item.isOffers && (
-                  <span className="offers-pill offers-pulse" style={{ fontSize: '9px', padding: '2px 8px' }}>
-                    Offers
-                  </span>
-                )}
-              </ListItemButton>
-            </ListItem>
-          ))}
+                  <Typography
+                    sx={{
+                      fontSize: '0.85rem',
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      color: isActive ? ACCENT_RED : TEXT_DARK,
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
+                  {item.isOffers && (
+                    <span className="offers-pill offers-pulse" style={{ fontSize: '9px', padding: '2px 8px' }}>
+                      Offers
+                    </span>
+                  )}
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
         </List>
 
         <Divider sx={{ my: 2 }} />
 
-        {/* Direct Contact & Location inside Drawer */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, pt: 1 }}>
           <Box
             component="a"
@@ -527,9 +580,9 @@ export default function Header() {
               gap: 1.5,
               p: 1.5,
               borderRadius: 2,
-              backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : '#f8fafc',
+              backgroundColor: '#f8fafc',
               textDecoration: 'none',
-              color: 'text.primary',
+              color: TEXT_DARK,
               fontSize: '0.85rem',
               fontWeight: 600,
             }}
@@ -540,7 +593,6 @@ export default function Header() {
 
           <Button
             variant="contained"
-            color="primary"
             fullWidth
             component={Link}
             href="/contact"
@@ -548,9 +600,12 @@ export default function Header() {
             sx={{
               py: 1.2,
               fontWeight: 700,
-              backgroundColor: '#e52b20',
+              backgroundColor: ACCENT_RED,
+              color: '#ffffff',
+              boxShadow: 'none',
               '&:hover': {
                 backgroundColor: '#dc2626',
+                boxShadow: 'none',
               },
             }}
           >
@@ -561,4 +616,3 @@ export default function Header() {
     </AppBar>
   );
 }
-
